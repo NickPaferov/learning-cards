@@ -27,6 +27,9 @@ export const Layout = () => {
         <NavLink to="/forgot-password" className={setActive}>
           ForgotPassword
         </NavLink>
+        <NavLink to="/new-password" className={setActive}>
+          NewPassword
+        </NavLink>
       </header>
       <Outlet />
       <footer className={styles.footer}>2022</footer>

@@ -8,6 +8,7 @@ import { ForgotPassword } from "./pages/ForgotPassword";
 import { HomePage } from "./pages/HomePage";
 import { NotFound } from "./pages/NotFound";
 import { Layout } from "./components/Layout";
+import { NewPassword } from "./pages/NewPassword";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="signin" element={<SignIn />} />
           <Route path="profile" element={<Profile />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="new-password" element={<NewPassword />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

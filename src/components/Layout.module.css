@@ -1,0 +1,19 @@
+.layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+header, footer {
+    height: 50px;
+    background-color: lavender;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.activeLink {
+    color: blue;
+    cursor: default;
+}

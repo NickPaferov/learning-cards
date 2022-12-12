@@ -1,0 +1,15 @@
+.wrapper {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    width: 300px;
+    border: 1px solid black;
+}
+
+.links {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}

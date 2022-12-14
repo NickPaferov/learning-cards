@@ -10,13 +10,13 @@ export const instance = axios.create({
 
 export const authAPI = {
   login(params: LoginParamsType) {
-    return instance.post<LoginResponseType>("/auth/login", params);
+    return instance.post<UserDataResponseType>("/auth/login", params);
   },
   register(params: RegisterParamsType) {
     return instance.post<RegisterResponseType>("/auth/register", params);
   },
   me() {
-    return instance.post<MeResponseType>("/auth/me");
+    return instance.post<UserDataResponseType>("/auth/me");
   },
   updateMe(params: UpdateMeParamsType) {
     return instance.put<UpdateMeResponseType>("/auth/me", params);
@@ -59,7 +59,7 @@ export type SetNewPasswordParamsType = {
   resetPasswordToken: string;
 };
 
-export type LoginResponseType = {
+export type UserDataResponseType = {
   _id: string;
   email: string;
   rememberMe: boolean;
@@ -94,44 +94,10 @@ export type NewUserType = {
   error?: string;
 };
 
-export type MeResponseType = {
-  _id: string;
-  email: string;
-  rememberMe: boolean;
-  isAdmin: boolean;
-  name: string;
-  avatar?: string;
-  verified: boolean;
-  publicCardPacksCount: number;
-  created: string;
-  updated: string;
-  __v: number;
-  token: string;
-  tokenDeathTime: number;
-  error?: string;
-};
-
 export type UpdateMeResponseType = {
-  updatedUser: UpdatedUserType;
+  updatedUser: UserDataResponseType;
   token: string;
   tokenDeathTime: number;
-};
-
-export type UpdatedUserType = {
-  _id: string;
-  email: string;
-  rememberMe: boolean;
-  isAdmin: boolean;
-  name: string;
-  avatar?: string;
-  verified: boolean;
-  publicCardPacksCount: number;
-  created: string;
-  updated: string;
-  __v: number;
-  token: string;
-  tokenDeathTime: number;
-  error?: string;
 };
 
 export type LogoutResponseType = {

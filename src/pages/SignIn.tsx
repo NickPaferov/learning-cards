@@ -1,9 +1,11 @@
 import React from "react";
 import styles from "./SignIn.module.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useAppDispatch, useAppSelector } from "../bll/store";
+import { loginTC } from "../bll/auth-reducer";
 
 type FormInputsType = {
   email: string;
@@ -23,6 +25,9 @@ const schema = yup
   .required();
 
 export const SignIn = () => {
+  const isAuth = useAppSelector((state) => !!state.authReducer.user);
+  const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
@@ -31,7 +36,14 @@ export const SignIn = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: FormInputsType) => console.log(data);
+  const onSubmit = (data: FormInputsType) => {
+    console.log(data);
+    dispatch(loginTC(data));
+  };
+
+  if (isAuth) {
+    return <Navigate to={"/profile"} />;
+  }
 
   return (
     <div className={styles.wrapper}>

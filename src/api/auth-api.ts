@@ -25,10 +25,16 @@ export const authAPI = {
     return instance.delete<LogoutResponseType>("/auth/me");
   },
   forgotPassword(params: ForgotPasswordParamsType) {
-    return instance.post<ForgotPasswordResponseType>("/auth/forgot", params);
+    return instance.post<ForgotPasswordResponseType>(
+      "https://neko-back.herokuapp.com/2.0/auth/forgot",
+      params
+    );
   },
   setNewPassword(params: SetNewPasswordParamsType) {
-    return instance.post<SetNewPasswordResponseType>("/auth/set-new-password", params);
+    return instance.post<SetNewPasswordResponseType>(
+      "https://neko-back.herokuapp.com/2.0/auth/set-new-password",
+      params
+    );
   },
 };
 
@@ -71,33 +77,19 @@ export type UserDataResponseType = {
   created: string;
   updated: string;
   __v: number;
-  token: string;
-  tokenDeathTime: number;
+  token?: string;
+  tokenDeathTime?: number;
   error?: string;
 };
 
 export type RegisterResponseType = {
-  addedUser: NewUserType;
-};
-
-export type NewUserType = {
-  _id: string;
-  email: string;
-  rememberMe: boolean;
-  isAdmin: boolean;
-  name: string;
-  verified: boolean;
-  publicCardPacksCount: number;
-  created: string;
-  updated: string;
-  __v: number;
-  error?: string;
+  addedUser: UserDataResponseType;
 };
 
 export type UpdateMeResponseType = {
   updatedUser: UserDataResponseType;
-  token: string;
-  tokenDeathTime: number;
+  token?: string;
+  tokenDeathTime?: number;
 };
 
 export type LogoutResponseType = {

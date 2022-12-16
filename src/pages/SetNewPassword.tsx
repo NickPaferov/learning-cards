@@ -3,6 +3,9 @@ import styles from "./NewPassword.module.css";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useAppDispatch } from "../bll/store";
+import { setNewPasswordTC } from "../bll/auth-reducer";
+import { Navigate, useParams } from "react-router-dom";
 
 type FormInputsType = {
   email: string;
@@ -24,7 +27,9 @@ const schema = yup
   })
   .required();
 
-export const NewPassword = () => {
+export const SetNewPassword = () => {
+  const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
@@ -33,7 +38,15 @@ export const NewPassword = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: FormInputsType) => console.log(data);
+  const { resetPasswordToken } = useParams<string>();
+
+  if (!resetPasswordToken) {
+    return <Navigate to="/" />;
+  }
+
+  const onSubmit = ({ password }: FormInputsType) => {
+    dispatch(setNewPasswordTC({ password, resetPasswordToken }));
+  };
 
   return (
     <div className={styles.wrapper}>

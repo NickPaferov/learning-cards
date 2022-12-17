@@ -54,7 +54,7 @@ export const SignIn = () => {
         <input placeholder="Password" {...register("password")} />
         <p className={styles.error}>{errors.password?.message}</p>
         <div>
-          <input type="checkbox" {...register("rememberMe")} />
+          <input type="checkbox" defaultChecked={true} {...register("rememberMe")} />
           <span>Remember me</span>
         </div>
         <button>Sign In</button>

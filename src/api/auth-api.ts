@@ -1,10 +1,7 @@
 import axios from "axios";
 
 export const instance = axios.create({
-  baseURL:
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:7542/2.0/"
-      : "https://neko-back.herokuapp.com/2.0/",
+  baseURL: process.env.REACT_APP_BASE_URL,
   withCredentials: true,
 });
 
@@ -26,13 +23,13 @@ export const authAPI = {
   },
   forgotPassword(params: ForgotPasswordParamsType) {
     return instance.post<ForgotPasswordResponseType>(
-      "https://neko-back.herokuapp.com/2.0/auth/forgot",
+      `${process.env.REACT_APP_BASE_MAIL_URL}/auth/forgot`,
       params
     );
   },
   setNewPassword(params: SetNewPasswordParamsType) {
     return instance.post<SetNewPasswordResponseType>(
-      "https://neko-back.herokuapp.com/2.0/auth/set-new-password",
+      `${process.env.REACT_APP_BASE_MAIL_URL}/auth/set-new-password`,
       params
     );
   },

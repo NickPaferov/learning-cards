@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./NewPassword.module.css";
+import styles from "./SetNewPassword.module.css";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -38,7 +38,7 @@ export const SetNewPassword = () => {
     resolver: yupResolver(schema),
   });
 
-  const { resetPasswordToken } = useParams<string>();
+  const { resetPasswordToken } = useParams<{ resetPasswordToken: string }>();
 
   if (!resetPasswordToken) {
     return <Navigate to="/" />;

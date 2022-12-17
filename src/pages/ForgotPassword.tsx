@@ -28,7 +28,9 @@ export const ForgotPassword = () => {
 
   const from = "test-front-admin <ai73a@yandex.by>";
   const message = `<div style="background-color: lime; padding: 15px"> 
-                    password recovery link:  <a href='http://localhost:3000/#/set-new-password/$token$'>link</a></div>`;
+                    password recovery link:  
+                    <a href="${process.env.REACT_APP_FRONTEND_BASE_URL}/#/set-new-password/$token$">
+                    ${process.env.REACT_APP_FRONTEND_BASE_URL}/#/set-new-password/$token$</a></div>`;
 
   const onSubmit = ({ email }: FormInputsType) => {
     dispatch(forgotPasswordTC({ email, from, message }));

@@ -11,6 +11,8 @@ import { Layout } from "./components/Layout";
 import { SetNewPassword } from "./pages/SetNewPassword";
 import { useAppDispatch, useAppSelector } from "./bll/store";
 import { initializeAppTC } from "./bll/app-reducer";
+import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
+import { ErrorSnackbar } from "./components/ErrorSnackbar";
 
 function App() {
   const isInit = useAppSelector((state) => state.appReducer.isInitialized);
@@ -30,13 +32,14 @@ function App() {
           width: "100%",
         }}
       >
-        loading...
+        <CircularProgress />
       </div>
     );
   }
 
   return (
     <div className="App">
+      <ErrorSnackbar />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />

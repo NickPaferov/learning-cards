@@ -30,6 +30,7 @@ const schema = yup
 
 export const SignUp = () => {
   const isAuth = useAppSelector((state) => !!state.authReducer.user);
+  const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
   const dispatch = useAppDispatch();
 
   const {
@@ -41,7 +42,6 @@ export const SignUp = () => {
   });
 
   const onSubmit = ({ email, password }: FormInputsType) => {
-    console.log({ email, password });
     dispatch(registerTC({ email, password }));
   };
 
@@ -53,13 +53,17 @@ export const SignUp = () => {
     <div className={styles.wrapper}>
       <h2>SignUp</h2>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <input placeholder="Email" {...register("email")} />
+        <input placeholder="Email" disabled={isRequestProcessing} {...register("email")} />
         <p className={styles.error}>{errors.email?.message}</p>
-        <input placeholder="Password" {...register("password")} />
+        <input placeholder="Password" disabled={isRequestProcessing} {...register("password")} />
         <p className={styles.error}>{errors.password?.message}</p>
-        <input placeholder="Confirm password" {...register("confirmPassword")} />
+        <input
+          placeholder="Confirm password"
+          disabled={isRequestProcessing}
+          {...register("confirmPassword")}
+        />
         <p className={styles.error}>{errors.confirmPassword?.message}</p>
-        <button>Sign Up</button>
+        <button disabled={isRequestProcessing}>Sign Up</button>
       </form>
       <span className={styles.clarification}>Already have an account?</span>
       <Link to="/signin">Sign In</Link>

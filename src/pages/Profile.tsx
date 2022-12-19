@@ -7,6 +7,7 @@ import { Navigate } from "react-router-dom";
 
 export const Profile = () => {
   const isAuth = useAppSelector((state) => !!state.authReducer.user);
+  const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
   const dispatch = useAppDispatch();
 
   const onClickLogOutHandler = () => {
@@ -23,7 +24,9 @@ export const Profile = () => {
       <img alt="avatar" src={avatarImg} className={styles.avatar} />
       <span>Nick</span>
       <span className={styles.email}>email</span>
-      <button onClick={onClickLogOutHandler}>Log out</button>
+      <button disabled={isRequestProcessing} onClick={onClickLogOutHandler}>
+        Log out
+      </button>
     </div>
   );
 };

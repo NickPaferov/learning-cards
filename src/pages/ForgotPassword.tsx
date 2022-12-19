@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { forgotPasswordTC } from "../bll/auth-reducer";
-import { useAppDispatch } from "../bll/store";
+import { useAppDispatch, useAppSelector } from "../bll/store";
 
 type FormInputsType = {
   email: string;
@@ -16,6 +16,7 @@ const schema = yup.object({
 });
 
 export const ForgotPassword = () => {
+  const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
   const dispatch = useAppDispatch();
 
   const {
@@ -40,12 +41,12 @@ export const ForgotPassword = () => {
     <div className={styles.wrapper}>
       <h2>Forgot your password?</h2>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <input placeholder="Email" {...register("email")} />
+        <input placeholder="Email" disabled={isRequestProcessing} {...register("email")} />
         <p className={styles.error}>{errors.email?.message}</p>
         <span className={styles.clarification}>
           Enter your email address and we will send you further instructions
         </span>
-        <button>Send instructions</button>
+        <button disabled={isRequestProcessing}>Send instructions</button>
       </form>
       <span className={styles.clarification}>Did you remember your password?</span>
       <Link to="/signin">Try logging in</Link>

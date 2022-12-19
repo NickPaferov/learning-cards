@@ -3,7 +3,7 @@ import styles from "./SetNewPassword.module.css";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAppDispatch } from "../bll/store";
+import { useAppDispatch, useAppSelector } from "../bll/store";
 import { setNewPasswordTC } from "../bll/auth-reducer";
 import { Navigate, useParams } from "react-router-dom";
 
@@ -28,6 +28,7 @@ const schema = yup
   .required();
 
 export const SetNewPassword = () => {
+  const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
   const dispatch = useAppDispatch();
 
   const {
@@ -52,14 +53,18 @@ export const SetNewPassword = () => {
     <div className={styles.wrapper}>
       <h2>Create new password</h2>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <input placeholder="Password" {...register("password")} />
+        <input placeholder="Password" disabled={isRequestProcessing} {...register("password")} />
         <p className={styles.error}>{errors.password?.message}</p>
-        <input placeholder="Confirm password" {...register("confirmPassword")} />
+        <input
+          placeholder="Confirm password"
+          disabled={isRequestProcessing}
+          {...register("confirmPassword")}
+        />
         <p className={styles.error}>{errors.confirmPassword?.message}</p>
         <span className={styles.clarification}>
           Create new password and we will send you further instructions to email
         </span>
-        <button>Create new password</button>
+        <button disabled={isRequestProcessing}>Create new password</button>
       </form>
     </div>
   );

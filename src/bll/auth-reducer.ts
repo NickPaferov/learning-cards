@@ -8,6 +8,7 @@ import {
   UserDataResponseType,
 } from "../api/auth-api";
 import { Dispatch } from "redux";
+import { setAppErrorAC, setAppIsRequestProcessingAC } from "./app-reducer";
 
 const initialState: AuthStateType = {
   user: null,
@@ -29,56 +30,73 @@ export const setUserAC = (user: UserDataType) =>
   ({ type: "AUTH/SET-USER", payload: { user } } as const);
 
 export const loginTC = (params: LoginParamsType) => async (dispatch: Dispatch) => {
+  dispatch(setAppIsRequestProcessingAC(true));
   try {
     const res = await authAPI.login(params);
     dispatch(setUserAC(res.data));
-  } catch (e) {
+  } catch (e: any) {
+    dispatch(setAppErrorAC(e.response.data.error));
   } finally {
+    dispatch(setAppIsRequestProcessingAC(false));
   }
 };
 
 export const registerTC = (params: RegisterParamsType) => async (dispatch: Dispatch) => {
+  dispatch(setAppIsRequestProcessingAC(true));
   try {
     const res = await authAPI.register(params);
     dispatch(setUserAC(res.data.addedUser));
-  } catch (e) {
+  } catch (e: any) {
+    dispatch(setAppErrorAC(e.response.data.error));
   } finally {
+    dispatch(setAppIsRequestProcessingAC(false));
   }
 };
 
 export const updateMeTC = (params: UpdateMeParamsType) => async (dispatch: Dispatch) => {
+  dispatch(setAppIsRequestProcessingAC(true));
   try {
     const res = await authAPI.updateMe(params);
     dispatch(setUserAC(res.data.updatedUser));
-  } catch (e) {
+  } catch (e: any) {
+    dispatch(setAppErrorAC(e.response.data.error));
   } finally {
+    dispatch(setAppIsRequestProcessingAC(false));
   }
 };
 
 export const logoutTC = () => async (dispatch: Dispatch) => {
+  dispatch(setAppIsRequestProcessingAC(true));
   try {
     await authAPI.logout();
     dispatch(setUserAC(null));
   } catch (e) {
   } finally {
+    dispatch(setAppIsRequestProcessingAC(false));
   }
 };
 
 export const forgotPasswordTC =
   (params: ForgotPasswordParamsType) => async (dispatch: Dispatch) => {
+    dispatch(setAppIsRequestProcessingAC(true));
     try {
       await authAPI.forgotPassword(params);
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(setAppErrorAC(e.response.data.error));
     } finally {
+      dispatch(setAppIsRequestProcessingAC(false));
     }
   };
 
 export const setNewPasswordTC =
   (params: SetNewPasswordParamsType) => async (dispatch: Dispatch) => {
+    dispatch(setAppIsRequestProcessingAC(true));
     try {
       await authAPI.setNewPassword(params);
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(setAppErrorAC(e.response.data.error));
     } finally {
+      dispatch(setAppIsRequestProcessingAC(false));
     }
   };
 

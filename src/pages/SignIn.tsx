@@ -26,6 +26,7 @@ const schema = yup
 
 export const SignIn = () => {
   const isAuth = useAppSelector((state) => !!state.authReducer.user);
+  const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
   const dispatch = useAppDispatch();
 
   const {
@@ -37,7 +38,6 @@ export const SignIn = () => {
   });
 
   const onSubmit = (data: FormInputsType) => {
-    console.log(data);
     dispatch(loginTC(data));
   };
 
@@ -49,15 +49,20 @@ export const SignIn = () => {
     <div className={styles.wrapper}>
       <h2>SignIn</h2>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <input placeholder="Email" {...register("email")} />
+        <input placeholder="Email" disabled={isRequestProcessing} {...register("email")} />
         <p className={styles.error}>{errors.email?.message}</p>
-        <input placeholder="Password" {...register("password")} />
+        <input placeholder="Password" disabled={isRequestProcessing} {...register("password")} />
         <p className={styles.error}>{errors.password?.message}</p>
         <div>
-          <input type="checkbox" defaultChecked={true} {...register("rememberMe")} />
+          <input
+            type="checkbox"
+            defaultChecked={true}
+            disabled={isRequestProcessing}
+            {...register("rememberMe")}
+          />
           <span>Remember me</span>
         </div>
-        <button>Sign In</button>
+        <button disabled={isRequestProcessing}>Sign In</button>
       </form>
       <Link to="/forgot-password">Forgot Password?</Link>
       <span className={styles.clarification}>Already have an account?</span>

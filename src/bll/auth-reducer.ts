@@ -35,7 +35,15 @@ export const loginTC = (params: LoginParamsType) => async (dispatch: Dispatch) =
     const res = await authAPI.login(params);
     dispatch(setUserAC(res.data));
   } catch (e: any) {
-    dispatch(setAppErrorAC(e.response.data.error));
+    if (e.response) {
+      dispatch(setAppErrorAC(e.response.data.error));
+    } else {
+      if (e.message) {
+        dispatch(setAppErrorAC(e.message));
+      } else {
+        dispatch(setAppErrorAC("some error has occurred"));
+      }
+    }
   } finally {
     dispatch(setAppIsRequestProcessingAC(false));
   }
@@ -47,7 +55,15 @@ export const registerTC = (params: RegisterParamsType) => async (dispatch: Dispa
     const res = await authAPI.register(params);
     dispatch(setUserAC(res.data.addedUser));
   } catch (e: any) {
-    dispatch(setAppErrorAC(e.response.data.error));
+    if (e.response) {
+      dispatch(setAppErrorAC(e.response.data.error));
+    } else {
+      if (e.message) {
+        dispatch(setAppErrorAC(e.message));
+      } else {
+        dispatch(setAppErrorAC("some error has occurred"));
+      }
+    }
   } finally {
     dispatch(setAppIsRequestProcessingAC(false));
   }
@@ -59,7 +75,15 @@ export const updateMeTC = (params: UpdateMeParamsType) => async (dispatch: Dispa
     const res = await authAPI.updateMe(params);
     dispatch(setUserAC(res.data.updatedUser));
   } catch (e: any) {
-    dispatch(setAppErrorAC(e.response.data.error));
+    if (e.response) {
+      dispatch(setAppErrorAC(e.response.data.error));
+    } else {
+      if (e.message) {
+        dispatch(setAppErrorAC(e.message));
+      } else {
+        dispatch(setAppErrorAC("some error has occurred"));
+      }
+    }
   } finally {
     dispatch(setAppIsRequestProcessingAC(false));
   }
@@ -70,7 +94,16 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
   try {
     await authAPI.logout();
     dispatch(setUserAC(null));
-  } catch (e) {
+  } catch (e: any) {
+    if (e.response) {
+      dispatch(setAppErrorAC(e.response.data.error));
+    } else {
+      if (e.message) {
+        dispatch(setAppErrorAC(e.message));
+      } else {
+        dispatch(setAppErrorAC("some error has occurred"));
+      }
+    }
   } finally {
     dispatch(setAppIsRequestProcessingAC(false));
   }
@@ -82,7 +115,15 @@ export const forgotPasswordTC =
     try {
       await authAPI.forgotPassword(params);
     } catch (e: any) {
-      dispatch(setAppErrorAC(e.response.data.error));
+      if (e.response) {
+        dispatch(setAppErrorAC(e.response.data.error));
+      } else {
+        if (e.message) {
+          dispatch(setAppErrorAC(e.message));
+        } else {
+          dispatch(setAppErrorAC("some error has occurred"));
+        }
+      }
     } finally {
       dispatch(setAppIsRequestProcessingAC(false));
     }
@@ -94,7 +135,15 @@ export const setNewPasswordTC =
     try {
       await authAPI.setNewPassword(params);
     } catch (e: any) {
-      dispatch(setAppErrorAC(e.response.data.error));
+      if (e.response) {
+        dispatch(setAppErrorAC(e.response.data.error));
+      } else {
+        if (e.message) {
+          dispatch(setAppErrorAC(e.message));
+        } else {
+          dispatch(setAppErrorAC("some error has occurred"));
+        }
+      }
     } finally {
       dispatch(setAppIsRequestProcessingAC(false));
     }

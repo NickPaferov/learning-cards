@@ -48,6 +48,6 @@ export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed";
 
 type SetAppIsInitializedType = ReturnType<typeof setAppIsInitializedAC>;
 type SetAppIsRequestProcessingType = ReturnType<typeof setAppIsRequestProcessingAC>;
-type SetAppErrorType = ReturnType<typeof setAppErrorAC>;
+export type SetAppErrorType = ReturnType<typeof setAppErrorAC>;
 
 type AppActionsType = SetAppIsInitializedType | SetAppIsRequestProcessingType | SetAppErrorType;

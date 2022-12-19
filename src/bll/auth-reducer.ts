@@ -10,6 +10,7 @@ import {
 import { Dispatch } from "redux";
 import { setAppErrorAC, setAppIsRequestProcessingAC } from "./app-reducer";
 import axios, { AxiosError } from "axios";
+import { handleError } from "../utils/error-utils";
 
 const initialState: AuthStateType = {
   user: null,
@@ -54,13 +55,7 @@ export const registerTC = (params: RegisterParamsType) => async (dispatch: Dispa
     const res = await authAPI.register(params);
     dispatch(setUserAC(res.data.addedUser));
   } catch (e) {
-    const err = e as Error | AxiosError<{ error: string }>;
-    if (axios.isAxiosError(err)) {
-      const error = err.response?.data ? err.response.data.error : err.message;
-      dispatch(setAppErrorAC(error));
-    } else {
-      dispatch(setAppErrorAC("some error has occurred"));
-    }
+    handleError(e, dispatch);
   } finally {
     dispatch(setAppIsRequestProcessingAC(false));
   }
@@ -72,13 +67,7 @@ export const updateMeTC = (params: UpdateMeParamsType) => async (dispatch: Dispa
     const res = await authAPI.updateMe(params);
     dispatch(setUserAC(res.data.updatedUser));
   } catch (e) {
-    const err = e as Error | AxiosError<{ error: string }>;
-    if (axios.isAxiosError(err)) {
-      const error = err.response?.data ? err.response.data.error : err.message;
-      dispatch(setAppErrorAC(error));
-    } else {
-      dispatch(setAppErrorAC("some error has occurred"));
-    }
+    handleError(e, dispatch);
   } finally {
     dispatch(setAppIsRequestProcessingAC(false));
   }
@@ -90,13 +79,7 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
     await authAPI.logout();
     dispatch(setUserAC(null));
   } catch (e) {
-    const err = e as Error | AxiosError<{ error: string }>;
-    if (axios.isAxiosError(err)) {
-      const error = err.response?.data ? err.response.data.error : err.message;
-      dispatch(setAppErrorAC(error));
-    } else {
-      dispatch(setAppErrorAC("some error has occurred"));
-    }
+    handleError(e, dispatch);
   } finally {
     dispatch(setAppIsRequestProcessingAC(false));
   }
@@ -108,13 +91,7 @@ export const forgotPasswordTC =
     try {
       await authAPI.forgotPassword(params);
     } catch (e) {
-      const err = e as Error | AxiosError<{ error: string }>;
-      if (axios.isAxiosError(err)) {
-        const error = err.response?.data ? err.response.data.error : err.message;
-        dispatch(setAppErrorAC(error));
-      } else {
-        dispatch(setAppErrorAC("some error has occurred"));
-      }
+      handleError(e, dispatch);
     } finally {
       dispatch(setAppIsRequestProcessingAC(false));
     }
@@ -126,13 +103,7 @@ export const setNewPasswordTC =
     try {
       await authAPI.setNewPassword(params);
     } catch (e) {
-      const err = e as Error | AxiosError<{ error: string }>;
-      if (axios.isAxiosError(err)) {
-        const error = err.response?.data ? err.response.data.error : err.message;
-        dispatch(setAppErrorAC(error));
-      } else {
-        dispatch(setAppErrorAC("some error has occurred"));
-      }
+      handleError(e, dispatch);
     } finally {
       dispatch(setAppIsRequestProcessingAC(false));
     }

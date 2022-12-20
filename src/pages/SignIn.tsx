@@ -25,7 +25,7 @@ const schema = yup
   .required();
 
 export const SignIn = () => {
-  const isAuth = useAppSelector((state) => !!state.authReducer.user);
+  const isLoggedIn = useAppSelector((state) => state.authReducer.isLoggedIn);
   const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
   const dispatch = useAppDispatch();
 
@@ -37,11 +37,11 @@ export const SignIn = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: FormInputsType) => {
+  const onSubmit = async (data: FormInputsType) => {
     dispatch(loginTC(data));
   };
 
-  if (isAuth) {
+  if (isLoggedIn) {
     return <Navigate to={"/profile"} />;
   }
 

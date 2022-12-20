@@ -28,6 +28,7 @@ const schema = yup
   .required();
 
 export const SetNewPassword = () => {
+  const isPasswordChanged = useAppSelector((state) => state.authReducer.isPasswordChanged);
   const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
   const dispatch = useAppDispatch();
 
@@ -43,6 +44,10 @@ export const SetNewPassword = () => {
 
   if (!resetPasswordToken) {
     return <Navigate to="/" />;
+  }
+
+  if (isPasswordChanged) {
+    return <Navigate to="/signin" />;
   }
 
   const onSubmit = ({ password }: FormInputsType) => {

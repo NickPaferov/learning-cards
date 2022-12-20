@@ -29,7 +29,7 @@ const schema = yup
   .required();
 
 export const SignUp = () => {
-  const isAuth = useAppSelector((state) => !!state.authReducer.user);
+  const isRegistered = useAppSelector((state) => state.authReducer.isRegistered);
   const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
   const dispatch = useAppDispatch();
 
@@ -45,8 +45,8 @@ export const SignUp = () => {
     dispatch(registerTC({ email, password }));
   };
 
-  if (isAuth) {
-    return <Navigate to={"/profile"} />;
+  if (isRegistered) {
+    return <Navigate to="/signin" />;
   }
 
   return (

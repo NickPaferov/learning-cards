@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { authAPI } from "../api/auth-api";
-import { setUserAC } from "./auth-reducer";
+import { setAuthIsLoggedInAC, setAuthUserAC } from "./auth-reducer";
 
 const initialState = {
   isInitialized: false,
@@ -37,14 +37,13 @@ export const setAppErrorAC = (error: null | string) => ({ type: "APP/SET-ERROR",
 export const initializeAppTC = () => async (dispatch: Dispatch) => {
   try {
     const res = await authAPI.me();
-    dispatch(setUserAC(res.data));
+    dispatch(setAuthUserAC(res.data));
+    dispatch(setAuthIsLoggedInAC(true));
   } catch (e) {
   } finally {
     dispatch(setAppIsInitializedAC(true));
   }
 };
-
-export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed";
 
 type SetAppIsInitializedType = ReturnType<typeof setAppIsInitializedAC>;
 type SetAppIsRequestProcessingType = ReturnType<typeof setAppIsRequestProcessingAC>;

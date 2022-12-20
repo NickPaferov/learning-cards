@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./ForgotPassword.module.css";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { forgotPasswordTC } from "../bll/auth-reducer";
 import { useAppDispatch, useAppSelector } from "../bll/store";
+import { CheckEmail } from "./CheckEmail";
 
 type FormInputsType = {
   email: string;
@@ -16,8 +17,11 @@ const schema = yup.object({
 });
 
 export const ForgotPassword = () => {
+  const isInstructionsSent = useAppSelector((state) => state.authReducer.isInstructionsSent);
   const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
   const dispatch = useAppDispatch();
+
+  const [emailForInstructions, setEmailForInstructions] = useState<null | string>(null);
 
   const {
     register,
@@ -35,7 +39,12 @@ export const ForgotPassword = () => {
 
   const onSubmit = ({ email }: FormInputsType) => {
     dispatch(forgotPasswordTC({ email, from, message }));
+    setEmailForInstructions(email);
   };
+
+  if (isInstructionsSent && emailForInstructions?.length) {
+    return <CheckEmail email={emailForInstructions} />;
+  }
 
   return (
     <div className={styles.wrapper}>

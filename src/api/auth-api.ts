@@ -47,8 +47,8 @@ export type RegisterParamsType = {
 };
 
 export type UpdateMeParamsType = {
-  name: string;
-  avatar: string;
+  name?: string;
+  avatar?: string;
 };
 
 export type ForgotPasswordParamsType = {

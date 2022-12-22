@@ -23,15 +23,15 @@ export const Profile = () => {
     return <Navigate to={"/signin"} />;
   }
 
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.currentTarget.value);
   };
 
-  const onDoubleClickHandler = () => {
+  const onEditModeHandler = () => {
     setEditMode(true);
   };
 
-  const onBlurHandler = () => {
+  const onSetNewNameHandler = () => {
     setEditMode(false);
     if (name?.length) {
       dispatch(updateMeTC({ name }));
@@ -40,7 +40,7 @@ export const Profile = () => {
     }
   };
 
-  const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+  const onEnterPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       setEditMode(false);
       if (name?.length) {
@@ -56,15 +56,20 @@ export const Profile = () => {
       <h2>Personal information</h2>
       <img alt="avatar" src={avatarImg} className={styles.avatar} />
       {editMode ? (
-        <input
-          autoFocus={true}
-          value={name}
-          onChange={onChangeHandler}
-          onBlur={onBlurHandler}
-          onKeyPress={onKeyPressHandler}
-        />
+        <div>
+          <input
+            autoFocus={true}
+            value={name}
+            onChange={onChangeNameHandler}
+            onKeyPress={onEnterPressHandler}
+          />
+          <button onClick={onSetNewNameHandler}>Save</button>
+        </div>
       ) : (
-        <span onDoubleClick={onDoubleClickHandler}>{name}</span>
+        <div>
+          <span>{name}</span>
+          <button onClick={onEditModeHandler}>🖉</button>
+        </div>
       )}
       <span className={styles.email}>{email}</span>
       <button disabled={isRequestProcessing} onClick={onClickLogOutHandler}>

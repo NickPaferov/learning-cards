@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useAppDispatch, useAppSelector } from "../bll/store";
 import { setNewPasswordTC } from "../bll/auth-reducer";
 import { Navigate, useParams } from "react-router-dom";
+import { PATHS } from "../App";
 
 type FormInputsType = {
   email: string;
@@ -28,6 +29,7 @@ const schema = yup
   .required();
 
 export const SetNewPassword = () => {
+  const isLoggedIn = useAppSelector((state) => state.authReducer.isLoggedIn);
   const isPasswordChanged = useAppSelector((state) => state.authReducer.isPasswordChanged);
   const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
   const dispatch = useAppDispatch();
@@ -42,17 +44,21 @@ export const SetNewPassword = () => {
 
   const { resetPasswordToken } = useParams<{ resetPasswordToken: string }>();
 
-  if (!resetPasswordToken) {
-    return <Navigate to="/" />;
+  const onSubmit = ({ password }: FormInputsType) => {
+    if (resetPasswordToken) {
+      dispatch(setNewPasswordTC({ password, resetPasswordToken }));
+    } else {
+      return;
+    }
+  };
+
+  if (isLoggedIn) {
+    return <Navigate to={PATHS.PROFILE} />;
   }
 
   if (isPasswordChanged) {
-    return <Navigate to="/signin" />;
+    return <Navigate to={PATHS.SIGNIN} />;
   }
-
-  const onSubmit = ({ password }: FormInputsType) => {
-    dispatch(setNewPasswordTC({ password, resetPasswordToken }));
-  };
 
   return (
     <div className={styles.wrapper}>

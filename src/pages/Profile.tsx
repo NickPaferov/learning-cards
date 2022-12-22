@@ -4,6 +4,7 @@ import avatarImg from "./../assets/images/avatar.jpg";
 import { logoutTC, updateMeTC } from "../bll/auth-reducer";
 import { useAppDispatch, useAppSelector } from "../bll/store";
 import { Navigate } from "react-router-dom";
+import { PATHS } from "../App";
 
 export const Profile = () => {
   const isLoggedIn = useAppSelector((state) => state.authReducer.isLoggedIn);
@@ -20,7 +21,7 @@ export const Profile = () => {
   };
 
   if (!isLoggedIn) {
-    return <Navigate to={"/signin"} />;
+    return <Navigate to={PATHS.SIGNIN} />;
   }
 
   const onChangeNameHandler = (e: ChangeEvent<HTMLInputElement>) => {

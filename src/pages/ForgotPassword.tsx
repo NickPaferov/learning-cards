@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import styles from "./ForgotPassword.module.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { forgotPasswordTC } from "../bll/auth-reducer";
 import { useAppDispatch, useAppSelector } from "../bll/store";
 import { CheckEmail } from "./CheckEmail";
+import { PATHS } from "../App";
 
 type FormInputsType = {
   email: string;
@@ -17,6 +18,7 @@ const schema = yup.object({
 });
 
 export const ForgotPassword = () => {
+  const isLoggedIn = useAppSelector((state) => state.authReducer.isLoggedIn);
   const isInstructionsSent = useAppSelector((state) => state.authReducer.isInstructionsSent);
   const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
   const dispatch = useAppDispatch();
@@ -31,16 +33,19 @@ export const ForgotPassword = () => {
     resolver: yupResolver(schema),
   });
 
-  const from = "test-front-admin <ai73a@yandex.by>";
-  const message = `<div style="background-color: lime; padding: 15px"> 
-                    password recovery link:  
-                    <a href="${process.env.REACT_APP_FRONTEND_BASE_URL}/#/set-new-password/$token$">
-                    ${process.env.REACT_APP_FRONTEND_BASE_URL}/#/set-new-password/$token$</a></div>`;
-
   const onSubmit = ({ email }: FormInputsType) => {
+    const from = "test-front-admin <ai73a@yandex.by>";
+    const message = `<div style="background-color: lime; padding: 15px"> 
+                    password recovery link:  
+                    <a href="${process.env.REACT_APP_FRONTEND_BASE_URL}/#${PATHS.SET_NEW_PASSWORD}/$token$">
+                    ${process.env.REACT_APP_FRONTEND_BASE_URL}/#${PATHS.SET_NEW_PASSWORD}/$token$</a></div>`;
     dispatch(forgotPasswordTC({ email, from, message }));
     setEmailForInstructions(email);
   };
+
+  if (isLoggedIn) {
+    return <Navigate to={PATHS.PROFILE} />;
+  }
 
   if (isInstructionsSent && emailForInstructions?.length) {
     return <CheckEmail email={emailForInstructions} />;
@@ -58,7 +63,7 @@ export const ForgotPassword = () => {
         <button disabled={isRequestProcessing}>Send instructions</button>
       </form>
       <span className={styles.clarification}>Did you remember your password?</span>
-      <Link to="/signin">Try logging in</Link>
+      <Link to={PATHS.SIGNIN}>Try logging in</Link>
     </div>
   );
 };

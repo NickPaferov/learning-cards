@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAppDispatch, useAppSelector } from "../bll/store";
 import { loginTC } from "../bll/auth-reducer";
+import { PATHS } from "../App";
 
 type FormInputsType = {
   email: string;
@@ -42,7 +43,7 @@ export const SignIn = () => {
   };
 
   if (isLoggedIn) {
-    return <Navigate to={"/profile"} />;
+    return <Navigate to={PATHS.PROFILE} />;
   }
 
   return (
@@ -66,7 +67,7 @@ export const SignIn = () => {
       </form>
       <Link to="/forgot-password">Forgot Password?</Link>
       <span className={styles.clarification}>Already have an account?</span>
-      <Link to="/signup">Sign Up</Link>
+      <Link to={PATHS.SIGNUP}>Sign Up</Link>
     </div>
   );
 };

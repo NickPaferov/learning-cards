@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../bll/store";
 import { logoutTC } from "../bll/auth-reducer";
+import { PATHS } from "../App";
 
 export const DropDownMenu = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export const DropDownMenu = () => {
   };
 
   const navigateToProfile = () => {
-    navigate("/profile");
+    navigate(PATHS.PROFILE);
     setIsMenuOpen(false);
   };
 

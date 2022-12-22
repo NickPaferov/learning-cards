@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./CheckEmail.module.css";
 import letterImg from "../assets/images/letter.png";
+import { PATHS } from "../App";
 
 type PropsType = {
   email: string;
@@ -11,7 +12,7 @@ export const CheckEmail = (props: PropsType) => {
   const navigate = useNavigate();
 
   const onClickHandler = () => {
-    navigate("/signin");
+    navigate(PATHS.SIGNIN);
   };
 
   return (

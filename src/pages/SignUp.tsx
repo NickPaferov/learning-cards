@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAppDispatch, useAppSelector } from "../bll/store";
 import { registerTC } from "../bll/auth-reducer";
+import { PATHS } from "../App";
 
 type FormInputsType = {
   email: string;
@@ -29,6 +30,7 @@ const schema = yup
   .required();
 
 export const SignUp = () => {
+  const isLoggedIn = useAppSelector((state) => state.authReducer.isLoggedIn);
   const isRegistered = useAppSelector((state) => state.authReducer.isRegistered);
   const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
   const dispatch = useAppDispatch();
@@ -45,8 +47,12 @@ export const SignUp = () => {
     dispatch(registerTC({ email, password }));
   };
 
+  if (isLoggedIn) {
+    return <Navigate to={PATHS.PROFILE} />;
+  }
+
   if (isRegistered) {
-    return <Navigate to="/signin" />;
+    return <Navigate to={PATHS.SIGNIN} />;
   }
 
   return (
@@ -66,7 +72,7 @@ export const SignUp = () => {
         <button disabled={isRequestProcessing}>Sign Up</button>
       </form>
       <span className={styles.clarification}>Already have an account?</span>
-      <Link to="/signin">Sign In</Link>
+      <Link to={PATHS.SIGNIN}>Sign In</Link>
     </div>
   );
 };

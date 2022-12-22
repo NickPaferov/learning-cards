@@ -5,6 +5,7 @@ import styles from "./Layout.module.css";
 import { useAppSelector } from "../bll/store";
 import avatarImg from "../assets/images/avatar.jpg";
 import { DropDownMenu } from "./DropDownMenu";
+import { PATHS } from "../App";
 
 type IsActiveType = {
   isActive: boolean;
@@ -19,29 +20,29 @@ export const Layout = () => {
   const setActive = ({ isActive }: IsActiveType) => (isActive ? styles.activeLink : "");
 
   const onClickHandler = () => {
-    navigate("/signin");
+    navigate(PATHS.SIGNIN);
   };
 
   return (
     <div className={styles.layout}>
       {isRequestProcessing && <LinearProgress />}
       <header>
-        <NavLink to="/" className={setActive}>
+        <NavLink to={PATHS.INDEX} className={setActive}>
           HomePage
         </NavLink>
-        <NavLink to="/signup" className={setActive}>
+        <NavLink to={PATHS.SIGNUP} className={setActive}>
           SignUp
         </NavLink>
-        <NavLink to="/signin" className={setActive}>
+        <NavLink to={PATHS.SIGNIN} className={setActive}>
           SignIn
         </NavLink>
-        <NavLink to="/profile" className={setActive}>
+        <NavLink to={PATHS.PROFILE} className={setActive}>
           Profile
         </NavLink>
-        <NavLink to="/forgot-password" className={setActive}>
+        <NavLink to={PATHS.FORGOT_PASSWORD} className={setActive}>
           ForgotPassword
         </NavLink>
-        <NavLink to="/set-new-password" className={setActive}>
+        <NavLink to={PATHS.SET_NEW_PASSWORD} className={setActive}>
           NewPassword
         </NavLink>
         {isLoggedIn ? (

@@ -14,6 +14,16 @@ import { initializeAppTC } from "./bll/app-reducer";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import { ErrorSnackbar } from "./components/ErrorSnackbar";
 
+export enum PATHS {
+  INDEX = "/",
+  SIGNUP = "/signup",
+  SIGNIN = "/signin",
+  PROFILE = "/profile",
+  FORGOT_PASSWORD = "/forgot-password",
+  SET_NEW_PASSWORD = "/set-new-password",
+  NOT_FOUND = "*",
+}
+
 function App() {
   const isInit = useAppSelector((state) => state.appReducer.isInitialized);
   const dispatch = useAppDispatch();
@@ -41,14 +51,17 @@ function App() {
     <div className="App">
       <ErrorSnackbar />
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path={PATHS.INDEX} element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="signin" element={<SignIn />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="forgot-password" element={<ForgotPassword />} />
-          <Route path="set-new-password/:resetPasswordToken" element={<SetNewPassword />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path={PATHS.SIGNUP} element={<SignUp />} />
+          <Route path={PATHS.SIGNIN} element={<SignIn />} />
+          <Route path={PATHS.PROFILE} element={<Profile />} />
+          <Route path={PATHS.FORGOT_PASSWORD} element={<ForgotPassword />} />
+          <Route
+            path={`${PATHS.SET_NEW_PASSWORD}/:resetPasswordToken`}
+            element={<SetNewPassword />}
+          />
+          <Route path={PATHS.NOT_FOUND} element={<NotFound />} />
         </Route>
       </Routes>
     </div>

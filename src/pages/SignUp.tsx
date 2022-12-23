@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./SignUp.module.css";
 import { Link, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -34,6 +34,8 @@ export const SignUp = () => {
   const isRegistered = useAppSelector((state) => state.authReducer.isRegistered);
   const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
   const dispatch = useAppDispatch();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
 
   const {
     register,
@@ -45,6 +47,14 @@ export const SignUp = () => {
 
   const onSubmit = ({ email, password }: FormInputsType) => {
     dispatch(registerTC({ email, password }));
+  };
+
+  const handlePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+
+  const handleConfirmPasswordVisibility = () => {
+    setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
   };
 
   if (isLoggedIn) {
@@ -59,16 +69,30 @@ export const SignUp = () => {
     <div className={styles.wrapper}>
       <h2>SignUp</h2>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <input placeholder="Email" disabled={isRequestProcessing} {...register("email")} />
-        <p className={styles.error}>{errors.email?.message}</p>
-        <input placeholder="Password" disabled={isRequestProcessing} {...register("password")} />
-        <p className={styles.error}>{errors.password?.message}</p>
-        <input
-          placeholder="Confirm password"
-          disabled={isRequestProcessing}
-          {...register("confirmPassword")}
-        />
-        <p className={styles.error}>{errors.confirmPassword?.message}</p>
+        <div>
+          <input placeholder="Email" disabled={isRequestProcessing} {...register("email")} />
+          <p className={styles.error}>{errors.email?.message}</p>
+        </div>
+        <div>
+          <input
+            type={isPasswordVisible ? "text" : "password"}
+            placeholder="Password"
+            disabled={isRequestProcessing}
+            {...register("password")}
+          />
+          <span onClick={handlePasswordVisibility}>👁</span>
+          <p className={styles.error}>{errors.password?.message}</p>
+        </div>
+        <div>
+          <input
+            type={isConfirmPasswordVisible ? "text" : "password"}
+            placeholder="Confirm password"
+            disabled={isRequestProcessing}
+            {...register("confirmPassword")}
+          />
+          <span onClick={handleConfirmPasswordVisibility}>👁</span>
+          <p className={styles.error}>{errors.confirmPassword?.message}</p>
+        </div>
         <button disabled={isRequestProcessing}>Sign Up</button>
       </form>
       <span className={styles.clarification}>Already have an account?</span>

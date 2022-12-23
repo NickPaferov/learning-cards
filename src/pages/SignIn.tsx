@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./SignIn.module.css";
 import { Link, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -29,6 +29,7 @@ export const SignIn = () => {
   const isLoggedIn = useAppSelector((state) => state.authReducer.isLoggedIn);
   const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
   const dispatch = useAppDispatch();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const {
     register,
@@ -42,6 +43,10 @@ export const SignIn = () => {
     dispatch(loginTC(data));
   };
 
+  const handlePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+
   if (isLoggedIn) {
     return <Navigate to={PATHS.PROFILE} />;
   }
@@ -50,10 +55,20 @@ export const SignIn = () => {
     <div className={styles.wrapper}>
       <h2>SignIn</h2>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <input placeholder="Email" disabled={isRequestProcessing} {...register("email")} />
-        <p className={styles.error}>{errors.email?.message}</p>
-        <input placeholder="Password" disabled={isRequestProcessing} {...register("password")} />
-        <p className={styles.error}>{errors.password?.message}</p>
+        <div>
+          <input placeholder="Email" disabled={isRequestProcessing} {...register("email")} />
+          <p className={styles.error}>{errors.email?.message}</p>
+        </div>
+        <div>
+          <input
+            type={isPasswordVisible ? "text" : "password"}
+            placeholder="Password"
+            disabled={isRequestProcessing}
+            {...register("password")}
+          />
+          <span onClick={handlePasswordVisibility}>👁</span>
+          <p className={styles.error}>{errors.password?.message}</p>
+        </div>
         <div>
           <input
             type="checkbox"

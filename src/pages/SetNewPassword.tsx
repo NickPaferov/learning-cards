@@ -29,8 +29,8 @@ const schema = yup
   .required();
 
 export const SetNewPassword = () => {
-  const isPasswordChanged = useAppSelector((state) => state.authReducer.isPasswordChanged);
-  const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
+  const isPasswordChanged = useAppSelector((state) => state.auth.isPasswordChanged);
+  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
   const dispatch = useAppDispatch();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);

@@ -5,9 +5,9 @@ import { logoutTC, updateMeTC } from "../bll/auth-reducer";
 import { useAppDispatch, useAppSelector } from "../bll/store";
 
 export const Profile = () => {
-  const userName = useAppSelector((state) => state.authReducer.user?.name);
-  const email = useAppSelector((state) => state.authReducer.user?.email);
-  const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
+  const userName = useAppSelector((state) => state.auth.user?.name);
+  const email = useAppSelector((state) => state.auth.user?.email);
+  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
   const dispatch = useAppDispatch();
 
   const [editMode, setEditMode] = useState(false);

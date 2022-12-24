@@ -26,7 +26,7 @@ const schema = yup
   .required();
 
 export const SignIn = () => {
-  const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
+  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
   const dispatch = useAppDispatch();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 

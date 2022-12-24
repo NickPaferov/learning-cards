@@ -8,7 +8,7 @@ type PropsType = {
 };
 
 export const ProtectedRoutes = ({ userIsAuth, redirectTo }: PropsType) => {
-  const isLoggedIn = useAppSelector((state) => state.authReducer.isLoggedIn);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
   return userIsAuth === isLoggedIn ? <Outlet /> : <Navigate to={redirectTo} replace />;
 };

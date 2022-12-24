@@ -12,9 +12,9 @@ type IsActiveType = {
 };
 
 export const Layout = () => {
-  const isLoggedIn = useAppSelector((state) => state.authReducer.isLoggedIn);
-  const userName = useAppSelector((state) => state.authReducer.user?.name);
-  const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const userName = useAppSelector((state) => state.auth.user?.name);
+  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
   const navigate = useNavigate();
 
   const setActive = ({ isActive }: IsActiveType) => (isActive ? styles.activeLink : "");

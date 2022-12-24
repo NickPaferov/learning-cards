@@ -18,8 +18,8 @@ const schema = yup.object({
 });
 
 export const ForgotPassword = () => {
-  const isInstructionsSent = useAppSelector((state) => state.authReducer.isInstructionsSent);
-  const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
+  const isInstructionsSent = useAppSelector((state) => state.auth.isInstructionsSent);
+  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
   const dispatch = useAppDispatch();
 
   const [emailForInstructions, setEmailForInstructions] = useState<null | string>(null);

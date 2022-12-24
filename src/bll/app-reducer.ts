@@ -12,7 +12,7 @@ type InitialStateType = typeof initialState;
 
 export const appReducer = (
   state: InitialStateType = initialState,
-  action: AppActionsType
+  action: AppActionType
 ): InitialStateType => {
   switch (action.type) {
     case "APP/SET-IS-INITIALIZED":
@@ -49,4 +49,7 @@ type SetAppIsInitializedType = ReturnType<typeof setAppIsInitializedAC>;
 type SetAppIsRequestProcessingType = ReturnType<typeof setAppIsRequestProcessingAC>;
 export type SetAppErrorType = ReturnType<typeof setAppErrorAC>;
 
-type AppActionsType = SetAppIsInitializedType | SetAppIsRequestProcessingType | SetAppErrorType;
+export type AppActionType =
+  | SetAppIsInitializedType
+  | SetAppIsRequestProcessingType
+  | SetAppErrorType;

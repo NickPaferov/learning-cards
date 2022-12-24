@@ -26,7 +26,7 @@ export enum PATHS {
 }
 
 function App() {
-  const isInit = useAppSelector((state) => state.appReducer.isInitialized);
+  const isInit = useAppSelector((state) => state.app.isInitialized);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

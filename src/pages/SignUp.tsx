@@ -30,8 +30,8 @@ const schema = yup
   .required();
 
 export const SignUp = () => {
-  const isRegistered = useAppSelector((state) => state.authReducer.isRegistered);
-  const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
+  const isRegistered = useAppSelector((state) => state.auth.isRegistered);
+  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
   const dispatch = useAppDispatch();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);

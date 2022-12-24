@@ -21,7 +21,7 @@ const initialState = {
 
 export const authReducer = (
   state: InitialStateType = initialState,
-  action: AuthActionsType
+  action: AuthActionType
 ): InitialStateType => {
   switch (action.type) {
     case "AUTH/SET-USER":
@@ -142,7 +142,7 @@ type SetAuthIsLoggedInType = ReturnType<typeof setAuthIsLoggedInAC>;
 type SetAuthIsInstructionsSentType = ReturnType<typeof setAuthIsInstructionsSentAC>;
 type SetAuthIsPasswordChangedType = ReturnType<typeof setAuthIsPasswordChangedAC>;
 
-type AuthActionsType =
+export type AuthActionType =
   | SetAuthUserType
   | SetAuthIsRegisteredType
   | SetAuthIsLoggedInType

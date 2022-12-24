@@ -29,7 +29,6 @@ const schema = yup
   .required();
 
 export const SetNewPassword = () => {
-  const isLoggedIn = useAppSelector((state) => state.authReducer.isLoggedIn);
   const isPasswordChanged = useAppSelector((state) => state.authReducer.isPasswordChanged);
   const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
   const dispatch = useAppDispatch();
@@ -61,10 +60,6 @@ export const SetNewPassword = () => {
   const handleConfirmPasswordVisibility = () => {
     setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
   };
-
-  if (isLoggedIn) {
-    return <Navigate to={PATHS.PROFILE} />;
-  }
 
   if (isPasswordChanged) {
     return <Navigate to={PATHS.SIGNIN} />;

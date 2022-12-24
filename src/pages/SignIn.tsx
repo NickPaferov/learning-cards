@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./SignIn.module.css";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -26,7 +26,6 @@ const schema = yup
   .required();
 
 export const SignIn = () => {
-  const isLoggedIn = useAppSelector((state) => state.authReducer.isLoggedIn);
   const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
   const dispatch = useAppDispatch();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -46,10 +45,6 @@ export const SignIn = () => {
   const handlePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
-
-  if (isLoggedIn) {
-    return <Navigate to={PATHS.PROFILE} />;
-  }
 
   return (
     <div className={styles.wrapper}>

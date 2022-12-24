@@ -3,11 +3,8 @@ import styles from "./Profile.module.css";
 import avatarImg from "./../assets/images/avatar.jpg";
 import { logoutTC, updateMeTC } from "../bll/auth-reducer";
 import { useAppDispatch, useAppSelector } from "../bll/store";
-import { Navigate } from "react-router-dom";
-import { PATHS } from "../App";
 
 export const Profile = () => {
-  const isLoggedIn = useAppSelector((state) => state.authReducer.isLoggedIn);
   const userName = useAppSelector((state) => state.authReducer.user?.name);
   const email = useAppSelector((state) => state.authReducer.user?.email);
   const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
@@ -19,10 +16,6 @@ export const Profile = () => {
   const onClickLogOutHandler = () => {
     dispatch(logoutTC());
   };
-
-  if (!isLoggedIn) {
-    return <Navigate to={PATHS.SIGNIN} />;
-  }
 
   const onChangeNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.currentTarget.value);

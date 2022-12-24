@@ -30,7 +30,6 @@ const schema = yup
   .required();
 
 export const SignUp = () => {
-  const isLoggedIn = useAppSelector((state) => state.authReducer.isLoggedIn);
   const isRegistered = useAppSelector((state) => state.authReducer.isRegistered);
   const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
   const dispatch = useAppDispatch();
@@ -56,10 +55,6 @@ export const SignUp = () => {
   const handleConfirmPasswordVisibility = () => {
     setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
   };
-
-  if (isLoggedIn) {
-    return <Navigate to={PATHS.PROFILE} />;
-  }
 
   if (isRegistered) {
     return <Navigate to={PATHS.SIGNIN} />;

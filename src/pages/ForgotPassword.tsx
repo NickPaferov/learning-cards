@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./ForgotPassword.module.css";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -18,7 +18,6 @@ const schema = yup.object({
 });
 
 export const ForgotPassword = () => {
-  const isLoggedIn = useAppSelector((state) => state.authReducer.isLoggedIn);
   const isInstructionsSent = useAppSelector((state) => state.authReducer.isInstructionsSent);
   const isRequestProcessing = useAppSelector((state) => state.appReducer.isRequestProcessing);
   const dispatch = useAppDispatch();
@@ -42,10 +41,6 @@ export const ForgotPassword = () => {
     dispatch(forgotPasswordTC({ email, from, message }));
     setEmailForInstructions(email);
   };
-
-  if (isLoggedIn) {
-    return <Navigate to={PATHS.PROFILE} />;
-  }
 
   if (isInstructionsSent && emailForInstructions?.length) {
     return <CheckEmail email={emailForInstructions} />;

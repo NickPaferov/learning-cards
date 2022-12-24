@@ -59,6 +59,7 @@ export const loginTC = (params: LoginParamsType) => async (dispatch: Dispatch) =
     const res = await authAPI.login(params);
     dispatch(setAuthUserAC(res.data));
     dispatch(setAuthIsLoggedInAC(true));
+    dispatch(setAuthIsRegisteredAC(true));
   } catch (e) {
     handleError(e, dispatch);
   } finally {
@@ -97,6 +98,7 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
     await authAPI.logout();
     dispatch(setAuthUserAC(null));
     dispatch(setAuthIsLoggedInAC(false));
+    dispatch(setAuthIsRegisteredAC(false));
   } catch (e) {
     handleError(e, dispatch);
   } finally {

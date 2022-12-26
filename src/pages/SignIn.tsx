@@ -38,7 +38,7 @@ export const SignIn = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data: FormInputsType) => {
+  const onSubmit = (data: FormInputsType) => {
     dispatch(loginTC(data));
   };
 

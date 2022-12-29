@@ -30,6 +30,9 @@ export const Layout = () => {
         <NavLink to={PATHS.INDEX} className={setActive}>
           HomePage
         </NavLink>
+        <NavLink to={PATHS.PACKS} className={setActive}>
+          Packs
+        </NavLink>
         <NavLink to={PATHS.SIGNUP} className={setActive}>
           SignUp
         </NavLink>

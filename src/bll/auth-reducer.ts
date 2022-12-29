@@ -7,9 +7,9 @@ import {
   UpdateMeParamsType,
   UserDataResponseType,
 } from "../api/auth-api";
-import { Dispatch } from "redux";
 import { setAppIsRequestProcessingAC } from "./app-reducer";
 import { handleError } from "../utils/error-utils";
+import { AppThunkType } from "./store";
 
 const initialState = {
   user: null as UserDataType,
@@ -21,7 +21,7 @@ const initialState = {
 
 export const authReducer = (
   state: InitialStateType = initialState,
-  action: AuthActionType
+  action: AuthActionsType
 ): InitialStateType => {
   switch (action.type) {
     case "AUTH/SET-USER":
@@ -53,46 +53,52 @@ export const setAuthIsInstructionsSentAC = (isInstructionsSent: boolean) =>
 export const setAuthIsPasswordChangedAC = (isPasswordChanged: boolean) =>
   ({ type: "AUTH/SET-PASSWORD-CHANGED", isPasswordChanged } as const);
 
-export const loginTC = (params: LoginParamsType) => async (dispatch: Dispatch) => {
-  dispatch(setAppIsRequestProcessingAC(true));
-  try {
-    const res = await authAPI.login(params);
-    dispatch(setAuthUserAC(res.data));
-    dispatch(setAuthIsLoggedInAC(true));
-    dispatch(setAuthIsRegisteredAC(true));
-  } catch (e) {
-    handleError(e, dispatch);
-  } finally {
-    dispatch(setAppIsRequestProcessingAC(false));
-  }
-};
+export const loginTC =
+  (params: LoginParamsType): AppThunkType =>
+  async (dispatch) => {
+    dispatch(setAppIsRequestProcessingAC(true));
+    try {
+      const res = await authAPI.login(params);
+      dispatch(setAuthUserAC(res.data));
+      dispatch(setAuthIsLoggedInAC(true));
+      dispatch(setAuthIsRegisteredAC(true));
+    } catch (e) {
+      handleError(e, dispatch);
+    } finally {
+      dispatch(setAppIsRequestProcessingAC(false));
+    }
+  };
 
-export const registerTC = (params: RegisterParamsType) => async (dispatch: Dispatch) => {
-  dispatch(setAppIsRequestProcessingAC(true));
-  try {
-    const res = await authAPI.register(params);
-    dispatch(setAuthUserAC(res.data.addedUser));
-    dispatch(setAuthIsRegisteredAC(true));
-  } catch (e) {
-    handleError(e, dispatch);
-  } finally {
-    dispatch(setAppIsRequestProcessingAC(false));
-  }
-};
+export const registerTC =
+  (params: RegisterParamsType): AppThunkType =>
+  async (dispatch) => {
+    dispatch(setAppIsRequestProcessingAC(true));
+    try {
+      const res = await authAPI.register(params);
+      dispatch(setAuthUserAC(res.data.addedUser));
+      dispatch(setAuthIsRegisteredAC(true));
+    } catch (e) {
+      handleError(e, dispatch);
+    } finally {
+      dispatch(setAppIsRequestProcessingAC(false));
+    }
+  };
 
-export const updateMeTC = (params: UpdateMeParamsType) => async (dispatch: Dispatch) => {
-  dispatch(setAppIsRequestProcessingAC(true));
-  try {
-    const res = await authAPI.updateMe(params);
-    dispatch(setAuthUserAC(res.data.updatedUser));
-  } catch (e) {
-    handleError(e, dispatch);
-  } finally {
-    dispatch(setAppIsRequestProcessingAC(false));
-  }
-};
+export const updateMeTC =
+  (params: UpdateMeParamsType): AppThunkType =>
+  async (dispatch) => {
+    dispatch(setAppIsRequestProcessingAC(true));
+    try {
+      const res = await authAPI.updateMe(params);
+      dispatch(setAuthUserAC(res.data.updatedUser));
+    } catch (e) {
+      handleError(e, dispatch);
+    } finally {
+      dispatch(setAppIsRequestProcessingAC(false));
+    }
+  };
 
-export const logoutTC = () => async (dispatch: Dispatch) => {
+export const logoutTC = (): AppThunkType => async (dispatch) => {
   dispatch(setAppIsRequestProcessingAC(true));
   try {
     await authAPI.logout();
@@ -107,7 +113,8 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
 };
 
 export const forgotPasswordTC =
-  (params: ForgotPasswordParamsType) => async (dispatch: Dispatch) => {
+  (params: ForgotPasswordParamsType): AppThunkType =>
+  async (dispatch) => {
     dispatch(setAppIsRequestProcessingAC(true));
     try {
       await authAPI.forgotPassword(params);
@@ -121,7 +128,8 @@ export const forgotPasswordTC =
   };
 
 export const setNewPasswordTC =
-  (params: SetNewPasswordParamsType) => async (dispatch: Dispatch) => {
+  (params: SetNewPasswordParamsType): AppThunkType =>
+  async (dispatch) => {
     dispatch(setAppIsRequestProcessingAC(true));
     try {
       await authAPI.setNewPassword(params);
@@ -144,7 +152,7 @@ type SetAuthIsLoggedInType = ReturnType<typeof setAuthIsLoggedInAC>;
 type SetAuthIsInstructionsSentType = ReturnType<typeof setAuthIsInstructionsSentAC>;
 type SetAuthIsPasswordChangedType = ReturnType<typeof setAuthIsPasswordChangedAC>;
 
-export type AuthActionType =
+export type AuthActionsType =
   | SetAuthUserType
   | SetAuthIsRegisteredType
   | SetAuthIsLoggedInType

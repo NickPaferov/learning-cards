@@ -14,9 +14,11 @@ import { initializeAppTC } from "./bll/app-reducer";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import { ErrorSnackbar } from "./components/ErrorSnackbar";
 import { ProtectedRoutes } from "./components/ProtectedRoute";
+import { Packs } from "./pages/Packs";
 
 export enum PATHS {
   INDEX = "/",
+  PACKS = "/packs",
   SIGNUP = "/signup",
   SIGNIN = "/signin",
   PROFILE = "/profile",
@@ -63,6 +65,7 @@ function App() {
             />
           </Route>
           <Route element={<ProtectedRoutes userIsAuth={true} redirectTo={PATHS.SIGNIN} />}>
+            <Route path={PATHS.PACKS} element={<Packs />} />
             <Route path={PATHS.PROFILE} element={<Profile />} />
           </Route>
           <Route path={PATHS.NOT_FOUND} element={<NotFound />} />

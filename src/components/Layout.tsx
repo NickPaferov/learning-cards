@@ -33,6 +33,9 @@ export const Layout = () => {
         <NavLink to={PATHS.PACKS} className={setActive}>
           Packs
         </NavLink>
+        <NavLink to={PATHS.CARDS} className={setActive}>
+          Cards
+        </NavLink>
         <NavLink to={PATHS.SIGNUP} className={setActive}>
           SignUp
         </NavLink>

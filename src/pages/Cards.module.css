@@ -1,0 +1,15 @@
+.cardsList {
+    width: 80%;
+    margin: auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.searchQuestion {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}

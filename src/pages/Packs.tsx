@@ -1,8 +1,8 @@
 import React from "react";
 import { PacksListTable } from "../tables/PacksListTable";
 import styles from "./Packs.module.css";
-import RangeSlider from "../components/RangeSlider";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
+import { RangeSlider } from "../components/RangeSlider";
 
 export const Packs = () => {
   return (

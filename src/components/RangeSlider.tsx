@@ -6,7 +6,7 @@ function valuetext(value: number) {
   return `${value}`;
 }
 
-export default function RangeSlider() {
+export const RangeSlider = () => {
   const [value, setValue] = React.useState<number[]>([10, 90]);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
@@ -24,4 +24,4 @@ export default function RangeSlider() {
       />
     </Box>
   );
-}
+};

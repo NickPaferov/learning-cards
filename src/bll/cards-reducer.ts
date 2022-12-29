@@ -26,9 +26,9 @@ const initialState = {
   searchParams: {
     cardAnswer: "",
     cardQuestion: "",
-    cardsPack_id: "",
-    min: 1,
-    max: 100,
+    cardsPack_id: "63a9a657e55132182084ce35",
+    min: 0,
+    max: 5,
     sortCards: "",
     page: 1,
     pageCount: 5,
@@ -61,7 +61,7 @@ const setCardsSearchParamsAC = (searchParams: GetCardsParamsType) =>
     searchParams,
   } as const);
 
-const fetchCardsTC = (): AppThunkType => async (dispatch, getState) => {
+export const fetchCardsTC = (): AppThunkType => async (dispatch, getState) => {
   const { searchParams } = getState().cards;
   dispatch(setAppIsRequestProcessingAC(true));
   try {
@@ -74,7 +74,7 @@ const fetchCardsTC = (): AppThunkType => async (dispatch, getState) => {
   }
 };
 
-const addCardTC =
+export const addCardTC =
   (params: CreateCardParamsType): AppThunkType =>
   async (dispatch) => {
     dispatch(setAppIsRequestProcessingAC(true));

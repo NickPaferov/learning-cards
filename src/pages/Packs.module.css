@@ -1,0 +1,30 @@
+.packsList {
+    width: 80%;
+    margin: auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.searchParams {
+    display: flex;
+    justify-content: space-between;
+}
+
+.searchName {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.whoseArePacks {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.btn {
+    width: 75px;
+}

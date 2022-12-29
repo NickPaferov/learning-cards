@@ -51,21 +51,22 @@ const setPacksAC = (cardPacks: PackType[]) => ({ type: "PACKS/SET-PACKS", cardPa
 const setPacksSearchParamsAC = (searchParams: GetPacksParamsType) =>
   ({ type: "PACKS/SET-PACKS-SEARCH-PARAMS", searchParams } as const);
 
-const fetchPacksTC = (): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
-  const { searchParams } = getState().packs;
-  dispatch(setAppIsRequestProcessingAC(true));
-  try {
-    const res = await packsAPI.getPacks(searchParams);
-    dispatch(setPacksAC(res.data.cardPacks));
-    dispatch(setPacksSearchParamsAC(searchParams));
-  } catch (e) {
-    handleError(e, dispatch);
-  } finally {
-    dispatch(setAppIsRequestProcessingAC(false));
-  }
-};
+export const fetchPacksTC =
+  (): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
+    const { searchParams } = getState().packs;
+    dispatch(setAppIsRequestProcessingAC(true));
+    try {
+      const res = await packsAPI.getPacks(searchParams);
+      dispatch(setPacksAC(res.data.cardPacks));
+      dispatch(setPacksSearchParamsAC(searchParams));
+    } catch (e) {
+      handleError(e, dispatch);
+    } finally {
+      dispatch(setAppIsRequestProcessingAC(false));
+    }
+  };
 
-const addPackTC =
+export const addPackTC =
   (params: CreatePackParamsType): AppThunkType =>
   async (dispatch) => {
     dispatch(setAppIsRequestProcessingAC(true));

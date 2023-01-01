@@ -1,5 +1,5 @@
 import { authAPI } from "../api/auth-api";
-import { setAuthIsLoggedInAC, setAuthUserAC } from "./auth-reducer";
+import { setAuthIsLoggedInAC, setAuthIsRegisteredAC, setAuthUserAC } from "./auth-reducer";
 import { AppThunkType } from "./store";
 
 const initialState = {
@@ -38,6 +38,7 @@ export const initializeAppTC = (): AppThunkType => async (dispatch) => {
   try {
     const res = await authAPI.me();
     dispatch(setAuthUserAC(res.data));
+    dispatch(setAuthIsRegisteredAC(true));
     dispatch(setAuthIsLoggedInAC(true));
   } catch (e) {
   } finally {

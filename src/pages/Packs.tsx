@@ -24,7 +24,9 @@ export const Packs = () => {
           </div>
         </div>
         <RangeSlider />
-        <FilterAltOffIcon />
+        <button>
+          <FilterAltOffIcon />
+        </button>
       </div>
       <PacksListTable />
     </div>

@@ -22,7 +22,7 @@ export const CardsListTable = () => {
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
-          <TableRow>
+          <TableRow sx={{ backgroundColor: "#EFEFEF" }}>
             <TableCell>Question</TableCell>
             <TableCell align="right">Answer</TableCell>
             <TableCell align="right">Last Updated</TableCell>

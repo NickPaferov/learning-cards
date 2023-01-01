@@ -22,7 +22,7 @@ export const PacksListTable = () => {
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
-          <TableRow>
+          <TableRow sx={{ backgroundColor: "#EFEFEF" }}>
             <TableCell>Name</TableCell>
             <TableCell align="right">Cards</TableCell>
             <TableCell align="right">Last Updated</TableCell>

@@ -8,7 +8,10 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useAppDispatch, useAppSelector } from "../bll/store";
 import { useEffect } from "react";
-import { fetchPacksTC } from "../bll/packs-reducer";
+import { deletePackTC, fetchPacksTC, updatePackTC } from "../bll/packs-reducer";
+import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 
 export const PacksListTable = () => {
   const packs = useAppSelector((state) => state.packs.cardPacks);
@@ -17,6 +20,14 @@ export const PacksListTable = () => {
   useEffect(() => {
     dispatch(fetchPacksTC());
   }, [dispatch]);
+
+  const onDeletePack = (id: string) => {
+    dispatch(deletePackTC(id));
+  };
+
+  const onUpdatePack = (id: string) => {
+    dispatch(updatePackTC({ _id: id, name: "My second updated pack" }));
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -37,9 +48,13 @@ export const PacksListTable = () => {
                 {pack.name}
               </TableCell>
               <TableCell align="right">{pack.cardsCount}</TableCell>
-              <TableCell align="right">{pack.updated}</TableCell>
+              <TableCell align="right">{new Date(pack.updated).toLocaleString("ru-RU")}</TableCell>
               <TableCell align="right">{pack.user_name}</TableCell>
-              <TableCell align="right">action</TableCell>
+              <TableCell align="right">
+                <SchoolOutlinedIcon />
+                <BorderColorOutlinedIcon onClick={(e) => onUpdatePack(pack._id)} />
+                <DeleteOutlinedIcon onClick={(e) => onDeletePack(pack._id)} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

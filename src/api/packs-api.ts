@@ -5,13 +5,13 @@ export const packsAPI = {
     return instance.get<GetPacksResponseType>("/cards/pack", { params });
   },
   createPack(params: CreatePackParamsType) {
-    return instance.post<CreatePackResponseType>("/cards/pack", { params });
+    return instance.post<CreatePackResponseType>("/cards/pack", { cardsPack: params });
   },
   deletePack(id: string) {
-    return instance.delete<DeletePackResponseType>(`/cards/pack?${id}`);
+    return instance.delete<DeletePackResponseType>(`/cards/pack?id=${id}`);
   },
   updatePack(params: UpdatePackParamsType) {
-    return instance.put<UpdatePackResponseType>("/cards/pack", { params });
+    return instance.put<UpdatePackResponseType>("/cards/pack", { cardsPack: params });
   },
 };
 
@@ -27,18 +27,14 @@ export type GetPacksParamsType = {
 };
 
 export type CreatePackParamsType = {
-  cardsPack: {
-    name?: string;
-    deckCover?: string;
-    private?: boolean;
-  };
+  name?: string;
+  deckCover?: string;
+  private?: boolean;
 };
 
 export type UpdatePackParamsType = {
-  cardsPack: {
-    _id: string;
-    name?: string;
-  };
+  _id: string;
+  name?: string;
 };
 
 export type PackType = {

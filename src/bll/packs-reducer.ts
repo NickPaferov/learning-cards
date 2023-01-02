@@ -1,10 +1,4 @@
-import {
-  CreatePackParamsType,
-  GetPacksParamsType,
-  packsAPI,
-  PackType,
-  UpdatePackParamsType,
-} from "../api/packs-api";
+import { CreatePackParamsType, packsAPI, PackType, UpdatePackParamsType } from "../api/packs-api";
 import { AppRootStateType, AppThunkType } from "./store";
 import { setAppIsRequestProcessingAC } from "./app-reducer";
 import { handleError } from "../utils/error-utils";
@@ -14,20 +8,6 @@ const initialState = {
   page: 1,
   pageCount: 5,
   cardPacksTotalCount: 50,
-  minCardsCount: 0,
-  maxCardsCount: 100,
-  token: "",
-  tokenDeathTime: 0,
-  searchParams: {
-    packName: "",
-    min: 0,
-    max: 100,
-    sortPacks: "",
-    page: 1,
-    pageCount: 5,
-    user_id: "",
-    block: false,
-  } as GetPacksParamsType,
 };
 
 type InitialStateType = typeof initialState;
@@ -39,8 +19,10 @@ export const packsReducer = (
   switch (action.type) {
     case "PACKS/SET-PACKS":
       return { ...state, cardPacks: action.cardPacks };
-    case "PACKS/SET-PACKS-SEARCH-PARAMS":
-      return { ...state, searchParams: action.searchParams };
+    case "PACKS/SET-CURRENT-PAGE":
+      return { ...state, page: action.page };
+    case "PACKS/SET-PACKS-TOTAL-COUNT":
+      return { ...state, cardPacksTotalCount: action.packsTotalCount };
     default:
       return state;
   }
@@ -48,17 +30,21 @@ export const packsReducer = (
 
 const setPacksAC = (cardPacks: PackType[]) => ({ type: "PACKS/SET-PACKS", cardPacks } as const);
 
-const setPacksSearchParamsAC = (searchParams: GetPacksParamsType) =>
-  ({ type: "PACKS/SET-PACKS-SEARCH-PARAMS", searchParams } as const);
+export const setCurrentPageAC = (page: number) =>
+  ({ type: "PACKS/SET-CURRENT-PAGE", page } as const);
+
+export const setPacksTotalCountAC = (packsTotalCount: number) =>
+  ({ type: "PACKS/SET-PACKS-TOTAL-COUNT", packsTotalCount } as const);
 
 export const fetchPacksTC =
   (): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
-    const { searchParams } = getState().packs;
+    const { page, pageCount } = getState().packs;
     dispatch(setAppIsRequestProcessingAC(true));
     try {
-      const res = await packsAPI.getPacks(searchParams);
+      const res = await packsAPI.getPacks({ page, pageCount });
       dispatch(setPacksAC(res.data.cardPacks));
-      dispatch(setPacksSearchParamsAC(searchParams));
+      dispatch(setCurrentPageAC(page));
+      dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
     } catch (e) {
       handleError(e, dispatch);
     } finally {
@@ -80,7 +66,7 @@ export const addPackTC =
     }
   };
 
-const deletePackTC =
+export const deletePackTC =
   (id: string): AppThunkType =>
   async (dispatch) => {
     dispatch(setAppIsRequestProcessingAC(true));
@@ -94,7 +80,7 @@ const deletePackTC =
     }
   };
 
-const updatePackTC =
+export const updatePackTC =
   (params: UpdatePackParamsType): AppThunkType =>
   async (dispatch) => {
     dispatch(setAppIsRequestProcessingAC(true));
@@ -108,7 +94,8 @@ const updatePackTC =
     }
   };
 
-export type PacksActionsType = SetPacksType | SetPacksSearchParamsType;
+export type PacksActionsType = SetPacksType | SetCurrentPageType | SetPacksTotalCountType;
 
 type SetPacksType = ReturnType<typeof setPacksAC>;
-type SetPacksSearchParamsType = ReturnType<typeof setPacksSearchParamsAC>;
+type SetCurrentPageType = ReturnType<typeof setCurrentPageAC>;
+type SetPacksTotalCountType = ReturnType<typeof setPacksTotalCountAC>;

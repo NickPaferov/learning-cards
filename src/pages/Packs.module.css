@@ -28,3 +28,12 @@
 .btn {
     width: 75px;
 }
+
+.pagination {
+    margin: 0 2px;
+    cursor: default;
+}
+
+.selectedPage {
+    font-weight: bold;
+}

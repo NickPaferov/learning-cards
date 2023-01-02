@@ -5,13 +5,13 @@ export const cardsAPI = {
     return instance.get<GetCardsResponseType>("/cards/card", { params });
   },
   createCard(params: CreateCardParamsType) {
-    return instance.post("/cards/card", { params });
+    return instance.post("/cards/card", { card: params });
   },
   deleteCard(id: string) {
-    return instance.delete<DeleteCardResponseType>(`/cards/card?${id}`);
+    return instance.delete<DeleteCardResponseType>(`/cards/card?id=${id}`);
   },
   updateCard(params: UpdateCardParamsType) {
-    return instance.put<UpdateCardResponseType>("/cards/card", { params });
+    return instance.put<UpdateCardResponseType>("/cards/card", { card: params });
   },
 };
 
@@ -27,25 +27,21 @@ export type GetCardsParamsType = {
 };
 
 export type CreateCardParamsType = {
-  card: {
-    cardsPack_id: string;
-    question?: string;
-    answer?: string;
-    grade?: number;
-    shots?: number;
-    answerImg?: string;
-    questionImg?: string;
-    questionVideo?: string;
-    answerVideo?: string;
-  };
+  cardsPack_id: string;
+  question?: string;
+  answer?: string;
+  grade?: number;
+  shots?: number;
+  answerImg?: string;
+  questionImg?: string;
+  questionVideo?: string;
+  answerVideo?: string;
 };
 
 export type UpdateCardParamsType = {
-  card: {
-    _id: string;
-    question?: string;
-    answer?: string;
-  };
+  _id: string;
+  question?: string;
+  answer?: string;
 };
 
 export type CardType = {

@@ -8,7 +8,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useAppDispatch, useAppSelector } from "../bll/store";
-import { fetchCardsTC } from "../bll/cards-reducer";
+import { deleteCardTC, fetchCardsTC, updateCardTC } from "../bll/cards-reducer";
+import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 
 export const CardsListTable = () => {
   const cards = useAppSelector((state) => state.cards.cards);
@@ -17,6 +19,16 @@ export const CardsListTable = () => {
   useEffect(() => {
     dispatch(fetchCardsTC());
   }, [dispatch]);
+
+  const onUpdateCard = (id: string) => {
+    dispatch(
+      updateCardTC({ _id: id, question: "What is the largest island?", answer: "Greenland" })
+    );
+  };
+
+  const onDeleteCard = (id: string) => {
+    dispatch(deleteCardTC(id));
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -27,6 +39,7 @@ export const CardsListTable = () => {
             <TableCell align="right">Answer</TableCell>
             <TableCell align="right">Last Updated</TableCell>
             <TableCell align="right">Grade</TableCell>
+            <TableCell align="right">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -36,8 +49,12 @@ export const CardsListTable = () => {
                 {card.question}
               </TableCell>
               <TableCell align="right">{card.answer}</TableCell>
-              <TableCell align="right">{card.updated}</TableCell>
+              <TableCell align="right">{new Date(card.updated).toLocaleString("ru-RU")}</TableCell>
               <TableCell align="right">{card.grade}</TableCell>
+              <TableCell align="right">
+                <BorderColorOutlinedIcon onClick={(e) => onUpdateCard(card._id)} />
+                <DeleteOutlinedIcon onClick={(e) => onDeleteCard(card._id)} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

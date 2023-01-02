@@ -4,7 +4,7 @@ import styles from "./Packs.module.css";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import { RangeSlider } from "../components/RangeSlider";
 import { useAppDispatch, useAppSelector } from "../bll/store";
-import { addPackTC, fetchPacksTC, setCurrentPageAC } from "../bll/packs-reducer";
+import { addPackTC, fetchPacksTC, setPacksCurrentPageAC } from "../bll/packs-reducer";
 
 export const Packs = () => {
   const pageSize = useAppSelector((state) => state.packs.pageCount);
@@ -19,7 +19,7 @@ export const Packs = () => {
   }
 
   const onSetCurrentPage = (page: number) => {
-    dispatch(setCurrentPageAC(page));
+    dispatch(setPacksCurrentPageAC(page));
     dispatch(fetchPacksTC());
   };
 

@@ -54,7 +54,7 @@ export const Profile = () => {
       {editMode ? (
         <form onSubmit={handleSubmit(onSubmit)}>
           <input autoFocus={true} defaultValue={userName} {...register("name")} />
-          <button>Save</button>
+          <button disabled={isRequestProcessing}>Save</button>
           <p className={styles.error}>{errors.name?.message}</p>
         </form>
       ) : (

@@ -1,8 +1,21 @@
-import React, { ChangeEvent, KeyboardEvent, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Profile.module.css";
 import avatarImg from "./../assets/images/avatar.jpg";
 import { logoutTC, updateMeTC } from "../bll/auth-reducer";
 import { useAppDispatch, useAppSelector } from "../bll/store";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+type FormInputsType = {
+  name: string;
+};
+
+const schema = yup
+  .object({
+    name: yup.string().required("Name is required").max(30, "Name should be at most 30 characters"),
+  })
+  .required();
 
 export const Profile = () => {
   const userName = useAppSelector((state) => state.auth.user?.name);
@@ -11,38 +24,27 @@ export const Profile = () => {
   const dispatch = useAppDispatch();
 
   const [editMode, setEditMode] = useState(false);
-  const [name, setName] = useState(userName);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormInputsType>({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = (data: FormInputsType) => {
+    const name = data.name.trim();
+    dispatch(updateMeTC({ name }));
+    setEditMode(false);
+  };
 
   const onClickLogOutHandler = () => {
     dispatch(logoutTC());
   };
 
-  const onChangeNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setName(e.currentTarget.value);
-  };
-
   const onEditModeHandler = () => {
     setEditMode(true);
-  };
-
-  const onSetNewNameHandler = () => {
-    setEditMode(false);
-    if (name?.length) {
-      dispatch(updateMeTC({ name }));
-    } else {
-      return;
-    }
-  };
-
-  const onEnterPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      setEditMode(false);
-      if (name?.length) {
-        dispatch(updateMeTC({ name }));
-      } else {
-        return;
-      }
-    }
   };
 
   return (
@@ -50,19 +52,17 @@ export const Profile = () => {
       <h2>Personal information</h2>
       <img alt="avatar" src={avatarImg} className={styles.avatar} />
       {editMode ? (
-        <div>
-          <input
-            autoFocus={true}
-            value={name}
-            onChange={onChangeNameHandler}
-            onKeyPress={onEnterPressHandler}
-          />
-          <button onClick={onSetNewNameHandler}>Save</button>
-        </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input autoFocus={true} defaultValue={userName} {...register("name")} />
+          <button>Save</button>
+          <p className={styles.error}>{errors.name?.message}</p>
+        </form>
       ) : (
         <div>
-          <span>{name}</span>
-          <button onClick={onEditModeHandler}>🖉</button>
+          <span>{userName}</span>
+          <button disabled={isRequestProcessing} onClick={onEditModeHandler}>
+            🖉
+          </button>
         </div>
       )}
       <span className={styles.email}>{email}</span>

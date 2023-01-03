@@ -51,8 +51,9 @@ export const Packs = () => {
         </button>
       </div>
       <PacksListTable />
-      {pages.map((p) => (
+      {pages.map((p, index) => (
         <span
+          key={index}
           className={
             currentPage === p ? `${styles.pagination} ${styles.selectedPage}` : styles.pagination
           }

@@ -8,6 +8,7 @@ const initialState = {
   page: 1,
   pageCount: 5,
   cardPacksTotalCount: 50,
+  areMyPacks: false,
 };
 
 type InitialStateType = typeof initialState;
@@ -23,6 +24,8 @@ export const packsReducer = (
       return { ...state, page: action.page };
     case "PACKS/SET-PACKS-TOTAL-COUNT":
       return { ...state, cardPacksTotalCount: action.packsTotalCount };
+    case "PACKS/SET-ARE-MY-PACKS":
+      return { ...state, areMyPacks: action.areMyPacks };
     default:
       return state;
   }
@@ -36,12 +39,19 @@ export const setPacksCurrentPageAC = (page: number) =>
 export const setPacksTotalCountAC = (packsTotalCount: number) =>
   ({ type: "PACKS/SET-PACKS-TOTAL-COUNT", packsTotalCount } as const);
 
+export const setAreMyPacksAC = (areMyPacks: boolean) =>
+  ({ type: "PACKS/SET-ARE-MY-PACKS", areMyPacks } as const);
+
 export const fetchPacksTC =
   (): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
-    const { page, pageCount } = getState().packs;
     dispatch(setAppIsRequestProcessingAC(true));
+
+    const { page, pageCount, areMyPacks } = getState().packs;
+    let user_id = getState().auth.user?._id;
+    user_id = areMyPacks ? user_id : "";
+
     try {
-      const res = await packsAPI.getPacks({ page, pageCount });
+      const res = await packsAPI.getPacks({ page, pageCount, user_id });
       dispatch(setPacksAC(res.data.cardPacks));
       dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
     } catch (e) {
@@ -93,8 +103,13 @@ export const updatePackTC =
     }
   };
 
-export type PacksActionsType = SetPacksType | SetPacksCurrentPageType | SetPacksTotalCountType;
+export type PacksActionsType =
+  | SetPacksType
+  | SetPacksCurrentPageType
+  | SetPacksTotalCountType
+  | SetAreMyPacksType;
 
 type SetPacksType = ReturnType<typeof setPacksAC>;
 type SetPacksCurrentPageType = ReturnType<typeof setPacksCurrentPageAC>;
 type SetPacksTotalCountType = ReturnType<typeof setPacksTotalCountAC>;
+type SetAreMyPacksType = ReturnType<typeof setAreMyPacksAC>;

@@ -29,6 +29,10 @@
     width: 75px;
 }
 
+.activeBtn {
+    background-color: cornflowerblue;
+}
+
 .pagination {
     margin: 0 2px;
     cursor: default;

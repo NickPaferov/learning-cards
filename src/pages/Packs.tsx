@@ -4,12 +4,19 @@ import styles from "./Packs.module.css";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import { RangeSlider } from "../components/RangeSlider";
 import { useAppDispatch, useAppSelector } from "../bll/store";
-import { addPackTC, fetchPacksTC, setPacksCurrentPageAC } from "../bll/packs-reducer";
+import {
+  addPackTC,
+  fetchPacksTC,
+  setAreMyPacksAC,
+  setPacksCurrentPageAC,
+} from "../bll/packs-reducer";
 
 export const Packs = () => {
   const pageSize = useAppSelector((state) => state.packs.pageCount);
   const packsTotalCount = useAppSelector((state) => state.packs.cardPacksTotalCount);
+  const areMyPacks = useAppSelector((state) => state.packs.areMyPacks);
   const currentPage = useAppSelector((state) => state.packs.page);
+  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
   const dispatch = useAppDispatch();
 
   const pagesCount = Math.ceil(packsTotalCount / pageSize);
@@ -27,11 +34,23 @@ export const Packs = () => {
     dispatch(addPackTC({ name: "My second new pack" }));
   };
 
+  const onSetMyPacks = () => {
+    dispatch(setAreMyPacksAC(true));
+    dispatch(fetchPacksTC());
+  };
+
+  const onSetAllPacks = () => {
+    dispatch(setAreMyPacksAC(false));
+    dispatch(fetchPacksTC());
+  };
+
   return (
     <div className={styles.packsList}>
       <div className={styles.header}>
         <h3>Packs list</h3>
-        <button onClick={onAddPack}>Add new pack</button>
+        <button disabled={isRequestProcessing} onClick={onAddPack}>
+          Add new pack
+        </button>
       </div>
       <div className={styles.searchParams}>
         <div className={styles.searchName}>
@@ -41,8 +60,18 @@ export const Packs = () => {
         <div className={styles.whoseArePacks}>
           <label>Show packs cards</label>
           <div>
-            <button className={styles.btn}>My</button>
-            <button className={styles.btn}>All</button>
+            <button
+              className={`${styles.btn} ${areMyPacks && styles.activeBtn}`}
+              onClick={onSetMyPacks}
+            >
+              My
+            </button>
+            <button
+              className={`${styles.btn} ${!areMyPacks && styles.activeBtn}`}
+              onClick={onSetAllPacks}
+            >
+              All
+            </button>
           </div>
         </div>
         <RangeSlider />

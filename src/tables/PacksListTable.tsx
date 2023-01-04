@@ -15,11 +15,13 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 
 export const PacksListTable = () => {
   const packs = useAppSelector((state) => state.packs.cardPacks);
+  const areMyPacks = useAppSelector((state) => state.packs.areMyPacks);
+  const currentPage = useAppSelector((state) => state.packs.page);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchPacksTC());
-  }, [dispatch]);
+  }, [dispatch, areMyPacks, currentPage]);
 
   const onDeletePack = (id: string) => {
     dispatch(deletePackTC(id));

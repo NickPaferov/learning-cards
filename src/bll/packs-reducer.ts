@@ -9,6 +9,8 @@ const initialState = {
   pageCount: 5,
   cardPacksTotalCount: 50,
   areMyPacks: false,
+  min: 0,
+  max: 100,
 };
 
 type InitialStateType = typeof initialState;
@@ -26,6 +28,8 @@ export const packsReducer = (
       return { ...state, cardPacksTotalCount: action.packsTotalCount };
     case "PACKS/SET-ARE-MY-PACKS":
       return { ...state, areMyPacks: action.areMyPacks };
+    case "PACKS/SET-MIN-MAX-CARDS-COUNT":
+      return { ...state, min: action.min, max: action.max };
     default:
       return state;
   }
@@ -42,16 +46,19 @@ export const setPacksTotalCountAC = (packsTotalCount: number) =>
 export const setAreMyPacksAC = (areMyPacks: boolean) =>
   ({ type: "PACKS/SET-ARE-MY-PACKS", areMyPacks } as const);
 
+export const setMinMaxCardsCountAC = (min: number, max: number) =>
+  ({ type: "PACKS/SET-MIN-MAX-CARDS-COUNT", min, max } as const);
+
 export const fetchPacksTC =
   (): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
     dispatch(setAppIsRequestProcessingAC(true));
 
-    const { page, pageCount, areMyPacks } = getState().packs;
+    const { min, max, page, pageCount, areMyPacks } = getState().packs;
     let user_id = getState().auth.user?._id;
     user_id = areMyPacks ? user_id : "";
 
     try {
-      const res = await packsAPI.getPacks({ page, pageCount, user_id });
+      const res = await packsAPI.getPacks({ min, max, page, pageCount, user_id });
       dispatch(setPacksAC(res.data.cardPacks));
       dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
     } catch (e) {
@@ -107,9 +114,11 @@ export type PacksActionsType =
   | SetPacksType
   | SetPacksCurrentPageType
   | SetPacksTotalCountType
-  | SetAreMyPacksType;
+  | SetAreMyPacksType
+  | SetMinMaxCardsCountType;
 
 type SetPacksType = ReturnType<typeof setPacksAC>;
 type SetPacksCurrentPageType = ReturnType<typeof setPacksCurrentPageAC>;
 type SetPacksTotalCountType = ReturnType<typeof setPacksTotalCountAC>;
 type SetAreMyPacksType = ReturnType<typeof setAreMyPacksAC>;
+type SetMinMaxCardsCountType = ReturnType<typeof setMinMaxCardsCountAC>;

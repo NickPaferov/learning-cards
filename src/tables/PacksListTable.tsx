@@ -17,11 +17,13 @@ export const PacksListTable = () => {
   const packs = useAppSelector((state) => state.packs.cardPacks);
   const areMyPacks = useAppSelector((state) => state.packs.areMyPacks);
   const currentPage = useAppSelector((state) => state.packs.page);
+  const minCardsCount = useAppSelector((state) => state.packs.min);
+  const maxCardsCount = useAppSelector((state) => state.packs.max);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchPacksTC());
-  }, [dispatch, areMyPacks, currentPage]);
+  }, [dispatch, areMyPacks, currentPage, minCardsCount, maxCardsCount]);
 
   const onDeletePack = (id: string) => {
     dispatch(deletePackTC(id));

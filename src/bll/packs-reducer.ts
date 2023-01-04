@@ -33,6 +33,17 @@ export const packsReducer = (
       return { ...state, min: action.min, max: action.max };
     case "PACKS/SET-PACK-NAME-SEARCH":
       return { ...state, packName: action.packName };
+    case "PACKS/RESET-ALL-PACKS-FILTERS":
+      return {
+        ...state,
+        page: 1,
+        pageCount: 5,
+        cardPacksTotalCount: 50,
+        areMyPacks: false,
+        min: 0,
+        max: 100,
+        packName: "",
+      };
     default:
       return state;
   }
@@ -54,6 +65,8 @@ export const setMinMaxCardsCountAC = (min: number, max: number) =>
 
 export const setPackNameSearchAC = (packName: string) =>
   ({ type: "PACKS/SET-PACK-NAME-SEARCH", packName } as const);
+
+export const setResetAllPacksFiltersAC = () => ({ type: "PACKS/RESET-ALL-PACKS-FILTERS" } as const);
 
 export const fetchPacksTC =
   (): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
@@ -122,7 +135,8 @@ export type PacksActionsType =
   | SetPacksTotalCountType
   | SetAreMyPacksType
   | SetMinMaxCardsCountType
-  | SetPackNameSearchType;
+  | SetPackNameSearchType
+  | SetResetAllPacksFiltersType;
 
 type SetPacksType = ReturnType<typeof setPacksAC>;
 type SetPacksCurrentPageType = ReturnType<typeof setPacksCurrentPageAC>;
@@ -130,3 +144,4 @@ type SetPacksTotalCountType = ReturnType<typeof setPacksTotalCountAC>;
 type SetAreMyPacksType = ReturnType<typeof setAreMyPacksAC>;
 type SetMinMaxCardsCountType = ReturnType<typeof setMinMaxCardsCountAC>;
 type SetPackNameSearchType = ReturnType<typeof setPackNameSearchAC>;
+type SetResetAllPacksFiltersType = ReturnType<typeof setResetAllPacksFiltersAC>;

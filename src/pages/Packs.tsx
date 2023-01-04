@@ -9,6 +9,7 @@ import {
   setAreMyPacksAC,
   setPackNameSearchAC,
   setPacksCurrentPageAC,
+  setResetAllPacksFiltersAC,
 } from "../bll/packs-reducer";
 
 export const Packs = () => {
@@ -16,10 +17,11 @@ export const Packs = () => {
   const packsTotalCount = useAppSelector((state) => state.packs.cardPacksTotalCount);
   const areMyPacks = useAppSelector((state) => state.packs.areMyPacks);
   const currentPage = useAppSelector((state) => state.packs.page);
+  const packName = useAppSelector((state) => state.packs.packName);
   const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
   const dispatch = useAppDispatch();
 
-  const [searchPack, setSearchPack] = useState("");
+  const [searchPack, setSearchPack] = useState(packName);
   const [timerId, setTimerId] = useState(0);
 
   const pagesCount = Math.ceil(packsTotalCount / pageSize);
@@ -40,6 +42,7 @@ export const Packs = () => {
     setSearchPack(e.currentTarget.value);
   };
 
+  //like debounce
   useEffect(() => {
     setTimerId(
       +setTimeout(() => {
@@ -57,6 +60,15 @@ export const Packs = () => {
     dispatch(setAreMyPacksAC(false));
   };
 
+  const onResetAllPacksFilters = () => {
+    dispatch(setResetAllPacksFiltersAC());
+  };
+
+  //to clean search value in UI after reset all filters
+  useEffect(() => {
+    setSearchPack(packName);
+  }, [packName]);
+
   return (
     <div className={styles.packsList}>
       <div className={styles.header}>
@@ -70,6 +82,7 @@ export const Packs = () => {
           <label>Search</label>
           <input
             type="search"
+            value={searchPack}
             placeholder={"Provide your text"}
             onChange={onChangeSearchPackName}
           />
@@ -93,7 +106,7 @@ export const Packs = () => {
         </div>
         <RangeSlider />
         <button>
-          <FilterAltOffIcon />
+          <FilterAltOffIcon onClick={onResetAllPacksFilters} />
         </button>
       </div>
       <PacksListTable />

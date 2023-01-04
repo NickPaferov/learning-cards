@@ -11,6 +11,7 @@ const initialState = {
   areMyPacks: false,
   min: 0,
   max: 100,
+  packName: "",
 };
 
 type InitialStateType = typeof initialState;
@@ -30,6 +31,8 @@ export const packsReducer = (
       return { ...state, areMyPacks: action.areMyPacks };
     case "PACKS/SET-MIN-MAX-CARDS-COUNT":
       return { ...state, min: action.min, max: action.max };
+    case "PACKS/SET-PACK-NAME-SEARCH":
+      return { ...state, packName: action.packName };
     default:
       return state;
   }
@@ -49,16 +52,19 @@ export const setAreMyPacksAC = (areMyPacks: boolean) =>
 export const setMinMaxCardsCountAC = (min: number, max: number) =>
   ({ type: "PACKS/SET-MIN-MAX-CARDS-COUNT", min, max } as const);
 
+export const setPackNameSearchAC = (packName: string) =>
+  ({ type: "PACKS/SET-PACK-NAME-SEARCH", packName } as const);
+
 export const fetchPacksTC =
   (): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
     dispatch(setAppIsRequestProcessingAC(true));
 
-    const { min, max, page, pageCount, areMyPacks } = getState().packs;
+    const { min, max, page, pageCount, areMyPacks, packName } = getState().packs;
     let user_id = getState().auth.user?._id;
     user_id = areMyPacks ? user_id : "";
 
     try {
-      const res = await packsAPI.getPacks({ min, max, page, pageCount, user_id });
+      const res = await packsAPI.getPacks({ min, max, page, pageCount, user_id, packName });
       dispatch(setPacksAC(res.data.cardPacks));
       dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
     } catch (e) {
@@ -115,10 +121,12 @@ export type PacksActionsType =
   | SetPacksCurrentPageType
   | SetPacksTotalCountType
   | SetAreMyPacksType
-  | SetMinMaxCardsCountType;
+  | SetMinMaxCardsCountType
+  | SetPackNameSearchType;
 
 type SetPacksType = ReturnType<typeof setPacksAC>;
 type SetPacksCurrentPageType = ReturnType<typeof setPacksCurrentPageAC>;
 type SetPacksTotalCountType = ReturnType<typeof setPacksTotalCountAC>;
 type SetAreMyPacksType = ReturnType<typeof setAreMyPacksAC>;
 type SetMinMaxCardsCountType = ReturnType<typeof setMinMaxCardsCountAC>;
+type SetPackNameSearchType = ReturnType<typeof setPackNameSearchAC>;

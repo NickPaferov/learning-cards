@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,7 +7,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useAppDispatch, useAppSelector } from "../bll/store";
-import { useEffect } from "react";
 import { deletePackTC, fetchPacksTC, updatePackTC } from "../bll/packs-reducer";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
@@ -19,11 +18,12 @@ export const PacksListTable = () => {
   const currentPage = useAppSelector((state) => state.packs.page);
   const minCardsCount = useAppSelector((state) => state.packs.min);
   const maxCardsCount = useAppSelector((state) => state.packs.max);
+  const packName = useAppSelector((state) => state.packs.packName);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchPacksTC());
-  }, [dispatch, areMyPacks, currentPage, minCardsCount, maxCardsCount]);
+  }, [dispatch, packName, areMyPacks, currentPage, minCardsCount, maxCardsCount]);
 
   const onDeletePack = (id: string) => {
     dispatch(deletePackTC(id));

@@ -1,10 +1,15 @@
-import React from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { PacksListTable } from "../tables/PacksListTable";
 import styles from "./Packs.module.css";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import { RangeSlider } from "../components/RangeSlider";
 import { useAppDispatch, useAppSelector } from "../bll/store";
-import { addPackTC, setAreMyPacksAC, setPacksCurrentPageAC } from "../bll/packs-reducer";
+import {
+  addPackTC,
+  setAreMyPacksAC,
+  setPackNameSearchAC,
+  setPacksCurrentPageAC,
+} from "../bll/packs-reducer";
 
 export const Packs = () => {
   const pageSize = useAppSelector((state) => state.packs.pageCount);
@@ -13,6 +18,9 @@ export const Packs = () => {
   const currentPage = useAppSelector((state) => state.packs.page);
   const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
   const dispatch = useAppDispatch();
+
+  const [searchPack, setSearchPack] = useState("");
+  const [timerId, setTimerId] = useState(0);
 
   const pagesCount = Math.ceil(packsTotalCount / pageSize);
   const pages = [];
@@ -27,6 +35,19 @@ export const Packs = () => {
   const onAddPack = () => {
     dispatch(addPackTC({ name: "My second new pack" }));
   };
+
+  const onChangeSearchPackName = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchPack(e.currentTarget.value);
+  };
+
+  useEffect(() => {
+    setTimerId(
+      +setTimeout(() => {
+        dispatch(setPackNameSearchAC(searchPack));
+      }, 2000)
+    );
+    clearTimeout(timerId);
+  }, [dispatch, searchPack]);
 
   const onSetMyPacks = () => {
     dispatch(setAreMyPacksAC(true));
@@ -47,7 +68,11 @@ export const Packs = () => {
       <div className={styles.searchParams}>
         <div className={styles.searchName}>
           <label>Search</label>
-          <input type="search" />
+          <input
+            type="search"
+            placeholder={"Provide your text"}
+            onChange={onChangeSearchPackName}
+          />
         </div>
         <div className={styles.whoseArePacks}>
           <label>Show packs cards</label>

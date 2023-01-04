@@ -8,6 +8,8 @@ import styles from "./RangeSlider.module.css";
 export const RangeSlider = () => {
   const minValue = useAppSelector((state) => state.packs.min);
   const maxValue = useAppSelector((state) => state.packs.max);
+  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+
   const dispatch = useAppDispatch();
   const [value, setValue] = useState<number[]>([0, 100]);
 
@@ -31,6 +33,7 @@ export const RangeSlider = () => {
         <Slider
           getAriaLabel={() => "Cards count"}
           value={value}
+          disabled={isRequestProcessing}
           onChange={handleChange}
           valueLabelDisplay="off"
           onMouseUp={onSetValues}

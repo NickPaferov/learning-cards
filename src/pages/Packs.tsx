@@ -83,6 +83,7 @@ export const Packs = () => {
           <input
             type="search"
             value={searchPack}
+            disabled={isRequestProcessing}
             placeholder={"Provide your text"}
             onChange={onChangeSearchPackName}
           />
@@ -92,12 +93,14 @@ export const Packs = () => {
           <div>
             <button
               className={`${styles.btn} ${areMyPacks && styles.activeBtn}`}
+              disabled={isRequestProcessing}
               onClick={onSetMyPacks}
             >
               My
             </button>
             <button
               className={`${styles.btn} ${!areMyPacks && styles.activeBtn}`}
+              disabled={isRequestProcessing}
               onClick={onSetAllPacks}
             >
               All
@@ -105,7 +108,7 @@ export const Packs = () => {
           </div>
         </div>
         <RangeSlider />
-        <button>
+        <button disabled={isRequestProcessing}>
           <FilterAltOffIcon onClick={onResetAllPacksFilters} />
         </button>
       </div>

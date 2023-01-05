@@ -13,6 +13,7 @@ import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 
 export const PacksListTable = () => {
+  const userId = useAppSelector((state) => state.auth.user?._id);
   const packs = useAppSelector((state) => state.packs.cardPacks);
   const areMyPacks = useAppSelector((state) => state.packs.areMyPacks);
   const currentPage = useAppSelector((state) => state.packs.page);
@@ -66,13 +67,13 @@ export const PacksListTable = () => {
                 <TableCell align="right">{pack.user_name}</TableCell>
                 <TableCell align="right">
                   <SchoolOutlinedIcon color={isRequestProcessing ? "disabled" : "action"} />
-                  {areMyPacks && (
+                  {userId === pack.user_id && (
                     <BorderColorOutlinedIcon
                       color={isRequestProcessing ? "disabled" : "action"}
                       onClick={(e) => onUpdatePack(pack._id)}
                     />
                   )}
-                  {areMyPacks && (
+                  {userId === pack.user_id && (
                     <DeleteOutlinedIcon
                       color={isRequestProcessing ? "disabled" : "action"}
                       onClick={(e) => onDeletePack(pack._id)}

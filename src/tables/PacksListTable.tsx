@@ -19,6 +19,7 @@ export const PacksListTable = () => {
   const minCardsCount = useAppSelector((state) => state.packs.min);
   const maxCardsCount = useAppSelector((state) => state.packs.max);
   const packName = useAppSelector((state) => state.packs.packName);
+  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -26,10 +27,16 @@ export const PacksListTable = () => {
   }, [dispatch, packName, areMyPacks, currentPage, minCardsCount, maxCardsCount]);
 
   const onDeletePack = (id: string) => {
+    if (isRequestProcessing) {
+      return;
+    }
     dispatch(deletePackTC(id));
   };
 
   const onUpdatePack = (id: string) => {
+    if (isRequestProcessing) {
+      return;
+    }
     dispatch(updatePackTC({ _id: id, name: "My second updated pack" }));
   };
 
@@ -45,23 +52,39 @@ export const PacksListTable = () => {
             <TableCell align="right">Actions</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {packs.map((pack) => (
-            <TableRow key={pack._id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-              <TableCell component="th" scope="row">
-                {pack.name}
-              </TableCell>
-              <TableCell align="right">{pack.cardsCount}</TableCell>
-              <TableCell align="right">{new Date(pack.updated).toLocaleString("ru-RU")}</TableCell>
-              <TableCell align="right">{pack.user_name}</TableCell>
-              <TableCell align="right">
-                <SchoolOutlinedIcon />
-                <BorderColorOutlinedIcon onClick={(e) => onUpdatePack(pack._id)} />
-                <DeleteOutlinedIcon onClick={(e) => onDeletePack(pack._id)} />
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
+        {packs.length ? (
+          <TableBody>
+            {packs.map((pack) => (
+              <TableRow key={pack._id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableCell component="th" scope="row">
+                  {pack.name}
+                </TableCell>
+                <TableCell align="right">{pack.cardsCount}</TableCell>
+                <TableCell align="right">
+                  {new Date(pack.updated).toLocaleString("ru-RU")}
+                </TableCell>
+                <TableCell align="right">{pack.user_name}</TableCell>
+                <TableCell align="right">
+                  <SchoolOutlinedIcon color={isRequestProcessing ? "disabled" : "action"} />
+                  {areMyPacks && (
+                    <BorderColorOutlinedIcon
+                      color={isRequestProcessing ? "disabled" : "action"}
+                      onClick={(e) => onUpdatePack(pack._id)}
+                    />
+                  )}
+                  {areMyPacks && (
+                    <DeleteOutlinedIcon
+                      color={isRequestProcessing ? "disabled" : "action"}
+                      onClick={(e) => onDeletePack(pack._id)}
+                    />
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        ) : (
+          <div>No packs with the entered name were found. Change query parameters</div>
+        )}
       </Table>
     </TableContainer>
   );

@@ -11,6 +11,7 @@ import {
   setPacksCurrentPageAC,
   setResetAllPacksFiltersAC,
 } from "../bll/packs-reducer";
+import { useDebounce } from "../hooks/useDebounce";
 
 export const Packs = () => {
   const pageSize = useAppSelector((state) => state.packs.pageCount);
@@ -22,7 +23,7 @@ export const Packs = () => {
   const dispatch = useAppDispatch();
 
   const [searchPack, setSearchPack] = useState(packName);
-  const [timerId, setTimerId] = useState(0);
+  const debouncedValue = useDebounce<string>(searchPack, 1000);
 
   const pagesCount = Math.ceil(packsTotalCount / pageSize);
   const pages = [];
@@ -42,15 +43,9 @@ export const Packs = () => {
     setSearchPack(e.currentTarget.value);
   };
 
-  //like debounce
   useEffect(() => {
-    setTimerId(
-      +setTimeout(() => {
-        dispatch(setPackNameSearchAC(searchPack));
-      }, 2000)
-    );
-    clearTimeout(timerId);
-  }, [dispatch, searchPack]);
+    dispatch(setPackNameSearchAC(searchPack));
+  }, [debouncedValue]);
 
   const onSetMyPacks = () => {
     dispatch(setAreMyPacksAC(true));
@@ -108,8 +103,8 @@ export const Packs = () => {
           </div>
         </div>
         <RangeSlider />
-        <button disabled={isRequestProcessing}>
-          <FilterAltOffIcon onClick={onResetAllPacksFilters} />
+        <button disabled={isRequestProcessing} onClick={onResetAllPacksFilters}>
+          <FilterAltOffIcon />
         </button>
       </div>
       <PacksListTable />

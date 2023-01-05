@@ -1,14 +1,20 @@
-import { cardsAPI, CardType, CreateCardParamsType, UpdateCardParamsType } from "../api/cards-api";
+import {
+  cardsAPI,
+  CardType,
+  CreateCardParamsType,
+  GetCardsResponseType,
+  UpdateCardParamsType,
+} from "../api/cards-api";
 import { AppThunkType } from "./store";
 import { setAppIsRequestProcessingAC } from "./app-reducer";
 import { handleError } from "../utils/error-utils";
 
 const initialState = {
   cards: [] as CardType[],
-  cardsPack_id: "63a9a657e55132182084ce35",
   page: 1,
   pageCount: 3,
   cardsTotalCount: 15,
+  packName: "",
 };
 
 type InitialStateType = typeof initialState;
@@ -19,7 +25,7 @@ export const cardsReducer = (
 ): InitialStateType => {
   switch (action.type) {
     case "CARDS/SET-CARDS": {
-      return { ...state, cards: action.cards };
+      return { ...state, ...action.data };
     }
     case "CARDS/SET-CARDS-CURRENT-PAGE": {
       return { ...state, page: action.page };
@@ -32,7 +38,7 @@ export const cardsReducer = (
   }
 };
 
-const setCardsAC = (cards: CardType[]) => ({ type: "CARDS/SET-CARDS", cards } as const);
+const setCardsAC = (data: GetCardsResponseType) => ({ type: "CARDS/SET-CARDS", data } as const);
 
 export const setCardsCurrentPageAC = (page: number) =>
   ({
@@ -43,19 +49,21 @@ export const setCardsCurrentPageAC = (page: number) =>
 export const setCardsTotalCountAC = (cardsTotalCount: number) =>
   ({ type: "CARDS/SET-CARDS-TOTAL-COUNT", cardsTotalCount } as const);
 
-export const fetchCardsTC = (): AppThunkType => async (dispatch, getState) => {
-  const { cardsPack_id, page, pageCount } = getState().cards;
-  dispatch(setAppIsRequestProcessingAC(true));
-  try {
-    const res = await cardsAPI.getCards({ cardsPack_id, page, pageCount });
-    dispatch(setCardsAC(res.data.cards));
-    dispatch(setCardsTotalCountAC(res.data.cardsTotalCount));
-  } catch (e) {
-    handleError(e, dispatch);
-  } finally {
-    dispatch(setAppIsRequestProcessingAC(false));
-  }
-};
+export const fetchCardsTC =
+  (cardsPack_id: string | undefined): AppThunkType =>
+  async (dispatch, getState) => {
+    const { page, pageCount } = getState().cards;
+    dispatch(setAppIsRequestProcessingAC(true));
+    try {
+      const res = await cardsAPI.getCards({ cardsPack_id, page, pageCount });
+      dispatch(setCardsAC(res.data));
+      dispatch(setCardsTotalCountAC(res.data.cardsTotalCount));
+    } catch (e) {
+      handleError(e, dispatch);
+    } finally {
+      dispatch(setAppIsRequestProcessingAC(false));
+    }
+  };
 
 export const addCardTC =
   (params: CreateCardParamsType): AppThunkType =>
@@ -63,7 +71,7 @@ export const addCardTC =
     dispatch(setAppIsRequestProcessingAC(true));
     try {
       await cardsAPI.createCard(params);
-      dispatch(fetchCardsTC());
+      dispatch(fetchCardsTC(params.cardsPack_id));
     } catch (e) {
       handleError(e, dispatch);
     } finally {
@@ -72,12 +80,12 @@ export const addCardTC =
   };
 
 export const deleteCardTC =
-  (id: string): AppThunkType =>
+  (cardsPack_id: string | undefined, id: string): AppThunkType =>
   async (dispatch) => {
     dispatch(setAppIsRequestProcessingAC(true));
     try {
       await cardsAPI.deleteCard(id);
-      dispatch(fetchCardsTC());
+      dispatch(fetchCardsTC(cardsPack_id));
     } catch (e) {
       handleError(e, dispatch);
     } finally {
@@ -86,12 +94,12 @@ export const deleteCardTC =
   };
 
 export const updateCardTC =
-  (params: UpdateCardParamsType): AppThunkType =>
+  (cardsPack_id: string | undefined, params: UpdateCardParamsType): AppThunkType =>
   async (dispatch) => {
     dispatch(setAppIsRequestProcessingAC(true));
     try {
       await cardsAPI.updateCard(params);
-      dispatch(fetchCardsTC());
+      dispatch(fetchCardsTC(cardsPack_id));
     } catch (e) {
       handleError(e, dispatch);
     } finally {

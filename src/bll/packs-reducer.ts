@@ -1,4 +1,10 @@
-import { CreatePackParamsType, packsAPI, PackType, UpdatePackParamsType } from "../api/packs-api";
+import {
+  CreatePackParamsType,
+  GetPacksResponseType,
+  packsAPI,
+  PackType,
+  UpdatePackParamsType,
+} from "../api/packs-api";
 import { AppRootStateType, AppThunkType } from "./store";
 import { setAppIsRequestProcessingAC } from "./app-reducer";
 import { handleError } from "../utils/error-utils";
@@ -22,7 +28,7 @@ export const packsReducer = (
 ): InitialStateType => {
   switch (action.type) {
     case "PACKS/SET-PACKS":
-      return { ...state, cardPacks: action.cardPacks };
+      return { ...state, ...action.data };
     case "PACKS/SET-PACKS-CURRENT-PAGE":
       return { ...state, page: action.page };
     case "PACKS/SET-PACKS-TOTAL-COUNT":
@@ -49,7 +55,7 @@ export const packsReducer = (
   }
 };
 
-const setPacksAC = (cardPacks: PackType[]) => ({ type: "PACKS/SET-PACKS", cardPacks } as const);
+const setPacksAC = (data: GetPacksResponseType) => ({ type: "PACKS/SET-PACKS", data } as const);
 
 export const setPacksCurrentPageAC = (page: number) =>
   ({ type: "PACKS/SET-PACKS-CURRENT-PAGE", page } as const);
@@ -78,7 +84,7 @@ export const fetchPacksTC =
 
     try {
       const res = await packsAPI.getPacks({ min, max, page, pageCount, user_id, packName });
-      dispatch(setPacksAC(res.data.cardPacks));
+      dispatch(setPacksAC(res.data));
       dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
     } catch (e) {
       handleError(e, dispatch);

@@ -11,23 +11,31 @@ import { useAppDispatch, useAppSelector } from "../bll/store";
 import { deleteCardTC, fetchCardsTC, updateCardTC } from "../bll/cards-reducer";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import { useParams } from "react-router-dom";
 
 export const CardsListTable = () => {
   const cards = useAppSelector((state) => state.cards.cards);
+  const currentPage = useAppSelector((state) => state.cards.page);
   const dispatch = useAppDispatch();
 
+  const { packId } = useParams();
+
   useEffect(() => {
-    dispatch(fetchCardsTC());
-  }, [dispatch]);
+    dispatch(fetchCardsTC(packId));
+  }, [dispatch, currentPage, packId]);
 
   const onUpdateCard = (id: string) => {
     dispatch(
-      updateCardTC({ _id: id, question: "What is the largest island?", answer: "Greenland" })
+      updateCardTC(packId, {
+        _id: id,
+        question: "What is the largest island?",
+        answer: "Greenland",
+      })
     );
   };
 
   const onDeleteCard = (id: string) => {
-    dispatch(deleteCardTC(id));
+    dispatch(deleteCardTC(packId, id));
   };
 
   return (

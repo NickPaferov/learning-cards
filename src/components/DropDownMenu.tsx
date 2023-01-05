@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../bll/store";
 import { logoutTC } from "../bll/auth-reducer";
 import { PATHS } from "../App";
+import styles from "./DropDownMenu.module.css";
 
 export const DropDownMenu = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const onClickHandler = () => {
+  const onOpenMenu = () => {
     setIsMenuOpen(true);
   };
 
@@ -23,14 +24,14 @@ export const DropDownMenu = () => {
   };
 
   return (
-    <div>
+    <div className={styles.dropDownMenu}>
       {isMenuOpen ? (
         <div>
           <div onClick={navigateToProfile}>Profile</div>
           <div onClick={logOut}>LogOut</div>
         </div>
       ) : (
-        <div onClick={onClickHandler}>☰</div>
+        <div onClick={onOpenMenu}>☰</div>
       )}
     </div>
   );

@@ -5,22 +5,34 @@
     justify-content: space-between;
 }
 
-header, footer {
+header {
     height: 50px;
     background-color: lavender;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
 }
 
-.activeLink {
-    color: blue;
-    cursor: default;
+footer {
+    height: 50px;
+    background-color: lavender;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.link {
+    color: black;
+    font-size: 24px;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0 110px;
 }
 
 .userInfo {
     display: flex;
     align-items: center;
+    margin: 0 110px;
 }
 
 .avatar {
@@ -28,4 +40,8 @@ header, footer {
     width: 25px;
     border-radius: 50%;
     margin-right: 5px;
+}
+
+.btnSignIn {
+    margin: 0 110px;
 }

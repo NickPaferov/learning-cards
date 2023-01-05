@@ -11,6 +11,8 @@ import { deletePackTC, fetchPacksTC, updatePackTC } from "../bll/packs-reducer";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import { Link } from "react-router-dom";
+import { PATHS } from "../App";
 
 export const PacksListTable = () => {
   const userId = useAppSelector((state) => state.auth.user?._id);
@@ -53,41 +55,35 @@ export const PacksListTable = () => {
             <TableCell align="right">Actions</TableCell>
           </TableRow>
         </TableHead>
-        {packs.length ? (
-          <TableBody>
-            {packs.map((pack) => (
-              <TableRow key={pack._id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                <TableCell component="th" scope="row">
-                  {pack.name}
-                </TableCell>
-                <TableCell align="right">{pack.cardsCount}</TableCell>
-                <TableCell align="right">
-                  {new Date(pack.updated).toLocaleString("ru-RU")}
-                </TableCell>
-                <TableCell align="right">{pack.user_name}</TableCell>
-                <TableCell align="right">
-                  <SchoolOutlinedIcon
-                    color={pack.cardsCount < 1 || isRequestProcessing ? "disabled" : "action"}
+        <TableBody>
+          {packs.map((pack) => (
+            <TableRow key={pack._id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+              <TableCell component="th" scope="row">
+                <Link to={`${PATHS.PACKS}/${pack._id}`}>{pack.name}</Link>
+              </TableCell>
+              <TableCell align="right">{pack.cardsCount}</TableCell>
+              <TableCell align="right">{new Date(pack.updated).toLocaleString("ru-RU")}</TableCell>
+              <TableCell align="right">{pack.user_name}</TableCell>
+              <TableCell align="right">
+                <SchoolOutlinedIcon
+                  color={pack.cardsCount < 1 || isRequestProcessing ? "disabled" : "action"}
+                />
+                {userId === pack.user_id && (
+                  <BorderColorOutlinedIcon
+                    color={isRequestProcessing ? "disabled" : "action"}
+                    onClick={(e) => onUpdatePack(pack._id)}
                   />
-                  {userId === pack.user_id && (
-                    <BorderColorOutlinedIcon
-                      color={isRequestProcessing ? "disabled" : "action"}
-                      onClick={(e) => onUpdatePack(pack._id)}
-                    />
-                  )}
-                  {userId === pack.user_id && (
-                    <DeleteOutlinedIcon
-                      color={isRequestProcessing ? "disabled" : "action"}
-                      onClick={(e) => onDeletePack(pack._id)}
-                    />
-                  )}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        ) : (
-          <div>No packs with the entered name were found. Change query parameters</div>
-        )}
+                )}
+                {userId === pack.user_id && (
+                  <DeleteOutlinedIcon
+                    color={isRequestProcessing ? "disabled" : "action"}
+                    onClick={(e) => onDeletePack(pack._id)}
+                  />
+                )}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
       </Table>
     </TableContainer>
   );

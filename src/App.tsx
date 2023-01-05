@@ -68,7 +68,7 @@ function App() {
           </Route>
           <Route element={<ProtectedRoutes userIsAuth={true} redirectTo={PATHS.SIGNIN} />}>
             <Route path={PATHS.PACKS} element={<Packs />} />
-            <Route path={PATHS.CARDS} element={<Cards />} />
+            <Route path={`${PATHS.PACKS}/:packId`} element={<Cards />} />
             <Route path={PATHS.PROFILE} element={<Profile />} />
           </Route>
           <Route path={PATHS.NOT_FOUND} element={<NotFound />} />

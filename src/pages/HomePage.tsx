@@ -10,6 +10,7 @@ export const HomePage = () => {
       <div className={styles.links}>
         <Link to={PATHS.SIGNUP}>SignUp</Link>
         <Link to={PATHS.SIGNIN}>SignIn</Link>
+        <Link to={PATHS.PACKS}>Packs</Link>
         <Link to={PATHS.PROFILE}>Profile</Link>
         <Link to={PATHS.FORGOT_PASSWORD}>ForgotPassword</Link>
         <Link to={PATHS.SET_NEW_PASSWORD}>NewPassword</Link>

@@ -2,13 +2,19 @@ import React from "react";
 import { CardsListTable } from "../tables/CardsListTable";
 import styles from "./Cards.module.css";
 import { useAppDispatch, useAppSelector } from "../bll/store";
-import { addCardTC, fetchCardsTC, setCardsCurrentPageAC } from "../bll/cards-reducer";
+import { addCardTC, setCardsCurrentPageAC } from "../bll/cards-reducer";
+import { useNavigate, useParams } from "react-router-dom";
+import { PATHS } from "../App";
 
 export const Cards = () => {
   const pageSize = useAppSelector((state) => state.cards.pageCount);
   const cardsTotalCount = useAppSelector((state) => state.cards.cardsTotalCount);
   const currentPage = useAppSelector((state) => state.cards.page);
+  const packName = useAppSelector((state) => state.cards.packName);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { packId } = useParams();
 
   const pagesCount = Math.ceil(cardsTotalCount / pageSize);
   const pages = [];
@@ -18,23 +24,29 @@ export const Cards = () => {
 
   const onSetCurrentPage = (page: number) => {
     dispatch(setCardsCurrentPageAC(page));
-    dispatch(fetchCardsTC());
   };
 
   const onAddCard = () => {
     dispatch(
       addCardTC({
-        cardsPack_id: "63a9a657e55132182084ce35",
+        cardsPack_id: packId,
         question: "What is the highest mountain?",
         answer: "Everest",
       })
     );
   };
 
+  const onMoveToPacksList = () => {
+    navigate(PATHS.PACKS);
+  };
+
   return (
     <div className={styles.cardsList}>
+      <span className={styles.backToPacks} onClick={onMoveToPacksList}>
+        🡨 Back to Packs List
+      </span>
       <div className={styles.header}>
-        <h3>packName</h3>
+        <h3>{packName}</h3>
         <button onClick={onAddCard}>Add new card</button>
       </div>
       <div className={styles.searchQuestion}>

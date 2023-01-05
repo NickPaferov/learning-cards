@@ -7,19 +7,13 @@ import avatarImg from "../assets/images/avatar.jpg";
 import { DropDownMenu } from "./DropDownMenu";
 import { PATHS } from "../App";
 
-type IsActiveType = {
-  isActive: boolean;
-};
-
 export const Layout = () => {
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const userName = useAppSelector((state) => state.auth.user?.name);
   const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
   const navigate = useNavigate();
 
-  const setActive = ({ isActive }: IsActiveType) => (isActive ? styles.activeLink : "");
-
-  const onClickHandler = () => {
+  const onSignIn = () => {
     navigate(PATHS.SIGNIN);
   };
 
@@ -27,29 +21,8 @@ export const Layout = () => {
     <div className={styles.layout}>
       {isRequestProcessing && <LinearProgress />}
       <header>
-        <NavLink to={PATHS.INDEX} className={setActive}>
-          HomePage
-        </NavLink>
-        <NavLink to={PATHS.PACKS} className={setActive}>
-          Packs
-        </NavLink>
-        <NavLink to={PATHS.CARDS} className={setActive}>
-          Cards
-        </NavLink>
-        <NavLink to={PATHS.SIGNUP} className={setActive}>
-          SignUp
-        </NavLink>
-        <NavLink to={PATHS.SIGNIN} className={setActive}>
-          SignIn
-        </NavLink>
-        <NavLink to={PATHS.PROFILE} className={setActive}>
-          Profile
-        </NavLink>
-        <NavLink to={PATHS.FORGOT_PASSWORD} className={setActive}>
-          ForgotPassword
-        </NavLink>
-        <NavLink to={PATHS.SET_NEW_PASSWORD} className={setActive}>
-          NewPassword
+        <NavLink to={PATHS.INDEX} className={styles.link}>
+          Learning Cards
         </NavLink>
         {isLoggedIn ? (
           <div className={styles.userInfo}>
@@ -58,7 +31,9 @@ export const Layout = () => {
             <DropDownMenu />
           </div>
         ) : (
-          <button onClick={onClickHandler}>SignIn</button>
+          <button className={styles.btnSignIn} onClick={onSignIn}>
+            SignIn
+          </button>
         )}
       </header>
       <Outlet />

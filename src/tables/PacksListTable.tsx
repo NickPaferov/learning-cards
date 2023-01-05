@@ -66,7 +66,9 @@ export const PacksListTable = () => {
                 </TableCell>
                 <TableCell align="right">{pack.user_name}</TableCell>
                 <TableCell align="right">
-                  <SchoolOutlinedIcon color={isRequestProcessing ? "disabled" : "action"} />
+                  <SchoolOutlinedIcon
+                    color={pack.cardsCount < 1 || isRequestProcessing ? "disabled" : "action"}
+                  />
                   {userId === pack.user_id && (
                     <BorderColorOutlinedIcon
                       color={isRequestProcessing ? "disabled" : "action"}

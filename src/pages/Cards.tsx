@@ -11,6 +11,7 @@ export const Cards = () => {
   const cardsTotalCount = useAppSelector((state) => state.cards.cardsTotalCount);
   const currentPage = useAppSelector((state) => state.cards.page);
   const packName = useAppSelector((state) => state.cards.packName);
+  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -47,11 +48,13 @@ export const Cards = () => {
       </span>
       <div className={styles.header}>
         <h3>{packName}</h3>
-        <button onClick={onAddCard}>Add new card</button>
+        <button disabled={isRequestProcessing} onClick={onAddCard}>
+          Add new card
+        </button>
       </div>
       <div className={styles.searchQuestion}>
         <label>Search</label>
-        <input type="search" />
+        <input type="search" placeholder="Provide your text" disabled={isRequestProcessing} />
       </div>
       <CardsListTable />
       {pages.map((p, index) => (

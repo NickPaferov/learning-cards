@@ -16,6 +16,8 @@ import { useParams } from "react-router-dom";
 export const CardsListTable = () => {
   const cards = useAppSelector((state) => state.cards.cards);
   const currentPage = useAppSelector((state) => state.cards.page);
+  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+
   const dispatch = useAppDispatch();
 
   const { packId } = useParams();
@@ -25,6 +27,9 @@ export const CardsListTable = () => {
   }, [dispatch, currentPage, packId]);
 
   const onUpdateCard = (id: string) => {
+    if (isRequestProcessing) {
+      return;
+    }
     dispatch(
       updateCardTC(packId, {
         _id: id,
@@ -35,6 +40,9 @@ export const CardsListTable = () => {
   };
 
   const onDeleteCard = (id: string) => {
+    if (isRequestProcessing) {
+      return;
+    }
     dispatch(deleteCardTC(packId, id));
   };
 
@@ -60,8 +68,14 @@ export const CardsListTable = () => {
               <TableCell align="right">{new Date(card.updated).toLocaleString("ru-RU")}</TableCell>
               <TableCell align="right">{card.grade}</TableCell>
               <TableCell align="right">
-                <BorderColorOutlinedIcon onClick={(e) => onUpdateCard(card._id)} />
-                <DeleteOutlinedIcon onClick={(e) => onDeleteCard(card._id)} />
+                <BorderColorOutlinedIcon
+                  color={isRequestProcessing ? "disabled" : "action"}
+                  onClick={(e) => onUpdateCard(card._id)}
+                />
+                <DeleteOutlinedIcon
+                  color={isRequestProcessing ? "disabled" : "action"}
+                  onClick={(e) => onDeleteCard(card._id)}
+                />
               </TableCell>
             </TableRow>
           ))}

@@ -1,17 +1,19 @@
-import React from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { CardsListTable } from "./CardsListTable";
 import styles from "./Cards.module.css";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { addCardTC, setCardsCurrentPageAC } from "../../bll/cards-reducer";
+import { addCardTC, setCardQuestionAC, setCardsCurrentPageAC } from "../../bll/cards-reducer";
 import { useNavigate, useParams } from "react-router-dom";
 import { PATHS } from "../../app/App";
 import {
+  selectCardQuestion,
   selectCardsListName,
   selectCardsPageSize,
   selectCardsTotalCount,
   selectCurrentCardsPage,
   selectRequestProcessingStatus,
 } from "../../utils/selectors";
+import { useDebounce } from "../../hooks/useDebounce";
 
 export const Cards = () => {
   const pageSize = useAppSelector(selectCardsPageSize);
@@ -19,8 +21,12 @@ export const Cards = () => {
   const currentPage = useAppSelector(selectCurrentCardsPage);
   const cardsListName = useAppSelector(selectCardsListName);
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
+  const cardQuestion = useAppSelector(selectCardQuestion);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const [searchQuestion, setSearchQuestion] = useState(cardQuestion);
+  const debouncedValue = useDebounce<string>(searchQuestion, 1000);
 
   const { packId } = useParams();
 
@@ -48,6 +54,14 @@ export const Cards = () => {
     navigate(PATHS.PACKS);
   };
 
+  const onChangeSearchCardQuestion = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuestion(e.currentTarget.value);
+  };
+
+  useEffect(() => {
+    dispatch(setCardQuestionAC(searchQuestion));
+  }, [debouncedValue]);
+
   return (
     <div className={styles.cardsList}>
       <span className={styles.backToPacks} onClick={onMoveToPacksList}>
@@ -61,7 +75,13 @@ export const Cards = () => {
       </div>
       <div className={styles.searchQuestion}>
         <label>Search</label>
-        <input type="search" placeholder="Provide your text" disabled={isRequestProcessing} />
+        <input
+          type="search"
+          placeholder="Provide your text"
+          value={searchQuestion}
+          disabled={isRequestProcessing}
+          onChange={onChangeSearchCardQuestion}
+        />
       </div>
       <CardsListTable />
       {pages.map((p, index) => (

@@ -32,3 +32,4 @@ export const selectCardsTotalCount = (state: AppRootStateType) => state.cards.ca
 export const selectCurrentCardsPage = (state: AppRootStateType) => state.cards.page;
 export const selectCards = (state: AppRootStateType) => state.cards.cards;
 export const selectCardsListName = (state: AppRootStateType) => state.cards.packName;
+export const selectCardQuestion = (state: AppRootStateType) => state.cards.cardQuestion;

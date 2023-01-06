@@ -15,6 +15,7 @@ const initialState = {
   pageCount: 3,
   cardsTotalCount: 15,
   packName: "",
+  cardQuestion: "",
 };
 
 type InitialStateType = typeof initialState;
@@ -32,6 +33,8 @@ export const cardsReducer = (
     }
     case "CARDS/SET-CARDS-TOTAL-COUNT":
       return { ...state, cardsTotalCount: action.cardsTotalCount };
+    case "CARDS/SET-CARD-QUESTION":
+      return { ...state, cardQuestion: action.cardQuestion };
     default: {
       return state;
     }
@@ -49,13 +52,16 @@ export const setCardsCurrentPageAC = (page: number) =>
 export const setCardsTotalCountAC = (cardsTotalCount: number) =>
   ({ type: "CARDS/SET-CARDS-TOTAL-COUNT", cardsTotalCount } as const);
 
+export const setCardQuestionAC = (cardQuestion: string) =>
+  ({ type: "CARDS/SET-CARD-QUESTION", cardQuestion } as const);
+
 export const fetchCardsTC =
   (cardsPack_id: string | undefined): AppThunkType =>
   async (dispatch, getState) => {
-    const { page, pageCount } = getState().cards;
+    const { page, pageCount, cardQuestion } = getState().cards;
     dispatch(setAppIsRequestProcessingAC(true));
     try {
-      const res = await cardsAPI.getCards({ cardsPack_id, page, pageCount });
+      const res = await cardsAPI.getCards({ cardsPack_id, page, pageCount, cardQuestion });
       dispatch(setCardsAC(res.data));
       dispatch(setCardsTotalCountAC(res.data.cardsTotalCount));
     } catch (e) {
@@ -107,8 +113,13 @@ export const updateCardTC =
     }
   };
 
-export type CardsActionsType = SetCardsType | SetCardsCurrentPageType | SetCardsTotalCountType;
+export type CardsActionsType =
+  | SetCardsType
+  | SetCardsCurrentPageType
+  | SetCardsTotalCountType
+  | SetCardQuestionType;
 
 type SetCardsType = ReturnType<typeof setCardsAC>;
 type SetCardsCurrentPageType = ReturnType<typeof setCardsCurrentPageAC>;
 type SetCardsTotalCountType = ReturnType<typeof setCardsTotalCountAC>;
+type SetCardQuestionType = ReturnType<typeof setCardQuestionAC>;

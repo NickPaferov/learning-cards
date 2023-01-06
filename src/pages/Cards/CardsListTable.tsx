@@ -13,6 +13,7 @@ import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useParams } from "react-router-dom";
 import {
+  selectCardQuestion,
   selectCards,
   selectCurrentCardsPage,
   selectRequestProcessingStatus,
@@ -21,6 +22,7 @@ import {
 export const CardsListTable = () => {
   const cards = useAppSelector(selectCards);
   const currentPage = useAppSelector(selectCurrentCardsPage);
+  const cardQuestion = useAppSelector(selectCardQuestion);
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
 
   const dispatch = useAppDispatch();
@@ -29,7 +31,7 @@ export const CardsListTable = () => {
 
   useEffect(() => {
     dispatch(fetchCardsTC(packId));
-  }, [dispatch, currentPage, packId]);
+  }, [dispatch, currentPage, packId, cardQuestion]);
 
   const onUpdateCard = (id: string) => {
     if (isRequestProcessing) {

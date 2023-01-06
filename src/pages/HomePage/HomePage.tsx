@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { PATHS } from "../App";
+import { PATHS } from "../../app/App";
 import styles from "./HomePage.module.css";
 
 export const HomePage = () => {

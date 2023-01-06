@@ -2,15 +2,20 @@ import LinearProgress from "@mui/material/LinearProgress/LinearProgress";
 import React from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import styles from "./Layout.module.css";
-import { useAppSelector } from "../bll/store";
-import avatarImg from "../assets/images/avatar.jpg";
-import { DropDownMenu } from "./DropDownMenu";
-import { PATHS } from "../App";
+import { useAppSelector } from "../../bll/store";
+import avatarImg from "../../assets/images/avatar.jpg";
+import { DropDownMenu } from "../DropDownMenu/DropDownMenu";
+import { PATHS } from "../../app/App";
+import {
+  selectLoginStatus,
+  selectRequestProcessingStatus,
+  selectUserName,
+} from "../../utils/selectors";
 
 export const Layout = () => {
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
-  const userName = useAppSelector((state) => state.auth.user?.name);
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+  const isLoggedIn = useAppSelector(selectLoginStatus);
+  const userName = useAppSelector(selectUserName);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const navigate = useNavigate();
 
   const onSignIn = () => {

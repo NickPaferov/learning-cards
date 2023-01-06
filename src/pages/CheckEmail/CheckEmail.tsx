@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./CheckEmail.module.css";
-import letterImg from "../assets/images/letter.png";
-import { PATHS } from "../App";
+import letterImg from "../../assets/images/letter.png";
+import { PATHS } from "../../app/App";
 
 type PropsType = {
   email: string;
@@ -11,7 +11,7 @@ type PropsType = {
 export const CheckEmail = (props: PropsType) => {
   const navigate = useNavigate();
 
-  const onClickHandler = () => {
+  const onMoveToLogin = () => {
     navigate(PATHS.SIGNIN);
   };
 
@@ -22,7 +22,7 @@ export const CheckEmail = (props: PropsType) => {
       <span className={styles.clarification}>
         We've sent an Email with instructions to {props.email}
       </span>
-      <button onClick={onClickHandler}>Back to login</button>
+      <button onClick={onMoveToLogin}>Back to login</button>
     </div>
   );
 };

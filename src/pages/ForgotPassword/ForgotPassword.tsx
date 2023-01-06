@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { forgotPasswordTC } from "../bll/auth-reducer";
-import { useAppDispatch, useAppSelector } from "../bll/store";
-import { CheckEmail } from "./CheckEmail";
-import { PATHS } from "../App";
+import { forgotPasswordTC } from "../../bll/auth-reducer";
+import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { CheckEmail } from "../CheckEmail/CheckEmail";
+import { PATHS } from "../../app/App";
+import { selectInstructionSendStatus, selectRequestProcessingStatus } from "../../utils/selectors";
 
 type FormInputsType = {
   email: string;
@@ -18,8 +19,8 @@ const schema = yup.object({
 });
 
 export const ForgotPassword = () => {
-  const isInstructionsSent = useAppSelector((state) => state.auth.isInstructionsSent);
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+  const isInstructionsSent = useAppSelector(selectInstructionSendStatus);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const dispatch = useAppDispatch();
 
   const [emailForInstructions, setEmailForInstructions] = useState<null | string>(null);

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { PATHS } from "../App";
+import { PATHS } from "../../app/App";
 
 export const NotFound = () => {
   return (

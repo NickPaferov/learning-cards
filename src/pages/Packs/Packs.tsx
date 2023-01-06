@@ -1,25 +1,33 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { PacksListTable } from "../tables/PacksListTable";
+import { PacksListTable } from "./PacksListTable";
 import styles from "./Packs.module.css";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
-import { RangeSlider } from "../components/RangeSlider";
-import { useAppDispatch, useAppSelector } from "../bll/store";
+import { RangeSlider } from "../../components/RangeSlider/RangeSlider";
+import { useAppDispatch, useAppSelector } from "../../bll/store";
 import {
   addPackTC,
   setAreMyPacksAC,
   setPackNameSearchAC,
   setPacksCurrentPageAC,
   setResetAllPacksFiltersAC,
-} from "../bll/packs-reducer";
-import { useDebounce } from "../hooks/useDebounce";
+} from "../../bll/packs-reducer";
+import { useDebounce } from "../../hooks/useDebounce";
+import {
+  selectAreMyPacksStatus,
+  selectCurrentPacksPage,
+  selectPackName,
+  selectPacksPageSize,
+  selectPacksTotalCount,
+  selectRequestProcessingStatus,
+} from "../../utils/selectors";
 
 export const Packs = () => {
-  const pageSize = useAppSelector((state) => state.packs.pageCount);
-  const packsTotalCount = useAppSelector((state) => state.packs.cardPacksTotalCount);
-  const areMyPacks = useAppSelector((state) => state.packs.areMyPacks);
-  const currentPage = useAppSelector((state) => state.packs.page);
-  const packName = useAppSelector((state) => state.packs.packName);
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+  const pageSize = useAppSelector(selectPacksPageSize);
+  const packsTotalCount = useAppSelector(selectPacksTotalCount);
+  const areMyPacks = useAppSelector(selectAreMyPacksStatus);
+  const currentPage = useAppSelector(selectCurrentPacksPage);
+  const packName = useAppSelector(selectPackName);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const dispatch = useAppDispatch();
 
   const [searchPack, setSearchPack] = useState(packName);

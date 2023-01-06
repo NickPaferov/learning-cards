@@ -1,21 +1,22 @@
 import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { SignIn } from "./pages/SignIn";
-import { SignUp } from "./pages/SignUp";
-import { Profile } from "./pages/Profile";
-import { ForgotPassword } from "./pages/ForgotPassword";
-import { HomePage } from "./pages/HomePage";
-import { NotFound } from "./pages/NotFound";
-import { Layout } from "./components/Layout";
-import { SetNewPassword } from "./pages/SetNewPassword";
-import { useAppDispatch, useAppSelector } from "./bll/store";
-import { initializeAppTC } from "./bll/app-reducer";
+import { SignIn } from "../pages/SignIn/SignIn";
+import { SignUp } from "../pages/SignUp/SignUp";
+import { Profile } from "../pages/Profile/Profile";
+import { ForgotPassword } from "../pages/ForgotPassword/ForgotPassword";
+import { HomePage } from "../pages/HomePage/HomePage";
+import { NotFound } from "../pages/NotFound/NotFound";
+import { Layout } from "../components/Layout/Layout";
+import { SetNewPassword } from "../pages/SetNewPassword/SetNewPassword";
+import { useAppDispatch, useAppSelector } from "../bll/store";
+import { initializeAppTC } from "../bll/app-reducer";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
-import { ErrorSnackbar } from "./components/ErrorSnackbar";
-import { ProtectedRoutes } from "./hooks/ProtectedRoute";
-import { Packs } from "./pages/Packs";
-import { Cards } from "./pages/Cards";
+import { ErrorSnackbar } from "../components/ErrorSnackbar/ErrorSnackbar";
+import { ProtectedRoutes } from "../hooks/ProtectedRoute";
+import { Packs } from "../pages/Packs/Packs";
+import { Cards } from "../pages/Cards/Cards";
+import { selectAppInitStatus } from "../utils/selectors";
 
 export enum PATHS {
   INDEX = "/",
@@ -30,7 +31,7 @@ export enum PATHS {
 }
 
 function App() {
-  const isInit = useAppSelector((state) => state.app.isInitialized);
+  const isInit = useAppSelector(selectAppInitStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

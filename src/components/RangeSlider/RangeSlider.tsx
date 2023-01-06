@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
-import { setMinMaxCardsCountAC } from "../bll/packs-reducer";
-import { useAppDispatch, useAppSelector } from "../bll/store";
+import { setMinMaxCardsCountAC } from "../../bll/packs-reducer";
+import { useAppDispatch, useAppSelector } from "../../bll/store";
 import styles from "./RangeSlider.module.css";
 
 export const RangeSlider = () => {

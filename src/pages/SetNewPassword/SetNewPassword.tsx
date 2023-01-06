@@ -3,10 +3,11 @@ import styles from "./SetNewPassword.module.css";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAppDispatch, useAppSelector } from "../bll/store";
-import { setNewPasswordTC } from "../bll/auth-reducer";
+import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { setNewPasswordTC } from "../../bll/auth-reducer";
 import { Navigate, useParams } from "react-router-dom";
-import { PATHS } from "../App";
+import { PATHS } from "../../app/App";
+import { selectPasswordChangeStatus, selectRequestProcessingStatus } from "../../utils/selectors";
 
 type FormInputsType = {
   email: string;
@@ -29,8 +30,8 @@ const schema = yup
   .required();
 
 export const SetNewPassword = () => {
-  const isPasswordChanged = useAppSelector((state) => state.auth.isPasswordChanged);
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+  const isPasswordChanged = useAppSelector(selectPasswordChangeStatus);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const dispatch = useAppDispatch();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);

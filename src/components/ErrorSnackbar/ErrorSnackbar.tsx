@@ -1,15 +1,16 @@
 import * as React from "react";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import { useAppDispatch, useAppSelector } from "../bll/store";
-import { setAppErrorAC } from "../bll/app-reducer";
+import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { setAppErrorAC } from "../../bll/app-reducer";
+import { selectAppError } from "../../utils/selectors";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export const ErrorSnackbar = () => {
-  const error = useAppSelector((state) => state.app.error);
+  const error = useAppSelector(selectAppError);
   const dispatch = useAppDispatch();
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {

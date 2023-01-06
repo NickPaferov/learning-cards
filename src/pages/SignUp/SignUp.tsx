@@ -4,9 +4,10 @@ import { Link, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAppDispatch, useAppSelector } from "../bll/store";
-import { registerTC } from "../bll/auth-reducer";
-import { PATHS } from "../App";
+import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { registerTC } from "../../bll/auth-reducer";
+import { PATHS } from "../../app/App";
+import { selectRegisterStatus, selectRequestProcessingStatus } from "../../utils/selectors";
 
 type FormInputsType = {
   email: string;
@@ -30,8 +31,8 @@ const schema = yup
   .required();
 
 export const SignUp = () => {
-  const isRegistered = useAppSelector((state) => state.auth.isRegistered);
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+  const isRegistered = useAppSelector(selectRegisterStatus);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const dispatch = useAppDispatch();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);

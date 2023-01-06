@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import styles from "./Profile.module.css";
-import avatarImg from "./../assets/images/avatar.jpg";
-import { logoutTC, updateMeTC } from "../bll/auth-reducer";
-import { useAppDispatch, useAppSelector } from "../bll/store";
+import avatarImg from "../../assets/images/avatar.jpg";
+import { logoutTC, updateMeTC } from "../../bll/auth-reducer";
+import { useAppDispatch, useAppSelector } from "../../bll/store";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  selectRequestProcessingStatus,
+  selectUserEmail,
+  selectUserName,
+} from "../../utils/selectors";
 
 type FormInputsType = {
   name: string;
@@ -18,9 +23,9 @@ const schema = yup
   .required();
 
 export const Profile = () => {
-  const userName = useAppSelector((state) => state.auth.user?.name);
-  const email = useAppSelector((state) => state.auth.user?.email);
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+  const userName = useAppSelector(selectUserName);
+  const email = useAppSelector(selectUserEmail);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const dispatch = useAppDispatch();
 
   const [editMode, setEditMode] = useState(false);

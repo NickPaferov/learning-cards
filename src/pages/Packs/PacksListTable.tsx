@@ -6,23 +6,33 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useAppDispatch, useAppSelector } from "../bll/store";
-import { deletePackTC, fetchPacksTC, updatePackTC } from "../bll/packs-reducer";
+import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { deletePackTC, fetchPacksTC, updatePackTC } from "../../bll/packs-reducer";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { Link } from "react-router-dom";
-import { PATHS } from "../App";
+import { PATHS } from "../../app/App";
+import {
+  selectAreMyPacksStatus,
+  selectCurrentPacksPage,
+  selectMaxCardsCount,
+  selectMinCardsCount,
+  selectPackName,
+  selectPacks,
+  selectRequestProcessingStatus,
+  selectUserId,
+} from "../../utils/selectors";
 
 export const PacksListTable = () => {
-  const userId = useAppSelector((state) => state.auth.user?._id);
-  const packs = useAppSelector((state) => state.packs.cardPacks);
-  const areMyPacks = useAppSelector((state) => state.packs.areMyPacks);
-  const currentPage = useAppSelector((state) => state.packs.page);
-  const minCardsCount = useAppSelector((state) => state.packs.min);
-  const maxCardsCount = useAppSelector((state) => state.packs.max);
-  const packName = useAppSelector((state) => state.packs.packName);
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+  const userId = useAppSelector(selectUserId);
+  const packs = useAppSelector(selectPacks);
+  const areMyPacks = useAppSelector(selectAreMyPacksStatus);
+  const currentPage = useAppSelector(selectCurrentPacksPage);
+  const minCardsCount = useAppSelector(selectMinCardsCount);
+  const maxCardsCount = useAppSelector(selectMaxCardsCount);
+  const packName = useAppSelector(selectPackName);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

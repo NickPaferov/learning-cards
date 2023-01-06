@@ -1,17 +1,24 @@
 import React from "react";
-import { CardsListTable } from "../tables/CardsListTable";
+import { CardsListTable } from "./CardsListTable";
 import styles from "./Cards.module.css";
-import { useAppDispatch, useAppSelector } from "../bll/store";
-import { addCardTC, setCardsCurrentPageAC } from "../bll/cards-reducer";
+import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { addCardTC, setCardsCurrentPageAC } from "../../bll/cards-reducer";
 import { useNavigate, useParams } from "react-router-dom";
-import { PATHS } from "../App";
+import { PATHS } from "../../app/App";
+import {
+  selectCardsListName,
+  selectCardsPageSize,
+  selectCardsTotalCount,
+  selectCurrentCardsPage,
+  selectRequestProcessingStatus,
+} from "../../utils/selectors";
 
 export const Cards = () => {
-  const pageSize = useAppSelector((state) => state.cards.pageCount);
-  const cardsTotalCount = useAppSelector((state) => state.cards.cardsTotalCount);
-  const currentPage = useAppSelector((state) => state.cards.page);
-  const packName = useAppSelector((state) => state.cards.packName);
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+  const pageSize = useAppSelector(selectCardsPageSize);
+  const cardsTotalCount = useAppSelector(selectCardsTotalCount);
+  const currentPage = useAppSelector(selectCurrentCardsPage);
+  const cardsListName = useAppSelector(selectCardsListName);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -47,7 +54,7 @@ export const Cards = () => {
         🡨 Back to Packs List
       </span>
       <div className={styles.header}>
-        <h3>{packName}</h3>
+        <h3>{cardsListName}</h3>
         <button disabled={isRequestProcessing} onClick={onAddCard}>
           Add new card
         </button>

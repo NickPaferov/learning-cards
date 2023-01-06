@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../bll/store";
-import { logoutTC } from "../bll/auth-reducer";
-import { PATHS } from "../App";
+import { useAppDispatch } from "../../bll/store";
+import { logoutTC } from "../../bll/auth-reducer";
+import { PATHS } from "../../app/App";
 import styles from "./DropDownMenu.module.css";
 
 export const DropDownMenu = () => {

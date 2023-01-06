@@ -7,16 +7,21 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useAppDispatch, useAppSelector } from "../bll/store";
-import { deleteCardTC, fetchCardsTC, updateCardTC } from "../bll/cards-reducer";
+import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { deleteCardTC, fetchCardsTC, updateCardTC } from "../../bll/cards-reducer";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useParams } from "react-router-dom";
+import {
+  selectCards,
+  selectCurrentCardsPage,
+  selectRequestProcessingStatus,
+} from "../../utils/selectors";
 
 export const CardsListTable = () => {
-  const cards = useAppSelector((state) => state.cards.cards);
-  const currentPage = useAppSelector((state) => state.cards.page);
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+  const cards = useAppSelector(selectCards);
+  const currentPage = useAppSelector(selectCurrentCardsPage);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
 
   const dispatch = useAppDispatch();
 

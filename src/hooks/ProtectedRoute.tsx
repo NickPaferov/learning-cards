@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAppSelector } from "../bll/store";
+import { selectLoginStatus } from "../utils/selectors";
 
 type PropsType = {
   userIsAuth: boolean;
@@ -8,7 +9,7 @@ type PropsType = {
 };
 
 export const ProtectedRoutes = ({ userIsAuth, redirectTo }: PropsType) => {
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector(selectLoginStatus);
 
   return userIsAuth === isLoggedIn ? <Outlet /> : <Navigate to={redirectTo} replace />;
 };

@@ -9,6 +9,12 @@ header {
     height: 50px;
     background-color: lavender;
     display: flex;
+    justify-content: center;
+}
+
+.wrapper {
+    width: 80%;
+    display: flex;
     justify-content: space-between;
     align-items: center;
 }
@@ -26,13 +32,11 @@ footer {
     font-size: 24px;
     cursor: pointer;
     text-decoration: none;
-    margin: 0 110px;
 }
 
 .userInfo {
     display: flex;
     align-items: center;
-    margin: 0 110px;
 }
 
 .avatar {
@@ -40,8 +44,4 @@ footer {
     width: 25px;
     border-radius: 50%;
     margin-right: 5px;
-}
-
-.btnSignIn {
-    margin: 0 110px;
 }

@@ -3,8 +3,7 @@ import { CardsListTable } from "./CardsListTable";
 import styles from "./Cards.module.css";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { addCardTC, setCardQuestionAC, setCardsCurrentPageAC } from "../../bll/cards-reducer";
-import { useNavigate, useParams } from "react-router-dom";
-import { PATHS } from "../../app/App";
+import { useParams } from "react-router-dom";
 import {
   selectCardQuestion,
   selectCardsListName,
@@ -14,6 +13,7 @@ import {
   selectRequestProcessingStatus,
 } from "../../utils/selectors";
 import { useDebounce } from "../../hooks/useDebounce";
+import { BackToPacks } from "../../components/BackToPacks/BackToPacks";
 
 export const Cards = () => {
   const pageSize = useAppSelector(selectCardsPageSize);
@@ -23,7 +23,6 @@ export const Cards = () => {
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const cardQuestion = useAppSelector(selectCardQuestion);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const [searchQuestion, setSearchQuestion] = useState(cardQuestion);
   const debouncedValue = useDebounce<string>(searchQuestion, 1000);
@@ -50,10 +49,6 @@ export const Cards = () => {
     );
   };
 
-  const onMoveToPacksList = () => {
-    navigate(PATHS.PACKS);
-  };
-
   const onChangeSearchCardQuestion = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuestion(e.currentTarget.value);
   };
@@ -64,37 +59,37 @@ export const Cards = () => {
 
   return (
     <div className={styles.cardsList}>
-      <span className={styles.backToPacks} onClick={onMoveToPacksList}>
-        🡨 Back to Packs List
-      </span>
-      <div className={styles.header}>
-        <h3>{cardsListName}</h3>
-        <button disabled={isRequestProcessing} onClick={onAddCard}>
-          Add new card
-        </button>
+      <BackToPacks />
+      <div>
+        <div className={styles.header}>
+          <h3>{cardsListName}</h3>
+          <button disabled={isRequestProcessing} onClick={onAddCard}>
+            Add new card
+          </button>
+        </div>
+        <div className={styles.searchQuestion}>
+          <label>Search</label>
+          <input
+            type="search"
+            placeholder="Provide your text"
+            value={searchQuestion}
+            disabled={isRequestProcessing}
+            onChange={onChangeSearchCardQuestion}
+          />
+        </div>
+        <CardsListTable />
+        {pages.map((p, index) => (
+          <span
+            key={index}
+            className={
+              currentPage === p ? `${styles.pagination} ${styles.selectedPage}` : styles.pagination
+            }
+            onClick={(e) => onSetCurrentPage(p)}
+          >
+            {p}
+          </span>
+        ))}
       </div>
-      <div className={styles.searchQuestion}>
-        <label>Search</label>
-        <input
-          type="search"
-          placeholder="Provide your text"
-          value={searchQuestion}
-          disabled={isRequestProcessing}
-          onChange={onChangeSearchCardQuestion}
-        />
-      </div>
-      <CardsListTable />
-      {pages.map((p, index) => (
-        <span
-          key={index}
-          className={
-            currentPage === p ? `${styles.pagination} ${styles.selectedPage}` : styles.pagination
-          }
-          onClick={(e) => onSetCurrentPage(p)}
-        >
-          {p}
-        </span>
-      ))}
     </div>
   );
 };

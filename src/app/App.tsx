@@ -58,7 +58,7 @@ function App() {
       <Routes>
         <Route path={PATHS.INDEX} element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route element={<ProtectedRoutes userIsAuth={false} redirectTo={PATHS.PROFILE} />}>
+          <Route element={<ProtectedRoutes userIsAuth={false} redirectTo={PATHS.PACKS} />}>
             <Route path={PATHS.SIGNUP} element={<SignUp />} />
             <Route path={PATHS.SIGNIN} element={<SignIn />} />
             <Route path={PATHS.FORGOT_PASSWORD} element={<ForgotPassword />} />

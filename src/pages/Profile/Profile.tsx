@@ -11,6 +11,7 @@ import {
   selectUserEmail,
   selectUserName,
 } from "../../utils/selectors";
+import { BackToPacks } from "../../components/BackToPacks/BackToPacks";
 
 type FormInputsType = {
   name: string;
@@ -53,27 +54,30 @@ export const Profile = () => {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <h2>Personal information</h2>
-      <img alt="avatar" src={avatarImg} className={styles.avatar} />
-      {editMode ? (
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input autoFocus={true} defaultValue={userName} {...register("name")} />
-          <button disabled={isRequestProcessing}>Save</button>
-          <p className={styles.error}>{errors.name?.message}</p>
-        </form>
-      ) : (
-        <div>
-          <span>{userName}</span>
-          <button disabled={isRequestProcessing} onClick={onEditModeHandler}>
-            🖉
-          </button>
-        </div>
-      )}
-      <span className={styles.email}>{email}</span>
-      <button disabled={isRequestProcessing} onClick={onClickLogOutHandler}>
-        Log out
-      </button>
+    <div className={styles.profile}>
+      <BackToPacks />
+      <div className={styles.wrapper}>
+        <h2>Personal information</h2>
+        <img alt="avatar" src={avatarImg} className={styles.avatar} />
+        {editMode ? (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <input autoFocus={true} defaultValue={userName} {...register("name")} />
+            <button disabled={isRequestProcessing}>Save</button>
+            <p className={styles.error}>{errors.name?.message}</p>
+          </form>
+        ) : (
+          <div>
+            <span>{userName}</span>
+            <button disabled={isRequestProcessing} onClick={onEditModeHandler}>
+              🖉
+            </button>
+          </div>
+        )}
+        <span className={styles.email}>{email}</span>
+        <button disabled={isRequestProcessing} onClick={onClickLogOutHandler}>
+          Log out
+        </button>
+      </div>
     </div>
   );
 };

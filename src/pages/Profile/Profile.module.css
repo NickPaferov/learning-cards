@@ -1,3 +1,8 @@
+.profile {
+    width: 80%;
+    margin: auto;
+}
+
 .wrapper {
     margin: auto;
     display: flex;

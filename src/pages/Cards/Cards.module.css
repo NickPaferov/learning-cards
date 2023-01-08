@@ -3,11 +3,6 @@
     margin: auto;
 }
 
-.backToPacks {
-    display: flex;
-    justify-content: flex-start;
-}
-
 .header {
     display: flex;
     justify-content: space-between;

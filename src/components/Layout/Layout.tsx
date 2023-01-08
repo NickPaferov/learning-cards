@@ -26,20 +26,22 @@ export const Layout = () => {
     <div className={styles.layout}>
       {isRequestProcessing && <LinearProgress />}
       <header>
-        <NavLink to={PATHS.INDEX} className={styles.link}>
-          Learning Cards
-        </NavLink>
-        {isLoggedIn ? (
-          <div className={styles.userInfo}>
-            <img alt="avatar" src={avatarImg} className={styles.avatar} />
-            <span>{userName}</span>
-            <DropDownMenu />
-          </div>
-        ) : (
-          <button className={styles.btnSignIn} onClick={onSignIn}>
-            SignIn
-          </button>
-        )}
+        <div className={styles.wrapper}>
+          <NavLink to={PATHS.INDEX} className={styles.link}>
+            Learning Cards
+          </NavLink>
+          {isLoggedIn ? (
+            <div className={styles.userInfo}>
+              <img alt="avatar" src={avatarImg} className={styles.avatar} />
+              <span>{userName}</span>
+              <DropDownMenu />
+            </div>
+          ) : (
+            <button className={styles.btnSignIn} onClick={onSignIn}>
+              SignIn
+            </button>
+          )}
+        </div>
       </header>
       <Outlet />
       <footer className={styles.footer}>2022</footer>

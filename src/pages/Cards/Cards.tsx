@@ -6,16 +6,22 @@ import { addCardTC, setCardQuestionAC, setCardsCurrentPageAC } from "../../bll/c
 import { useParams } from "react-router-dom";
 import {
   selectCardQuestion,
+  selectCards,
   selectCardsListName,
   selectCardsPageSize,
   selectCardsTotalCount,
   selectCurrentCardsPage,
+  selectPackUserId,
   selectRequestProcessingStatus,
+  selectUserId,
 } from "../../utils/selectors";
 import { useDebounce } from "../../hooks/useDebounce";
 import { BackToPacks } from "../../components/BackToPacks/BackToPacks";
 
 export const Cards = () => {
+  const userId = useAppSelector(selectUserId);
+  const packUserId = useAppSelector(selectPackUserId);
+  const cards = useAppSelector(selectCards);
   const pageSize = useAppSelector(selectCardsPageSize);
   const cardsTotalCount = useAppSelector(selectCardsTotalCount);
   const currentPage = useAppSelector(selectCurrentCardsPage);
@@ -63,9 +69,13 @@ export const Cards = () => {
       <div>
         <div className={styles.header}>
           <h3>{cardsListName}</h3>
-          <button disabled={isRequestProcessing} onClick={onAddCard}>
-            Add new card
-          </button>
+          {userId === packUserId ? (
+            <button disabled={isRequestProcessing} onClick={onAddCard}>
+              Add new card
+            </button>
+          ) : (
+            <button disabled={isRequestProcessing || !cards.length}>Learn to pack</button>
+          )}
         </div>
         <div className={styles.searchQuestion}>
           <label>Search</label>

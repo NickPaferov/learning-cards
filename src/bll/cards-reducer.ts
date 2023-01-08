@@ -16,6 +16,7 @@ const initialState = {
   cardsTotalCount: 15,
   packName: "",
   cardQuestion: "",
+  packUserId: "",
 };
 
 type InitialStateType = typeof initialState;

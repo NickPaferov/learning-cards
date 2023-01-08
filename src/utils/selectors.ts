@@ -33,3 +33,4 @@ export const selectCurrentCardsPage = (state: AppRootStateType) => state.cards.p
 export const selectCards = (state: AppRootStateType) => state.cards.cards;
 export const selectCardsListName = (state: AppRootStateType) => state.cards.packName;
 export const selectCardQuestion = (state: AppRootStateType) => state.cards.cardQuestion;
+export const selectPackUserId = (state: AppRootStateType) => state.cards.packUserId;

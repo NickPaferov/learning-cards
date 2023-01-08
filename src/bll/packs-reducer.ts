@@ -18,6 +18,7 @@ const initialState = {
   min: 0,
   max: 100,
   packName: "",
+  sortPacks: "0updated",
 };
 
 type InitialStateType = typeof initialState;
@@ -37,6 +38,8 @@ export const packsReducer = (
       return { ...state, min: action.min, max: action.max };
     case "PACKS/SET-PACK-NAME-SEARCH":
       return { ...state, packName: action.packName };
+    case "PACKS/SET-SORT-PACKS-PARAM":
+      return { ...state, sortPacks: action.sortPacksParam };
     case "PACKS/RESET-ALL-PACKS-FILTERS":
       return {
         ...state,
@@ -47,6 +50,7 @@ export const packsReducer = (
         min: 0,
         max: 100,
         packName: "",
+        sortPacks: "0updated",
       };
     default:
       return state;
@@ -67,18 +71,29 @@ export const setMinMaxCardsCountAC = (min: number, max: number) =>
 export const setPackNameSearchAC = (packName: string) =>
   ({ type: "PACKS/SET-PACK-NAME-SEARCH", packName } as const);
 
+export const setSortPacksParamAC = (sortPacksParam: string) =>
+  ({ type: "PACKS/SET-SORT-PACKS-PARAM", sortPacksParam } as const);
+
 export const setResetAllPacksFiltersAC = () => ({ type: "PACKS/RESET-ALL-PACKS-FILTERS" } as const);
 
 export const fetchPacksTC =
   (): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
     dispatch(setAppIsRequestProcessingAC(true));
 
-    const { min, max, page, pageCount, areMyPacks, packName } = getState().packs;
+    const { min, max, page, pageCount, areMyPacks, packName, sortPacks } = getState().packs;
     let user_id = getState().auth.user?._id;
     user_id = areMyPacks ? user_id : "";
 
     try {
-      const res = await packsAPI.getPacks({ min, max, page, pageCount, user_id, packName });
+      const res = await packsAPI.getPacks({
+        min,
+        max,
+        page,
+        pageCount,
+        user_id,
+        packName,
+        sortPacks,
+      });
       dispatch(setPacksAC(res.data));
     } catch (e) {
       handleError(e, dispatch);
@@ -135,6 +150,7 @@ export type PacksActionsType =
   | SetAreMyPacksType
   | SetMinMaxCardsCountType
   | SetPackNameSearchType
+  | SetSortPacksParamType
   | SetResetAllPacksFiltersType;
 
 type SetPacksType = ReturnType<typeof setPacksAC>;
@@ -142,4 +158,5 @@ type SetPacksCurrentPageType = ReturnType<typeof setPacksCurrentPageAC>;
 type SetAreMyPacksType = ReturnType<typeof setAreMyPacksAC>;
 type SetMinMaxCardsCountType = ReturnType<typeof setMinMaxCardsCountAC>;
 type SetPackNameSearchType = ReturnType<typeof setPackNameSearchAC>;
+type SetSortPacksParamType = ReturnType<typeof setSortPacksParamAC>;
 type SetResetAllPacksFiltersType = ReturnType<typeof setResetAllPacksFiltersAC>;

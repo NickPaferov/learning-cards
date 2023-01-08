@@ -7,7 +7,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { deletePackTC, fetchPacksTC, updatePackTC } from "../../bll/packs-reducer";
+import {
+  deletePackTC,
+  fetchPacksTC,
+  setSortPacksParamAC,
+  updatePackTC,
+} from "../../bll/packs-reducer";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
@@ -21,6 +26,7 @@ import {
   selectPackName,
   selectPacks,
   selectRequestProcessingStatus,
+  selectSortPacksParam,
   selectUserId,
 } from "../../utils/selectors";
 
@@ -33,11 +39,12 @@ export const PacksListTable = () => {
   const maxCardsCount = useAppSelector(selectMaxCardsCount);
   const packName = useAppSelector(selectPackName);
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
+  const sortPacksParam = useAppSelector(selectSortPacksParam);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchPacksTC());
-  }, [dispatch, packName, areMyPacks, currentPage, minCardsCount, maxCardsCount]);
+  }, [dispatch, packName, areMyPacks, currentPage, minCardsCount, maxCardsCount, sortPacksParam]);
 
   const onDeletePack = (id: string) => {
     if (isRequestProcessing) {
@@ -53,6 +60,10 @@ export const PacksListTable = () => {
     dispatch(updatePackTC({ _id: id, name: "My second updated pack" }));
   };
 
+  const onSortPacks = (sortBy: string) => {
+    dispatch(setSortPacksParamAC(sortPacksParam[0] === "0" ? 1 + sortBy : 0 + sortBy));
+  };
+
   return (
     <div>
       {packs.length ? (
@@ -61,8 +72,16 @@ export const PacksListTable = () => {
             <TableHead>
               <TableRow sx={{ backgroundColor: "#EFEFEF" }}>
                 <TableCell>Name</TableCell>
-                <TableCell align="right">Cards</TableCell>
-                <TableCell align="right">Last Updated</TableCell>
+                <TableCell align="right" onClick={() => onSortPacks("cardsCount")}>
+                  Cards
+                  {sortPacksParam.slice(1) === "cardsCount" &&
+                    (sortPacksParam[0] === "0" ? <span>▲</span> : <span>▼</span>)}
+                </TableCell>
+                <TableCell align="right" onClick={() => onSortPacks("updated")}>
+                  Last Updated
+                  {sortPacksParam.slice(1) === "updated" &&
+                    (sortPacksParam[0] === "0" ? <span>▲</span> : <span>▼</span>)}
+                </TableCell>
                 <TableCell align="right">Created By</TableCell>
                 <TableCell align="right">Actions</TableCell>
               </TableRow>

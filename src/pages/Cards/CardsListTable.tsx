@@ -54,40 +54,48 @@ export const CardsListTable = () => {
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow sx={{ backgroundColor: "#EFEFEF" }}>
-            <TableCell>Question</TableCell>
-            <TableCell align="right">Answer</TableCell>
-            <TableCell align="right">Last Updated</TableCell>
-            <TableCell align="right">Grade</TableCell>
-            <TableCell align="right">Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {cards.map((card) => (
-            <TableRow key={card._id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-              <TableCell component="th" scope="row">
-                {card.question}
-              </TableCell>
-              <TableCell align="right">{card.answer}</TableCell>
-              <TableCell align="right">{new Date(card.updated).toLocaleString("ru-RU")}</TableCell>
-              <TableCell align="right">{card.grade}</TableCell>
-              <TableCell align="right">
-                <BorderColorOutlinedIcon
-                  color={isRequestProcessing ? "disabled" : "action"}
-                  onClick={(e) => onUpdateCard(card._id)}
-                />
-                <DeleteOutlinedIcon
-                  color={isRequestProcessing ? "disabled" : "action"}
-                  onClick={(e) => onDeleteCard(card._id)}
-                />
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div>
+      {cards.length ? (
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow sx={{ backgroundColor: "#EFEFEF" }}>
+                <TableCell>Question</TableCell>
+                <TableCell align="right">Answer</TableCell>
+                <TableCell align="right">Last Updated</TableCell>
+                <TableCell align="right">Grade</TableCell>
+                <TableCell align="right">Actions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {cards.map((card) => (
+                <TableRow key={card._id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                  <TableCell component="th" scope="row">
+                    {card.question}
+                  </TableCell>
+                  <TableCell align="right">{card.answer}</TableCell>
+                  <TableCell align="right">
+                    {new Date(card.updated).toLocaleString("ru-RU")}
+                  </TableCell>
+                  <TableCell align="right">{card.grade}</TableCell>
+                  <TableCell align="right">
+                    <BorderColorOutlinedIcon
+                      color={isRequestProcessing ? "disabled" : "action"}
+                      onClick={(e) => onUpdateCard(card._id)}
+                    />
+                    <DeleteOutlinedIcon
+                      color={isRequestProcessing ? "disabled" : "action"}
+                      onClick={(e) => onDeleteCard(card._id)}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <div>No cards</div>
+      )}
+    </div>
   );
 };

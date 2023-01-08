@@ -31,8 +31,6 @@ export const packsReducer = (
       return { ...state, ...action.data };
     case "PACKS/SET-PACKS-CURRENT-PAGE":
       return { ...state, page: action.page };
-    case "PACKS/SET-PACKS-TOTAL-COUNT":
-      return { ...state, cardPacksTotalCount: action.packsTotalCount };
     case "PACKS/SET-ARE-MY-PACKS":
       return { ...state, areMyPacks: action.areMyPacks };
     case "PACKS/SET-MIN-MAX-CARDS-COUNT":
@@ -60,9 +58,6 @@ const setPacksAC = (data: GetPacksResponseType) => ({ type: "PACKS/SET-PACKS", d
 export const setPacksCurrentPageAC = (page: number) =>
   ({ type: "PACKS/SET-PACKS-CURRENT-PAGE", page } as const);
 
-export const setPacksTotalCountAC = (packsTotalCount: number) =>
-  ({ type: "PACKS/SET-PACKS-TOTAL-COUNT", packsTotalCount } as const);
-
 export const setAreMyPacksAC = (areMyPacks: boolean) =>
   ({ type: "PACKS/SET-ARE-MY-PACKS", areMyPacks } as const);
 
@@ -85,7 +80,6 @@ export const fetchPacksTC =
     try {
       const res = await packsAPI.getPacks({ min, max, page, pageCount, user_id, packName });
       dispatch(setPacksAC(res.data));
-      dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount));
     } catch (e) {
       handleError(e, dispatch);
     } finally {
@@ -138,7 +132,6 @@ export const updatePackTC =
 export type PacksActionsType =
   | SetPacksType
   | SetPacksCurrentPageType
-  | SetPacksTotalCountType
   | SetAreMyPacksType
   | SetMinMaxCardsCountType
   | SetPackNameSearchType
@@ -146,7 +139,6 @@ export type PacksActionsType =
 
 type SetPacksType = ReturnType<typeof setPacksAC>;
 type SetPacksCurrentPageType = ReturnType<typeof setPacksCurrentPageAC>;
-type SetPacksTotalCountType = ReturnType<typeof setPacksTotalCountAC>;
 type SetAreMyPacksType = ReturnType<typeof setAreMyPacksAC>;
 type SetMinMaxCardsCountType = ReturnType<typeof setMinMaxCardsCountAC>;
 type SetPackNameSearchType = ReturnType<typeof setPackNameSearchAC>;

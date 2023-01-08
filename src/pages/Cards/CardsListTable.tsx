@@ -16,10 +16,14 @@ import {
   selectCardQuestion,
   selectCards,
   selectCurrentCardsPage,
+  selectPackUserId,
   selectRequestProcessingStatus,
+  selectUserId,
 } from "../../utils/selectors";
 
 export const CardsListTable = () => {
+  const userId = useAppSelector(selectUserId);
+  const packUserId = useAppSelector(selectPackUserId);
   const cards = useAppSelector(selectCards);
   const currentPage = useAppSelector(selectCurrentCardsPage);
   const cardQuestion = useAppSelector(selectCardQuestion);
@@ -64,7 +68,7 @@ export const CardsListTable = () => {
                 <TableCell align="right">Answer</TableCell>
                 <TableCell align="right">Last Updated</TableCell>
                 <TableCell align="right">Grade</TableCell>
-                <TableCell align="right">Actions</TableCell>
+                {userId === packUserId && <TableCell align="right">Actions</TableCell>}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -78,16 +82,18 @@ export const CardsListTable = () => {
                     {new Date(card.updated).toLocaleString("ru-RU")}
                   </TableCell>
                   <TableCell align="right">{card.grade}</TableCell>
-                  <TableCell align="right">
-                    <BorderColorOutlinedIcon
-                      color={isRequestProcessing ? "disabled" : "action"}
-                      onClick={(e) => onUpdateCard(card._id)}
-                    />
-                    <DeleteOutlinedIcon
-                      color={isRequestProcessing ? "disabled" : "action"}
-                      onClick={(e) => onDeleteCard(card._id)}
-                    />
-                  </TableCell>
+                  {userId === card.user_id && (
+                    <TableCell align="right">
+                      <BorderColorOutlinedIcon
+                        color={isRequestProcessing ? "disabled" : "action"}
+                        onClick={(e) => onUpdateCard(card._id)}
+                      />
+                      <DeleteOutlinedIcon
+                        color={isRequestProcessing ? "disabled" : "action"}
+                        onClick={(e) => onDeleteCard(card._id)}
+                      />
+                    </TableCell>
+                  )}
                 </TableRow>
               ))}
             </TableBody>

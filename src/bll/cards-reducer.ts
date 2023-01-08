@@ -17,6 +17,7 @@ const initialState = {
   packName: "",
   cardQuestion: "",
   packUserId: "",
+  sortCards: "0updated",
 };
 
 type InitialStateType = typeof initialState;
@@ -36,6 +37,8 @@ export const cardsReducer = (
       return { ...state, cardsTotalCount: action.cardsTotalCount };
     case "CARDS/SET-CARD-QUESTION":
       return { ...state, cardQuestion: action.cardQuestion };
+    case "CARDS/SET-SORT-CARDS-PARAM":
+      return { ...state, sortCards: action.sortCardsParam };
     default: {
       return state;
     }
@@ -56,13 +59,22 @@ export const setCardsTotalCountAC = (cardsTotalCount: number) =>
 export const setCardQuestionAC = (cardQuestion: string) =>
   ({ type: "CARDS/SET-CARD-QUESTION", cardQuestion } as const);
 
+export const setSortCardsParamAC = (sortCardsParam: string) =>
+  ({ type: "CARDS/SET-SORT-CARDS-PARAM", sortCardsParam } as const);
+
 export const fetchCardsTC =
   (cardsPack_id: string | undefined): AppThunkType =>
   async (dispatch, getState) => {
-    const { page, pageCount, cardQuestion } = getState().cards;
+    const { page, pageCount, cardQuestion, sortCards } = getState().cards;
     dispatch(setAppIsRequestProcessingAC(true));
     try {
-      const res = await cardsAPI.getCards({ cardsPack_id, page, pageCount, cardQuestion });
+      const res = await cardsAPI.getCards({
+        cardsPack_id,
+        page,
+        pageCount,
+        cardQuestion,
+        sortCards,
+      });
       dispatch(setCardsAC(res.data));
       dispatch(setCardsTotalCountAC(res.data.cardsTotalCount));
     } catch (e) {
@@ -118,9 +130,11 @@ export type CardsActionsType =
   | SetCardsType
   | SetCardsCurrentPageType
   | SetCardsTotalCountType
-  | SetCardQuestionType;
+  | SetCardQuestionType
+  | SetSortCardsParamType;
 
 type SetCardsType = ReturnType<typeof setCardsAC>;
 type SetCardsCurrentPageType = ReturnType<typeof setCardsCurrentPageAC>;
 type SetCardsTotalCountType = ReturnType<typeof setCardsTotalCountAC>;
 type SetCardQuestionType = ReturnType<typeof setCardQuestionAC>;
+type SetSortCardsParamType = ReturnType<typeof setSortCardsParamAC>;

@@ -61,6 +61,9 @@ export const PacksListTable = () => {
   };
 
   const onSortPacks = (sortBy: string) => {
+    if (isRequestProcessing) {
+      return;
+    }
     dispatch(setSortPacksParamAC(sortPacksParam[0] === "0" ? 1 + sortBy : 0 + sortBy));
   };
 

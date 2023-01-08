@@ -8,7 +8,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { deleteCardTC, fetchCardsTC, updateCardTC } from "../../bll/cards-reducer";
+import {
+  deleteCardTC,
+  fetchCardsTC,
+  setSortCardsParamAC,
+  updateCardTC,
+} from "../../bll/cards-reducer";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useParams } from "react-router-dom";
@@ -18,6 +23,7 @@ import {
   selectCurrentCardsPage,
   selectPackUserId,
   selectRequestProcessingStatus,
+  selectSortCardsParam,
   selectUserId,
 } from "../../utils/selectors";
 
@@ -28,6 +34,7 @@ export const CardsListTable = () => {
   const currentPage = useAppSelector(selectCurrentCardsPage);
   const cardQuestion = useAppSelector(selectCardQuestion);
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
+  const sortCardsParam = useAppSelector(selectSortCardsParam);
 
   const dispatch = useAppDispatch();
 
@@ -35,7 +42,7 @@ export const CardsListTable = () => {
 
   useEffect(() => {
     dispatch(fetchCardsTC(packId));
-  }, [dispatch, currentPage, packId, cardQuestion]);
+  }, [dispatch, currentPage, packId, cardQuestion, sortCardsParam]);
 
   const onUpdateCard = (id: string) => {
     if (isRequestProcessing) {
@@ -57,6 +64,13 @@ export const CardsListTable = () => {
     dispatch(deleteCardTC(packId, id));
   };
 
+  const onSortCards = (sortBy: string) => {
+    if (isRequestProcessing) {
+      return;
+    }
+    dispatch(setSortCardsParamAC(sortCardsParam[0] === "0" ? 1 + sortBy : 0 + sortBy));
+  };
+
   return (
     <div>
       {cards.length ? (
@@ -64,10 +78,26 @@ export const CardsListTable = () => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow sx={{ backgroundColor: "#EFEFEF" }}>
-                <TableCell>Question</TableCell>
-                <TableCell align="right">Answer</TableCell>
-                <TableCell align="right">Last Updated</TableCell>
-                <TableCell align="right">Grade</TableCell>
+                <TableCell onClick={() => onSortCards("question")}>
+                  Question
+                  {sortCardsParam.slice(1) === "question" &&
+                    (sortCardsParam[0] === "0" ? <span>▲</span> : <span>▼</span>)}
+                </TableCell>
+                <TableCell align="right" onClick={() => onSortCards("answer")}>
+                  Answer
+                  {sortCardsParam.slice(1) === "answer" &&
+                    (sortCardsParam[0] === "0" ? <span>▲</span> : <span>▼</span>)}
+                </TableCell>
+                <TableCell align="right" onClick={() => onSortCards("updated")}>
+                  Last Updated
+                  {sortCardsParam.slice(1) === "updated" &&
+                    (sortCardsParam[0] === "0" ? <span>▲</span> : <span>▼</span>)}
+                </TableCell>
+                <TableCell align="right" onClick={() => onSortCards("grade")}>
+                  Grade
+                  {sortCardsParam.slice(1) === "grade" &&
+                    (sortCardsParam[0] === "0" ? <span>▲</span> : <span>▼</span>)}
+                </TableCell>
                 {userId === packUserId && <TableCell align="right">Actions</TableCell>}
               </TableRow>
             </TableHead>

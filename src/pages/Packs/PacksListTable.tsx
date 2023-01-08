@@ -71,7 +71,11 @@ export const PacksListTable = () => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow sx={{ backgroundColor: "#EFEFEF" }}>
-                <TableCell>Name</TableCell>
+                <TableCell onClick={() => onSortPacks("name")}>
+                  Name
+                  {sortPacksParam.slice(1) === "name" &&
+                    (sortPacksParam[0] === "0" ? <span>▲</span> : <span>▼</span>)}
+                </TableCell>
                 <TableCell align="right" onClick={() => onSortPacks("cardsCount")}>
                   Cards
                   {sortPacksParam.slice(1) === "cardsCount" &&
@@ -82,7 +86,11 @@ export const PacksListTable = () => {
                   {sortPacksParam.slice(1) === "updated" &&
                     (sortPacksParam[0] === "0" ? <span>▲</span> : <span>▼</span>)}
                 </TableCell>
-                <TableCell align="right">Created By</TableCell>
+                <TableCell align="right" onClick={() => onSortPacks("user_name")}>
+                  Created By
+                  {sortPacksParam.slice(1) === "user_name" &&
+                    (sortPacksParam[0] === "0" ? <span>▲</span> : <span>▼</span>)}
+                </TableCell>
                 <TableCell align="right">Actions</TableCell>
               </TableRow>
             </TableHead>

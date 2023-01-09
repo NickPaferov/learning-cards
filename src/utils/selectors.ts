@@ -23,8 +23,10 @@ export const selectCurrentPacksPage = (state: AppRootStateType) => state.packs.p
 export const selectPackName = (state: AppRootStateType) => state.packs.packName;
 export const selectAreMyPacksStatus = (state: AppRootStateType) => state.packs.areMyPacks;
 export const selectPacks = (state: AppRootStateType) => state.packs.cardPacks;
-export const selectMinCardsCount = (state: AppRootStateType) => state.packs.min;
-export const selectMaxCardsCount = (state: AppRootStateType) => state.packs.max;
+export const selectMinCardsSearchParam = (state: AppRootStateType) => state.packs.min;
+export const selectMaxCardsSearchParam = (state: AppRootStateType) => state.packs.max;
+export const selectMinCardsCount = (state: AppRootStateType) => state.packs.minCardsCount;
+export const selectMaxCardsCount = (state: AppRootStateType) => state.packs.maxCardsCount;
 export const selectSortPacksParam = (state: AppRootStateType) => state.packs.sortPacks;
 
 //cardsSelectors

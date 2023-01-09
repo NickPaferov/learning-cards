@@ -21,8 +21,8 @@ import { PATHS } from "../../app/App";
 import {
   selectAreMyPacksStatus,
   selectCurrentPacksPage,
-  selectMaxCardsCount,
-  selectMinCardsCount,
+  selectMaxCardsSearchParam,
+  selectMinCardsSearchParam,
   selectPackName,
   selectPacks,
   selectRequestProcessingStatus,
@@ -35,8 +35,8 @@ export const PacksListTable = () => {
   const packs = useAppSelector(selectPacks);
   const areMyPacks = useAppSelector(selectAreMyPacksStatus);
   const currentPage = useAppSelector(selectCurrentPacksPage);
-  const minCardsCount = useAppSelector(selectMinCardsCount);
-  const maxCardsCount = useAppSelector(selectMaxCardsCount);
+  const minCardsSearchParam = useAppSelector(selectMinCardsSearchParam);
+  const maxCardsSearchParam = useAppSelector(selectMaxCardsSearchParam);
   const packName = useAppSelector(selectPackName);
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const sortPacksParam = useAppSelector(selectSortPacksParam);
@@ -44,7 +44,15 @@ export const PacksListTable = () => {
 
   useEffect(() => {
     dispatch(fetchPacksTC());
-  }, [dispatch, packName, areMyPacks, currentPage, minCardsCount, maxCardsCount, sortPacksParam]);
+  }, [
+    dispatch,
+    packName,
+    areMyPacks,
+    currentPage,
+    minCardsSearchParam,
+    maxCardsSearchParam,
+    sortPacksParam,
+  ]);
 
   const onDeletePack = (id: string) => {
     if (isRequestProcessing) {
@@ -115,13 +123,13 @@ export const PacksListTable = () => {
                     {userId === pack.user_id && (
                       <BorderColorOutlinedIcon
                         color={isRequestProcessing ? "disabled" : "action"}
-                        onClick={(e) => onUpdatePack(pack._id)}
+                        onClick={() => onUpdatePack(pack._id)}
                       />
                     )}
                     {userId === pack.user_id && (
                       <DeleteOutlinedIcon
                         color={isRequestProcessing ? "disabled" : "action"}
-                        onClick={(e) => onDeletePack(pack._id)}
+                        onClick={() => onDeletePack(pack._id)}
                       />
                     )}
                   </TableCell>

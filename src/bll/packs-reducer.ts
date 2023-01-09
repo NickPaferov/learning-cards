@@ -16,7 +16,9 @@ const initialState = {
   cardPacksTotalCount: 50,
   areMyPacks: false,
   min: 0,
-  max: 100,
+  max: 10,
+  minCardsCount: 0,
+  maxCardsCount: 10,
   packName: "",
   sortPacks: "0updated",
 };
@@ -47,8 +49,8 @@ export const packsReducer = (
         pageCount: 5,
         cardPacksTotalCount: 50,
         areMyPacks: false,
-        min: 0,
-        max: 100,
+        min: state.minCardsCount,
+        max: state.maxCardsCount,
         packName: "",
         sortPacks: "0updated",
       };

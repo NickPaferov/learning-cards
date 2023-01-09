@@ -4,26 +4,46 @@ import Slider from "@mui/material/Slider";
 import { setMinMaxCardsCountAC } from "../../bll/packs-reducer";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import styles from "./RangeSlider.module.css";
+import {
+  selectMaxCardsCount,
+  selectMaxCardsSearchParam,
+  selectMinCardsCount,
+  selectMinCardsSearchParam,
+  selectRequestProcessingStatus,
+} from "../../utils/selectors";
 
 export const RangeSlider = () => {
-  const minValue = useAppSelector((state) => state.packs.min);
-  const maxValue = useAppSelector((state) => state.packs.max);
-  const isRequestProcessing = useAppSelector((state) => state.app.isRequestProcessing);
+  const minCardsCount = useAppSelector(selectMinCardsCount);
+  const maxCardsCount = useAppSelector(selectMaxCardsCount);
+  const minCardsSearchParam = useAppSelector(selectMinCardsSearchParam);
+  const maxCardsSearchParam = useAppSelector(selectMaxCardsSearchParam);
+  const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
 
   const dispatch = useAppDispatch();
-  const [value, setValue] = useState<number[]>([0, 100]);
 
-  //to change slider values in UI after reset all filters
+  const [value, setValue] = useState<number[]>([minCardsCount, maxCardsCount]);
+
+  // to change slider values in UI after reset all filters
   useEffect(() => {
-    setValue([minValue, maxValue]);
-  }, [minValue, maxValue]);
+    setValue([minCardsSearchParam, maxCardsSearchParam]);
+  }, [minCardsSearchParam, maxCardsSearchParam]);
+
+  // to set min/max slider values after server response
+  useEffect(() => {
+    setValue([minCardsCount, maxCardsCount]);
+  }, [minCardsCount, maxCardsCount]);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
   };
 
-  const onSetValues = () => {
-    dispatch(setMinMaxCardsCountAC(value[0], value[1]));
+  const handleChangeCommitted = (
+    event: React.SyntheticEvent | Event,
+    value: number | Array<number>
+  ) => {
+    if (Array.isArray(value)) {
+      dispatch(setMinMaxCardsCountAC(value[0], value[1]));
+    }
   };
 
   return (
@@ -33,10 +53,12 @@ export const RangeSlider = () => {
         <Slider
           getAriaLabel={() => "Cards count"}
           value={value}
+          min={minCardsCount}
+          max={maxCardsCount}
           disabled={isRequestProcessing}
           onChange={handleChange}
+          onChangeCommitted={handleChangeCommitted}
           valueLabelDisplay="off"
-          onMouseUp={onSetValues}
         />
         <span className={styles.value}>{value[1]}</span>
       </div>

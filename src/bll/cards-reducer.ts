@@ -93,7 +93,6 @@ export const addCardTC =
       dispatch(fetchCardsTC(params.cardsPack_id));
     } catch (e) {
       handleError(e, dispatch);
-    } finally {
       dispatch(setAppIsRequestProcessingAC(false));
     }
   };
@@ -107,7 +106,6 @@ export const deleteCardTC =
       dispatch(fetchCardsTC(cardsPack_id));
     } catch (e) {
       handleError(e, dispatch);
-    } finally {
       dispatch(setAppIsRequestProcessingAC(false));
     }
   };
@@ -121,7 +119,6 @@ export const updateCardTC =
       dispatch(fetchCardsTC(cardsPack_id));
     } catch (e) {
       handleError(e, dispatch);
-    } finally {
       dispatch(setAppIsRequestProcessingAC(false));
     }
   };

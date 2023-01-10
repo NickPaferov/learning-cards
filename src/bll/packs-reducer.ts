@@ -113,7 +113,6 @@ export const addPackTC =
       dispatch(fetchPacksTC());
     } catch (e) {
       handleError(e, dispatch);
-    } finally {
       dispatch(setAppIsRequestProcessingAC(false));
     }
   };
@@ -127,7 +126,6 @@ export const deletePackTC =
       dispatch(fetchPacksTC());
     } catch (e) {
       handleError(e, dispatch);
-    } finally {
       dispatch(setAppIsRequestProcessingAC(false));
     }
   };
@@ -141,7 +139,6 @@ export const updatePackTC =
       dispatch(fetchPacksTC());
     } catch (e) {
       handleError(e, dispatch);
-    } finally {
       dispatch(setAppIsRequestProcessingAC(false));
     }
   };

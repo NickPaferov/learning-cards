@@ -5,7 +5,6 @@ import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import { RangeSlider } from "../../components/RangeSlider/RangeSlider";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import {
-  addPackTC,
   setAreMyPacksAC,
   setPackNameSearchAC,
   setPacksCurrentPageAC,
@@ -20,6 +19,7 @@ import {
   selectPacksTotalCount,
   selectRequestProcessingStatus,
 } from "../../utils/selectors";
+import { AddPackModal } from "./PacksModals/AddPackModal";
 
 export const Packs = () => {
   const pageSize = useAppSelector(selectPacksPageSize);
@@ -30,6 +30,7 @@ export const Packs = () => {
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const dispatch = useAppDispatch();
 
+  const [isOpenAddPackModal, setOpenAddPackModal] = useState(false);
   const [searchPack, setSearchPack] = useState(packName);
   const debouncedValue = useDebounce<string>(searchPack, 1000);
 
@@ -41,10 +42,6 @@ export const Packs = () => {
 
   const onSetCurrentPage = (page: number) => {
     dispatch(setPacksCurrentPageAC(page));
-  };
-
-  const onAddPack = () => {
-    dispatch(addPackTC({ name: "My second new pack" }));
   };
 
   const onChangeSearchPackName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -72,11 +69,15 @@ export const Packs = () => {
     setSearchPack(packName);
   }, [packName]);
 
+  const onOpenModal = () => {
+    setOpenAddPackModal(true);
+  };
+
   return (
     <div className={styles.packsList}>
       <div className={styles.header}>
         <h3>Packs list</h3>
-        <button disabled={isRequestProcessing} onClick={onAddPack}>
+        <button disabled={isRequestProcessing} onClick={onOpenModal}>
           Add new pack
         </button>
       </div>
@@ -122,13 +123,16 @@ export const Packs = () => {
           className={
             currentPage === p ? `${styles.pagination} ${styles.selectedPage}` : styles.pagination
           }
-          onClick={(e) => {
+          onClick={() => {
             onSetCurrentPage(p);
           }}
         >
           {p}
         </span>
       ))}
+      {isOpenAddPackModal && (
+        <AddPackModal isOpenModal={isOpenAddPackModal} setIsOpenModal={setOpenAddPackModal} />
+      )}
     </div>
   );
 };

@@ -1,0 +1,9 @@
+.modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.packName {
+    font-weight: bold;
+}

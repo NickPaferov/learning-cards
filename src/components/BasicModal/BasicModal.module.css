@@ -1,0 +1,8 @@
+.header, .btnBlock {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modalTitle {
+    font-weight: bold;
+}

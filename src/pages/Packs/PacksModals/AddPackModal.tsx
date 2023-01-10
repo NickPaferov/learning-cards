@@ -43,6 +43,7 @@ export const AddPackModal: FC<PropsType> = ({ isOpenModal, setIsOpenModal }) => 
       title={"Add new pack"}
       label={"Name pack"}
       onConfirmIntention={onAddPack}
+      buttonTitle={"Save"}
     >
       <div className={styles.modal}>
         <input

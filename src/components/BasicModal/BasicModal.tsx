@@ -23,6 +23,7 @@ type PropsType = {
   title: string;
   label: string;
   onConfirmIntention: () => void;
+  buttonTitle: string;
 };
 
 export const BasicModal: FC<PropsType> = ({
@@ -32,6 +33,7 @@ export const BasicModal: FC<PropsType> = ({
   title,
   label,
   onConfirmIntention,
+  buttonTitle,
 }) => {
   const handleCloseModal = () => {
     setIsOpenModal(false);
@@ -50,7 +52,7 @@ export const BasicModal: FC<PropsType> = ({
           {children}
           <div className={styles.btnBlock}>
             <button onClick={handleCloseModal}>Cancel</button>
-            <button onClick={onConfirmIntention}>Save</button>
+            <button onClick={onConfirmIntention}>{buttonTitle}</button>
           </div>
         </Box>
       </Modal>

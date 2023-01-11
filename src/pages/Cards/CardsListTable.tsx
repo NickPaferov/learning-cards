@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,12 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import {
-  deleteCardTC,
-  fetchCardsTC,
-  setSortCardsParamAC,
-  updateCardTC,
-} from "../../bll/cards-reducer";
+import { deleteCardTC, fetchCardsTC, setSortCardsParamAC } from "../../bll/cards-reducer";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useParams } from "react-router-dom";
@@ -26,6 +21,8 @@ import {
   selectSortCardsParam,
   selectUserId,
 } from "../../utils/selectors";
+import { CardType } from "../../api/cards-api";
+import { EditCardModal } from "./CardsModals/EditCardModal";
 
 export const CardsListTable = () => {
   const userId = useAppSelector(selectUserId);
@@ -38,24 +35,14 @@ export const CardsListTable = () => {
 
   const dispatch = useAppDispatch();
 
+  const [isEditCardModalOpen, setIsEditCardModalOpen] = useState(false);
+  const [card, setCard] = useState<CardType | null>(null);
+
   const { packId } = useParams();
 
   useEffect(() => {
     dispatch(fetchCardsTC(packId));
   }, [dispatch, currentPage, packId, cardQuestion, sortCardsParam]);
-
-  const onUpdateCard = (id: string) => {
-    if (isRequestProcessing) {
-      return;
-    }
-    dispatch(
-      updateCardTC(packId, {
-        _id: id,
-        question: "What is the largest island?",
-        answer: "Greenland",
-      })
-    );
-  };
 
   const onDeleteCard = (id: string) => {
     if (isRequestProcessing) {
@@ -116,11 +103,17 @@ export const CardsListTable = () => {
                     <TableCell align="right">
                       <BorderColorOutlinedIcon
                         color={isRequestProcessing ? "disabled" : "action"}
-                        onClick={(e) => onUpdateCard(card._id)}
+                        onClick={() => {
+                          if (isRequestProcessing) {
+                            return;
+                          }
+                          setCard(card);
+                          setIsEditCardModalOpen(true);
+                        }}
                       />
                       <DeleteOutlinedIcon
                         color={isRequestProcessing ? "disabled" : "action"}
-                        onClick={(e) => onDeleteCard(card._id)}
+                        onClick={() => onDeleteCard(card._id)}
                       />
                     </TableCell>
                   )}
@@ -131,6 +124,14 @@ export const CardsListTable = () => {
         </TableContainer>
       ) : (
         <div>No cards</div>
+      )}
+      {isEditCardModalOpen && (
+        <EditCardModal
+          packId={packId}
+          card={card}
+          isOpenModal={isEditCardModalOpen}
+          setIsOpenModal={setIsEditCardModalOpen}
+        />
       )}
     </div>
   );

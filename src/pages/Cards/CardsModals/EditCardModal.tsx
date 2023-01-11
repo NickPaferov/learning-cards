@@ -1,20 +1,22 @@
 import React, { ChangeEvent, FC, useState } from "react";
 import { BasicModal } from "../../../components/BasicModal/BasicModal";
-import { addCardTC } from "../../../bll/cards-reducer";
+import { updateCardTC } from "../../../bll/cards-reducer";
 import { useAppDispatch } from "../../../bll/store";
 import styles from "./CardsModals.module.css";
+import { CardType } from "../../../api/cards-api";
 
 type PropsType = {
   packId: string | undefined;
+  card: CardType | null;
   isOpenModal: boolean;
   setIsOpenModal: (value: boolean) => void;
 };
 
-export const AddCardModal: FC<PropsType> = ({ packId, isOpenModal, setIsOpenModal }) => {
+export const EditCardModal: FC<PropsType> = ({ packId, card, isOpenModal, setIsOpenModal }) => {
   const dispatch = useAppDispatch();
 
-  const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
+  const [question, setQuestion] = useState(card ? card.question : "");
+  const [answer, setAnswer] = useState(card ? card.answer : "");
 
   const onChangeQuestion = (e: ChangeEvent<HTMLInputElement>) => {
     setQuestion(e.currentTarget.value);
@@ -23,11 +25,11 @@ export const AddCardModal: FC<PropsType> = ({ packId, isOpenModal, setIsOpenModa
     setAnswer(e.currentTarget.value);
   };
 
-  const onAddCard = () => {
-    if (packId) {
+  const onUpdateCard = () => {
+    if (packId && card) {
       dispatch(
-        addCardTC({
-          cardsPack_id: packId,
+        updateCardTC(packId, {
+          _id: card._id,
           question,
           answer,
         })
@@ -40,17 +42,22 @@ export const AddCardModal: FC<PropsType> = ({ packId, isOpenModal, setIsOpenModa
     <BasicModal
       isOpenModal={isOpenModal}
       setIsOpenModal={setIsOpenModal}
-      title={"Add new card"}
-      onConfirmIntention={onAddCard}
+      title={"Edit card"}
+      onConfirmIntention={onUpdateCard}
       buttonTitle={"Save"}
     >
       <div className={styles.input}>
         <label>Question</label>
-        <input autoFocus={true} placeholder="Card question" onChange={onChangeQuestion} />
+        <input
+          autoFocus={true}
+          placeholder="Card question"
+          value={question}
+          onChange={onChangeQuestion}
+        />
       </div>
       <div className={styles.input}>
         <label>Answer</label>
-        <input type="text" placeholder="Card answer" onChange={onChangeAnswer} />
+        <input type="text" placeholder="Card answer" value={answer} onChange={onChangeAnswer} />
       </div>
     </BasicModal>
   );

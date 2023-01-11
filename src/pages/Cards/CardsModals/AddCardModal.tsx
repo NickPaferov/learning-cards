@@ -24,12 +24,14 @@ export const AddCardModal: FC<PropsType> = ({ packId, isOpenModal, setIsOpenModa
   };
 
   const onAddCard = () => {
+    const newQuestion = question.trim();
+    const newAnswer = answer.trim();
     if (packId) {
       dispatch(
         addCardTC({
           cardsPack_id: packId,
-          question,
-          answer,
+          question: newQuestion,
+          answer: newAnswer,
         })
       );
       setIsOpenModal(false);

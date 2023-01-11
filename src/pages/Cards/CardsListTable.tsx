@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { deleteCardTC, fetchCardsTC, setSortCardsParamAC } from "../../bll/cards-reducer";
+import { fetchCardsTC, setSortCardsParamAC } from "../../bll/cards-reducer";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useParams } from "react-router-dom";
@@ -23,19 +22,21 @@ import {
 } from "../../utils/selectors";
 import { CardType } from "../../api/cards-api";
 import { EditCardModal } from "./CardsModals/EditCardModal";
+import { DeleteCardModal } from "./CardsModals/DeleteCardModal";
 
 export const CardsListTable = () => {
   const userId = useAppSelector(selectUserId);
   const packUserId = useAppSelector(selectPackUserId);
   const cards = useAppSelector(selectCards);
   const currentPage = useAppSelector(selectCurrentCardsPage);
-  const cardQuestion = useAppSelector(selectCardQuestion);
+  const cardQuestion = useAppSelector(selectCardQuestion); //for Search
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const sortCardsParam = useAppSelector(selectSortCardsParam);
 
   const dispatch = useAppDispatch();
 
   const [isEditCardModalOpen, setIsEditCardModalOpen] = useState(false);
+  const [isDeleteCardModalOpen, setIsDeleteCardModalOpen] = useState(false);
   const [card, setCard] = useState<CardType | null>(null);
 
   const { packId } = useParams();
@@ -43,13 +44,6 @@ export const CardsListTable = () => {
   useEffect(() => {
     dispatch(fetchCardsTC(packId));
   }, [dispatch, currentPage, packId, cardQuestion, sortCardsParam]);
-
-  const onDeleteCard = (id: string) => {
-    if (isRequestProcessing) {
-      return;
-    }
-    dispatch(deleteCardTC(packId, id));
-  };
 
   const onSortCards = (sortBy: string) => {
     if (isRequestProcessing) {
@@ -113,7 +107,13 @@ export const CardsListTable = () => {
                       />
                       <DeleteOutlinedIcon
                         color={isRequestProcessing ? "disabled" : "action"}
-                        onClick={() => onDeleteCard(card._id)}
+                        onClick={() => {
+                          if (isRequestProcessing) {
+                            return;
+                          }
+                          setCard(card);
+                          setIsDeleteCardModalOpen(true);
+                        }}
                       />
                     </TableCell>
                   )}
@@ -131,6 +131,14 @@ export const CardsListTable = () => {
           card={card}
           isOpenModal={isEditCardModalOpen}
           setIsOpenModal={setIsEditCardModalOpen}
+        />
+      )}
+      {isDeleteCardModalOpen && (
+        <DeleteCardModal
+          packId={packId}
+          card={card}
+          isOpenModal={isDeleteCardModalOpen}
+          setIsOpenModal={setIsDeleteCardModalOpen}
         />
       )}
     </div>

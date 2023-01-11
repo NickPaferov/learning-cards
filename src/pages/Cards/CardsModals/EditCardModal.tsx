@@ -26,12 +26,14 @@ export const EditCardModal: FC<PropsType> = ({ packId, card, isOpenModal, setIsO
   };
 
   const onUpdateCard = () => {
+    const newQuestion = question.trim();
+    const newAnswer = answer.trim();
     if (packId && card) {
       dispatch(
         updateCardTC(packId, {
           _id: card._id,
-          question,
-          answer,
+          question: newQuestion,
+          answer: newAnswer,
         })
       );
       setIsOpenModal(false);

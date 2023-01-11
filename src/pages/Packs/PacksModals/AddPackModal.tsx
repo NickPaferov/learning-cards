@@ -26,8 +26,6 @@ export const AddPackModal: FC<PropsType> = ({ isOpenModal, setIsOpenModal }) => 
   const onAddPack = () => {
     const newPackName = packName.trim();
     dispatch(addPackTC({ name: newPackName, private: privateStatus }));
-    setPackName("");
-    setPrivateStatus(false);
     setIsOpenModal(false);
   };
 

@@ -35,7 +35,7 @@ export const PacksListTable = () => {
   const currentPage = useAppSelector(selectCurrentPacksPage);
   const minCardsSearchParam = useAppSelector(selectMinCardsSearchParam);
   const maxCardsSearchParam = useAppSelector(selectMaxCardsSearchParam);
-  const packName = useAppSelector(selectPackName);
+  const packName = useAppSelector(selectPackName); //for Search
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const sortPacksParam = useAppSelector(selectSortPacksParam);
   const dispatch = useAppDispatch();

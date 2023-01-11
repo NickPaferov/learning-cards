@@ -7,3 +7,8 @@
 .packName {
     font-weight: bold;
 }
+
+.clarification {
+    display: flex;
+    flex-direction: column;
+}

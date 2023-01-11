@@ -3,6 +3,7 @@ import { BasicModal } from "../../../components/BasicModal/BasicModal";
 import { useAppDispatch } from "../../../bll/store";
 import { deletePackTC } from "../../../bll/packs-reducer";
 import { PackType } from "../../../api/packs-api";
+import styles from "./PacksModals.module.css";
 
 type PropsType = {
   pack: null | PackType;
@@ -29,9 +30,9 @@ export const DeletePackModal: FC<PropsType> = ({ pack, isOpenModal, setIsOpenMod
       buttonTitle={"Delete"}
       autoFocus={true}
     >
-      <div>
-        <span>Do you really want to remove {pack ? pack.name : "this pack"}?</span>
-        <span>All cards will be deleted.</span>
+      <div className={styles.clarification}>
+        <span>Do you really want to remove pack {pack ? `"${pack.name}"` : "this pack"}?</span>
+        {pack && pack.cardsCount > 0 && <span>All cards will be deleted.</span>}
       </div>
     </BasicModal>
   );

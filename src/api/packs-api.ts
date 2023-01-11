@@ -35,6 +35,8 @@ export type CreatePackParamsType = {
 export type UpdatePackParamsType = {
   _id: string;
   name?: string;
+  deckCover?: string;
+  private?: boolean;
 };
 
 export type PackType = {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,12 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import {
-  deletePackTC,
-  fetchPacksTC,
-  setSortPacksParamAC,
-  updatePackTC,
-} from "../../bll/packs-reducer";
+import { deletePackTC, fetchPacksTC, setSortPacksParamAC } from "../../bll/packs-reducer";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
@@ -29,6 +24,8 @@ import {
   selectSortPacksParam,
   selectUserId,
 } from "../../utils/selectors";
+import { EditPackModal } from "./PacksModals/EditPackModal";
+import { PackType } from "../../api/packs-api";
 
 export const PacksListTable = () => {
   const userId = useAppSelector(selectUserId);
@@ -41,6 +38,9 @@ export const PacksListTable = () => {
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const sortPacksParam = useAppSelector(selectSortPacksParam);
   const dispatch = useAppDispatch();
+
+  const [isOpenEditPackModal, setIsOpenEditPackModal] = useState(false);
+  const [pack, setPack] = useState<null | PackType>(null);
 
   useEffect(() => {
     dispatch(fetchPacksTC());
@@ -59,13 +59,6 @@ export const PacksListTable = () => {
       return;
     }
     dispatch(deletePackTC(id));
-  };
-
-  const onUpdatePack = (id: string) => {
-    if (isRequestProcessing) {
-      return;
-    }
-    dispatch(updatePackTC({ _id: id, name: "My second updated pack" }));
   };
 
   const onSortPacks = (sortBy: string) => {
@@ -123,7 +116,13 @@ export const PacksListTable = () => {
                     {userId === pack.user_id && (
                       <BorderColorOutlinedIcon
                         color={isRequestProcessing ? "disabled" : "action"}
-                        onClick={() => onUpdatePack(pack._id)}
+                        onClick={() => {
+                          if (isRequestProcessing) {
+                            return;
+                          }
+                          setPack(pack);
+                          setIsOpenEditPackModal(true);
+                        }}
                       />
                     )}
                     {userId === pack.user_id && (
@@ -140,6 +139,13 @@ export const PacksListTable = () => {
         </TableContainer>
       ) : (
         <div>No packs</div>
+      )}
+      {isOpenEditPackModal && (
+        <EditPackModal
+          pack={pack}
+          isOpenModal={isOpenEditPackModal}
+          setIsOpenModal={setIsOpenEditPackModal}
+        />
       )}
     </div>
   );

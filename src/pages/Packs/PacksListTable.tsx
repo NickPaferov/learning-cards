@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { deletePackTC, fetchPacksTC, setSortPacksParamAC } from "../../bll/packs-reducer";
+import { fetchPacksTC, setSortPacksParamAC } from "../../bll/packs-reducer";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
@@ -26,6 +26,7 @@ import {
 } from "../../utils/selectors";
 import { EditPackModal } from "./PacksModals/EditPackModal";
 import { PackType } from "../../api/packs-api";
+import { DeletePackModal } from "./PacksModals/DeletePackModal";
 
 export const PacksListTable = () => {
   const userId = useAppSelector(selectUserId);
@@ -40,6 +41,7 @@ export const PacksListTable = () => {
   const dispatch = useAppDispatch();
 
   const [isOpenEditPackModal, setIsOpenEditPackModal] = useState(false);
+  const [isOpenDeletePackModal, setIsOpenDeletePackModal] = useState(false);
   const [pack, setPack] = useState<null | PackType>(null);
 
   useEffect(() => {
@@ -53,13 +55,6 @@ export const PacksListTable = () => {
     maxCardsSearchParam,
     sortPacksParam,
   ]);
-
-  const onDeletePack = (id: string) => {
-    if (isRequestProcessing) {
-      return;
-    }
-    dispatch(deletePackTC(id));
-  };
 
   const onSortPacks = (sortBy: string) => {
     if (isRequestProcessing) {
@@ -128,7 +123,13 @@ export const PacksListTable = () => {
                     {userId === pack.user_id && (
                       <DeleteOutlinedIcon
                         color={isRequestProcessing ? "disabled" : "action"}
-                        onClick={() => onDeletePack(pack._id)}
+                        onClick={() => {
+                          if (isRequestProcessing) {
+                            return;
+                          }
+                          setPack(pack);
+                          setIsOpenDeletePackModal(true);
+                        }}
                       />
                     )}
                   </TableCell>
@@ -145,6 +146,13 @@ export const PacksListTable = () => {
           pack={pack}
           isOpenModal={isOpenEditPackModal}
           setIsOpenModal={setIsOpenEditPackModal}
+        />
+      )}
+      {isOpenDeletePackModal && (
+        <DeletePackModal
+          pack={pack}
+          isOpenModal={isOpenDeletePackModal}
+          setIsOpenModal={setIsOpenDeletePackModal}
         />
       )}
     </div>

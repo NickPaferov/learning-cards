@@ -69,7 +69,7 @@ export const Packs = () => {
     setSearchPack(packName);
   }, [packName]);
 
-  const onOpenModal = () => {
+  const onOpenAddPackModal = () => {
     setOpenAddPackModal(true);
   };
 
@@ -77,7 +77,7 @@ export const Packs = () => {
     <div className={styles.packsList}>
       <div className={styles.header}>
         <h3>Packs list</h3>
-        <button disabled={isRequestProcessing} onClick={onOpenModal}>
+        <button disabled={isRequestProcessing} onClick={onOpenAddPackModal}>
           Add new pack
         </button>
       </div>

@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { CardsListTable } from "./CardsListTable";
 import styles from "./Cards.module.css";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { addCardTC, setCardQuestionAC, setCardsCurrentPageAC } from "../../bll/cards-reducer";
+import { setCardQuestionAC, setCardsCurrentPageAC } from "../../bll/cards-reducer";
 import { useParams } from "react-router-dom";
 import {
   selectCardQuestion,
@@ -17,6 +17,7 @@ import {
 } from "../../utils/selectors";
 import { useDebounce } from "../../hooks/useDebounce";
 import { BackToPacks } from "../../components/BackToPacks/BackToPacks";
+import { AddCardModal } from "./CardsModals/AddCardModal";
 
 export const Cards = () => {
   const userId = useAppSelector(selectUserId);
@@ -30,6 +31,7 @@ export const Cards = () => {
   const cardQuestion = useAppSelector(selectCardQuestion);
   const dispatch = useAppDispatch();
 
+  const [isOpenAddCardModal, setIsOpenAddCardModal] = useState(false);
   const [searchQuestion, setSearchQuestion] = useState(cardQuestion);
   const debouncedValue = useDebounce<string>(searchQuestion, 1000);
 
@@ -45,16 +47,6 @@ export const Cards = () => {
     dispatch(setCardsCurrentPageAC(page));
   };
 
-  const onAddCard = () => {
-    dispatch(
-      addCardTC({
-        cardsPack_id: packId,
-        question: "What is the highest mountain?",
-        answer: "Everest",
-      })
-    );
-  };
-
   const onChangeSearchCardQuestion = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuestion(e.currentTarget.value);
   };
@@ -63,6 +55,10 @@ export const Cards = () => {
     dispatch(setCardQuestionAC(searchQuestion));
   }, [debouncedValue]);
 
+  const onOpenAddCardModal = () => {
+    setIsOpenAddCardModal(true);
+  };
+
   return (
     <div className={styles.cardsList}>
       <BackToPacks />
@@ -70,7 +66,7 @@ export const Cards = () => {
         <div className={styles.header}>
           <h3>{cardsListName}</h3>
           {userId === packUserId ? (
-            <button disabled={isRequestProcessing} onClick={onAddCard}>
+            <button disabled={isRequestProcessing} onClick={onOpenAddCardModal}>
               Add new card
             </button>
           ) : (
@@ -94,11 +90,18 @@ export const Cards = () => {
             className={
               currentPage === p ? `${styles.pagination} ${styles.selectedPage}` : styles.pagination
             }
-            onClick={(e) => onSetCurrentPage(p)}
+            onClick={() => onSetCurrentPage(p)}
           >
             {p}
           </span>
         ))}
+        {isOpenAddCardModal && (
+          <AddCardModal
+            packId={packId}
+            isOpenModal={isOpenAddCardModal}
+            setIsOpenModal={setIsOpenAddCardModal}
+          />
+        )}
       </div>
     </div>
   );

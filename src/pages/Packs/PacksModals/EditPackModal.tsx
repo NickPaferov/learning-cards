@@ -12,9 +12,10 @@ type PropsType = {
 };
 
 export const EditPackModal: FC<PropsType> = ({ pack, isOpenModal, setIsOpenModal }) => {
+  const dispatch = useAppDispatch();
+
   const [packName, setPackName] = useState(pack ? pack.name : "");
   const [privateStatus, setPrivateStatus] = useState(pack ? pack.private : false);
-  const dispatch = useAppDispatch();
 
   const onChangePackName = (e: ChangeEvent<HTMLInputElement>) => {
     setPackName(e.currentTarget.value);
@@ -43,11 +44,11 @@ export const EditPackModal: FC<PropsType> = ({ pack, isOpenModal, setIsOpenModal
       isOpenModal={isOpenModal}
       setIsOpenModal={setIsOpenModal}
       title={"Edit pack"}
-      label={"Name pack"}
       onConfirmIntention={onUpdatePack}
       buttonTitle={"Save"}
     >
       <div className={styles.modal}>
+        <label>Name pack</label>
         <input
           autoFocus={true}
           type="text"

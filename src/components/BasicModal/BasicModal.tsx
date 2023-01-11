@@ -21,7 +21,6 @@ type PropsType = {
   isOpenModal: boolean;
   setIsOpenModal: (value: boolean) => void;
   title: string;
-  label?: string;
   onConfirmIntention: () => void;
   buttonTitle: string;
   autoFocus?: boolean;
@@ -32,7 +31,6 @@ export const BasicModal: FC<PropsType> = ({
   isOpenModal,
   setIsOpenModal,
   title,
-  label,
   onConfirmIntention,
   buttonTitle,
   autoFocus,
@@ -50,7 +48,6 @@ export const BasicModal: FC<PropsType> = ({
             <CloseIcon onClick={handleCloseModal} />
           </div>
           <hr />
-          <label>{label}</label>
           {children}
           <div className={styles.btnBlock}>
             <button onClick={handleCloseModal}>Cancel</button>

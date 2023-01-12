@@ -16,7 +16,7 @@ const initialState = {
   cardPacksTotalCount: 50,
   areMyPacks: false,
   min: 0,
-  max: 10,
+  max: 0,
   minCardsCount: 0,
   maxCardsCount: 10,
   packName: "",

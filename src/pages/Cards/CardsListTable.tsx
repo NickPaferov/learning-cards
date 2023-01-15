@@ -23,6 +23,7 @@ import {
 import { CardType } from "../../api/cards-api";
 import { EditCardModal } from "./CardsModals/EditCardModal";
 import { DeleteCardModal } from "./CardsModals/DeleteCardModal";
+import Rating from "@mui/material/Rating";
 
 export const CardsListTable = () => {
   const userId = useAppSelector(selectUserId);
@@ -94,7 +95,9 @@ export const CardsListTable = () => {
                   <TableCell align="right">
                     {new Date(card.updated).toLocaleString("ru-RU")}
                   </TableCell>
-                  <TableCell align="right">{card.grade}</TableCell>
+                  <TableCell align="right">
+                    <Rating name="grade" value={card.grade} precision={0.1} readOnly />
+                  </TableCell>
                   {userId === card.user_id && (
                     <TableCell align="right">
                       <BorderColorOutlinedIcon

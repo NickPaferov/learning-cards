@@ -11,7 +11,7 @@ import { fetchPacksTC, setSortPacksParamAC } from "../../bll/packs-reducer";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PATHS } from "../../app/App";
 import {
   selectAreMyPacksStatus,
@@ -35,7 +35,7 @@ export const PacksListTable = () => {
   const currentPage = useAppSelector(selectCurrentPacksPage);
   const minCardsSearchParam = useAppSelector(selectMinCardsSearchParam);
   const maxCardsSearchParam = useAppSelector(selectMaxCardsSearchParam);
-  const packName = useAppSelector(selectPackName); //for Search
+  const packName = useAppSelector(selectPackName); // for Search
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const sortPacksParam = useAppSelector(selectSortPacksParam);
   const dispatch = useAppDispatch();
@@ -43,6 +43,8 @@ export const PacksListTable = () => {
   const [isOpenEditPackModal, setIsOpenEditPackModal] = useState(false);
   const [isOpenDeletePackModal, setIsOpenDeletePackModal] = useState(false);
   const [pack, setPack] = useState<null | PackType>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchPacksTC());
@@ -61,6 +63,13 @@ export const PacksListTable = () => {
       return;
     }
     dispatch(setSortPacksParamAC(sortPacksParam[0] === "0" ? 1 + sortBy : 0 + sortBy));
+  };
+
+  const onStartLearning = (pack: PackType) => {
+    if (pack.cardsCount < 1 || isRequestProcessing) {
+      return;
+    }
+    navigate(`${PATHS.LEARN}/${pack._id}`);
   };
 
   return (
@@ -97,7 +106,7 @@ export const PacksListTable = () => {
               {packs.map((pack) => (
                 <TableRow key={pack._id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   <TableCell component="th" scope="row">
-                    <Link to={`${PATHS.PACKS}/${pack._id}`}>{pack.name}</Link>
+                    <Link to={`${PATHS.CARDS}/${pack._id}`}>{pack.name}</Link>
                   </TableCell>
                   <TableCell align="right">{pack.cardsCount}</TableCell>
                   <TableCell align="right">
@@ -107,6 +116,7 @@ export const PacksListTable = () => {
                   <TableCell align="right">
                     <SchoolOutlinedIcon
                       color={pack.cardsCount < 1 || isRequestProcessing ? "disabled" : "action"}
+                      onClick={() => onStartLearning(pack)}
                     />
                     {userId === pack.user_id && (
                       <BorderColorOutlinedIcon

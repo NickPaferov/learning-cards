@@ -13,12 +13,15 @@ export const cardsAPI = {
   updateCard(params: UpdateCardParamsType) {
     return instance.put<UpdateCardResponseType>("/cards/card", { card: params });
   },
+  updateCardGrade(params: UpdateCardGradeParamsType) {
+    return instance.put<UpdateCardGradeResponseType>("/cards/grade", params);
+  },
 };
 
 export type GetCardsParamsType = {
   cardAnswer?: string;
   cardQuestion?: string;
-  cardsPack_id: string | undefined;
+  cardsPack_id: string;
   min?: number;
   max?: number;
   sortCards?: string;
@@ -27,7 +30,7 @@ export type GetCardsParamsType = {
 };
 
 export type CreateCardParamsType = {
-  cardsPack_id: string | undefined;
+  cardsPack_id: string;
   question?: string;
   answer?: string;
   grade?: number;
@@ -42,6 +45,11 @@ export type UpdateCardParamsType = {
   _id: string;
   question?: string;
   answer?: string;
+};
+
+export type UpdateCardGradeParamsType = {
+  card_id: string;
+  grade: number;
 };
 
 export type CardType = {
@@ -97,4 +105,23 @@ export type UpdateCardResponseType = {
   updatedCard: CardType;
   token: string;
   tokenDeathTime: number;
+};
+
+export type UpdateCardGradeResponseType = {
+  updatedGrade: UpdatedGradeType;
+  token: string;
+  tokenDeathTime: number;
+};
+
+type UpdatedGradeType = {
+  _id: string;
+  cardsPack_id: string;
+  card_id: string;
+  user_id: string;
+  grade: number;
+  shots: number;
+  more_id: string;
+  created: string;
+  updated: string;
+  __v: number;
 };

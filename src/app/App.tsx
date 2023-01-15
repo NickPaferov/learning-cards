@@ -17,11 +17,13 @@ import { ProtectedRoutes } from "../hooks/ProtectedRoute";
 import { Packs } from "../pages/Packs/Packs";
 import { Cards } from "../pages/Cards/Cards";
 import { selectAppInitStatus } from "../utils/selectors";
+import { Learn } from "../pages/Learn/Learn";
 
 export enum PATHS {
   INDEX = "/",
   PACKS = "/packs",
   CARDS = "/cards",
+  LEARN = "/learn",
   SIGNUP = "/signup",
   SIGNIN = "/signin",
   PROFILE = "/profile",
@@ -69,7 +71,8 @@ function App() {
           </Route>
           <Route element={<ProtectedRoutes userIsAuth={true} redirectTo={PATHS.SIGNIN} />}>
             <Route path={PATHS.PACKS} element={<Packs />} />
-            <Route path={`${PATHS.PACKS}/:packId`} element={<Cards />} />
+            <Route path={`${PATHS.CARDS}/:packId`} element={<Cards />} />
+            <Route path={`${PATHS.LEARN}/:packId`} element={<Learn />} />
             <Route path={PATHS.PROFILE} element={<Profile />} />
           </Route>
           <Route path={PATHS.NOT_FOUND} element={<NotFound />} />

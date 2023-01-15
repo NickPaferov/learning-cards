@@ -1,0 +1,26 @@
+.learnPage {
+    width: 80%;
+    margin: auto;
+}
+
+.wrapper {
+    margin: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: content-box;
+    width: 300px;
+    border: 1px solid black;
+}
+
+.questionInfo, .answerArea {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.clarification {
+    opacity: 0.6;
+    font-size: 14px;
+}

@@ -29,7 +29,7 @@ export const CardsListTable = () => {
   const packUserId = useAppSelector(selectPackUserId);
   const cards = useAppSelector(selectCards);
   const currentPage = useAppSelector(selectCurrentCardsPage);
-  const cardQuestion = useAppSelector(selectCardQuestion); //for Search
+  const cardQuestion = useAppSelector(selectCardQuestion); // for Search
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const sortCardsParam = useAppSelector(selectSortCardsParam);
 
@@ -42,7 +42,9 @@ export const CardsListTable = () => {
   const { packId } = useParams();
 
   useEffect(() => {
-    dispatch(fetchCardsTC(packId));
+    if (packId) {
+      dispatch(fetchCardsTC(packId));
+    }
   }, [dispatch, currentPage, packId, cardQuestion, sortCardsParam]);
 
   const onSortCards = (sortBy: string) => {

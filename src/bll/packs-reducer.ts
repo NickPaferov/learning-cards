@@ -18,7 +18,7 @@ const initialState = {
   min: 0,
   max: 0,
   minCardsCount: 0,
-  maxCardsCount: 10,
+  maxCardsCount: 0,
   packName: "",
   sortPacks: "0updated",
 };

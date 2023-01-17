@@ -9,11 +9,7 @@ import {
   selectRequestProcessingStatus,
 } from "../../utils/selectors";
 import { CardType } from "../../api/cards-api";
-import {
-  fetchCardsTC,
-  setAllCardsOfPackForLearnPageAC,
-  updateCardGradeTC,
-} from "../../bll/cards-reducer";
+import { fetchCardsTC, setCardsCountPrePageAC, updateCardGradeTC } from "../../bll/cards-reducer";
 import { BackToPacks } from "../../components/BackToPacks/BackToPacks";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 
@@ -55,7 +51,7 @@ export const Learn = () => {
 
   useEffect(() => {
     if (packId) {
-      dispatch(setAllCardsOfPackForLearnPageAC(cardsTotalCount));
+      dispatch(setCardsCountPrePageAC(cardsTotalCount));
       dispatch(fetchCardsTC(packId));
     }
   }, [dispatch, packId, cardsTotalCount]);

@@ -28,6 +28,7 @@ export const selectMaxCardsSearchParam = (state: AppRootStateType) => state.pack
 export const selectMinCardsCount = (state: AppRootStateType) => state.packs.minCardsCount;
 export const selectMaxCardsCount = (state: AppRootStateType) => state.packs.maxCardsCount;
 export const selectSortPacksParam = (state: AppRootStateType) => state.packs.sortPacks;
+export const selectPacksCountPerPage = (state: AppRootStateType) => state.packs.pageCount;
 
 //cardsSelectors
 export const selectCardsPageSize = (state: AppRootStateType) => state.cards.pageCount;
@@ -38,3 +39,4 @@ export const selectCardsListName = (state: AppRootStateType) => state.cards.pack
 export const selectCardQuestion = (state: AppRootStateType) => state.cards.cardQuestion; // for Search
 export const selectPackUserId = (state: AppRootStateType) => state.cards.packUserId;
 export const selectSortCardsParam = (state: AppRootStateType) => state.cards.sortCards;
+export const selectCardsCountPerPage = (state: AppRootStateType) => state.cards.pageCount;

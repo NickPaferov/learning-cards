@@ -20,6 +20,7 @@ import {
   selectMinCardsSearchParam,
   selectPackName,
   selectPacks,
+  selectPacksCountPerPage,
   selectRequestProcessingStatus,
   selectSortPacksParam,
   selectUserId,
@@ -38,6 +39,7 @@ export const PacksListTable = () => {
   const packName = useAppSelector(selectPackName); // for Search
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const sortPacksParam = useAppSelector(selectSortPacksParam);
+  const packsCountPerPage = useAppSelector(selectPacksCountPerPage);
   const dispatch = useAppDispatch();
 
   const [isOpenEditPackModal, setIsOpenEditPackModal] = useState(false);
@@ -56,6 +58,7 @@ export const PacksListTable = () => {
     minCardsSearchParam,
     maxCardsSearchParam,
     sortPacksParam,
+    packsCountPerPage,
   ]);
 
   const onSortPacks = (sortBy: string) => {

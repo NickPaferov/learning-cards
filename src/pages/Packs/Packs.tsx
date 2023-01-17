@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../bll/store";
 import {
   setAreMyPacksAC,
   setPackNameSearchAC,
+  setPacksCountPrePageAC,
   setPacksCurrentPageAC,
   setResetAllPacksFiltersAC,
 } from "../../bll/packs-reducer";
@@ -20,6 +21,7 @@ import {
   selectRequestProcessingStatus,
 } from "../../utils/selectors";
 import { AddPackModal } from "./PacksModals/AddPackModal";
+import { PaginationBlock } from "../../components/PaginationBlock/PaginationBlock";
 
 export const Packs = () => {
   const pageSize = useAppSelector(selectPacksPageSize);
@@ -33,16 +35,6 @@ export const Packs = () => {
   const [isOpenAddPackModal, setOpenAddPackModal] = useState(false);
   const [searchPack, setSearchPack] = useState(packName);
   const debouncedValue = useDebounce<string>(searchPack, 1000);
-
-  const pagesCount = Math.ceil(packsTotalCount / pageSize);
-  const pages = [];
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
-  }
-
-  const onSetCurrentPage = (page: number) => {
-    dispatch(setPacksCurrentPageAC(page));
-  };
 
   const onChangeSearchPackName = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchPack(e.currentTarget.value);
@@ -71,6 +63,14 @@ export const Packs = () => {
 
   const onOpenAddPackModal = () => {
     setOpenAddPackModal(true);
+  };
+
+  const onSetCurrentPage = (page: number) => {
+    dispatch(setPacksCurrentPageAC(page));
+  };
+
+  const onSetPacksCountPerPage = (itemsCountPerPage: number) => {
+    dispatch(setPacksCountPrePageAC(itemsCountPerPage));
   };
 
   return (
@@ -117,19 +117,14 @@ export const Packs = () => {
         </button>
       </div>
       <PacksListTable />
-      {pages.map((p, index) => (
-        <span
-          key={index}
-          className={
-            currentPage === p ? `${styles.pagination} ${styles.selectedPage}` : styles.pagination
-          }
-          onClick={() => {
-            onSetCurrentPage(p);
-          }}
-        >
-          {p}
-        </span>
-      ))}
+      <PaginationBlock
+        itemsTotalCount={packsTotalCount}
+        pageSize={pageSize}
+        currentPage={currentPage}
+        onSetCurrentPage={onSetCurrentPage}
+        onSetItemsCountPerPage={onSetPacksCountPerPage}
+        itemsName="packs"
+      />
       {isOpenAddPackModal && (
         <AddPackModal isOpenModal={isOpenAddPackModal} setIsOpenModal={setOpenAddPackModal} />
       )}

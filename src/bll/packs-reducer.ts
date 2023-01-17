@@ -42,6 +42,8 @@ export const packsReducer = (
       return { ...state, packName: action.packName };
     case "PACKS/SET-SORT-PACKS-PARAM":
       return { ...state, sortPacks: action.sortPacksParam };
+    case "PACKS/SET-PACKS-COUNT-PER-PAGE":
+      return { ...state, pageCount: action.pageCount };
     case "PACKS/RESET-ALL-PACKS-FILTERS":
       return {
         ...state,
@@ -75,6 +77,9 @@ export const setPackNameSearchAC = (packName: string) =>
 
 export const setSortPacksParamAC = (sortPacksParam: string) =>
   ({ type: "PACKS/SET-SORT-PACKS-PARAM", sortPacksParam } as const);
+
+export const setPacksCountPrePageAC = (pageCount: number) =>
+  ({ type: "PACKS/SET-PACKS-COUNT-PER-PAGE", pageCount } as const);
 
 export const setResetAllPacksFiltersAC = () => ({ type: "PACKS/RESET-ALL-PACKS-FILTERS" } as const);
 
@@ -144,18 +149,11 @@ export const updatePackTC =
   };
 
 export type PacksActionsType =
-  | SetPacksType
-  | SetPacksCurrentPageType
-  | SetAreMyPacksType
-  | SetMinMaxCardsCountType
-  | SetPackNameSearchType
-  | SetSortPacksParamType
-  | SetResetAllPacksFiltersType;
-
-type SetPacksType = ReturnType<typeof setPacksAC>;
-type SetPacksCurrentPageType = ReturnType<typeof setPacksCurrentPageAC>;
-type SetAreMyPacksType = ReturnType<typeof setAreMyPacksAC>;
-type SetMinMaxCardsCountType = ReturnType<typeof setMinMaxCardsCountAC>;
-type SetPackNameSearchType = ReturnType<typeof setPackNameSearchAC>;
-type SetSortPacksParamType = ReturnType<typeof setSortPacksParamAC>;
-type SetResetAllPacksFiltersType = ReturnType<typeof setResetAllPacksFiltersAC>;
+  | ReturnType<typeof setPacksAC>
+  | ReturnType<typeof setPacksCurrentPageAC>
+  | ReturnType<typeof setAreMyPacksAC>
+  | ReturnType<typeof setMinMaxCardsCountAC>
+  | ReturnType<typeof setPackNameSearchAC>
+  | ReturnType<typeof setSortPacksParamAC>
+  | ReturnType<typeof setResetAllPacksFiltersAC>
+  | ReturnType<typeof setPacksCountPrePageAC>;

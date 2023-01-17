@@ -14,6 +14,7 @@ import { useParams } from "react-router-dom";
 import {
   selectCardQuestion,
   selectCards,
+  selectCardsCountPerPage,
   selectCurrentCardsPage,
   selectPackUserId,
   selectRequestProcessingStatus,
@@ -32,6 +33,7 @@ export const CardsListTable = () => {
   const currentPage = useAppSelector(selectCurrentCardsPage);
   const cardQuestion = useAppSelector(selectCardQuestion); // for Search
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
+  const cardsCountPerPage = useAppSelector(selectCardsCountPerPage);
   const sortCardsParam = useAppSelector(selectSortCardsParam);
 
   const dispatch = useAppDispatch();
@@ -46,7 +48,7 @@ export const CardsListTable = () => {
     if (packId) {
       dispatch(fetchCardsTC(packId));
     }
-  }, [dispatch, currentPage, packId, cardQuestion, sortCardsParam]);
+  }, [dispatch, currentPage, packId, cardQuestion, sortCardsParam, cardsCountPerPage]);
 
   const onSortCards = (sortBy: string) => {
     if (isRequestProcessing) {

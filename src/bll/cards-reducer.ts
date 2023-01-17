@@ -40,7 +40,7 @@ export const cardsReducer = (
       return { ...state, cardQuestion: action.cardQuestion };
     case "CARDS/SET-SORT-CARDS-PARAM":
       return { ...state, sortCards: action.sortCardsParam };
-    case "CARDS/SET-ALL-CARDS-OF-PACK-FOR-LEARN-PAGE":
+    case "CARDS/SET-CARDS-COUNT-PER-PAGE":
       return { ...state, pageCount: action.pageCount };
     default: {
       return state;
@@ -65,8 +65,8 @@ export const setCardQuestionAC = (cardQuestion: string) =>
 export const setSortCardsParamAC = (sortCardsParam: string) =>
   ({ type: "CARDS/SET-SORT-CARDS-PARAM", sortCardsParam } as const);
 
-export const setAllCardsOfPackForLearnPageAC = (pageCount: number) =>
-  ({ type: "CARDS/SET-ALL-CARDS-OF-PACK-FOR-LEARN-PAGE", pageCount } as const);
+export const setCardsCountPrePageAC = (pageCount: number) =>
+  ({ type: "CARDS/SET-CARDS-COUNT-PER-PAGE", pageCount } as const);
 
 export const fetchCardsTC =
   (cardsPack_id: string): AppThunkType =>
@@ -143,16 +143,9 @@ export const updateCardGradeTC =
   };
 
 export type CardsActionsType =
-  | SetCardsType
-  | SetCardsCurrentPageType
-  | SetCardsTotalCountType
-  | SetCardQuestionType
-  | SetSortCardsParamType
-  | SetAllCardsOfPackForLearnPageType;
-
-type SetCardsType = ReturnType<typeof setCardsAC>;
-type SetCardsCurrentPageType = ReturnType<typeof setCardsCurrentPageAC>;
-type SetCardsTotalCountType = ReturnType<typeof setCardsTotalCountAC>;
-type SetCardQuestionType = ReturnType<typeof setCardQuestionAC>;
-type SetSortCardsParamType = ReturnType<typeof setSortCardsParamAC>;
-type SetAllCardsOfPackForLearnPageType = ReturnType<typeof setAllCardsOfPackForLearnPageAC>;
+  | ReturnType<typeof setCardsAC>
+  | ReturnType<typeof setCardsCurrentPageAC>
+  | ReturnType<typeof setCardsTotalCountAC>
+  | ReturnType<typeof setCardQuestionAC>
+  | ReturnType<typeof setSortCardsParamAC>
+  | ReturnType<typeof setCardsCountPrePageAC>;

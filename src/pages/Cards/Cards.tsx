@@ -2,7 +2,11 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { CardsListTable } from "./CardsListTable";
 import styles from "./Cards.module.css";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { setCardQuestionAC, setCardsCurrentPageAC } from "../../bll/cards-reducer";
+import {
+  setCardQuestionAC,
+  setCardsCountPrePageAC,
+  setCardsCurrentPageAC,
+} from "../../bll/cards-reducer";
 import { useParams } from "react-router-dom";
 import {
   selectCardQuestion,
@@ -18,6 +22,7 @@ import {
 import { useDebounce } from "../../hooks/useDebounce";
 import { BackToPacks } from "../../components/BackToPacks/BackToPacks";
 import { AddCardModal } from "./CardsModals/AddCardModal";
+import { PaginationBlock } from "../../components/PaginationBlock/PaginationBlock";
 
 export const Cards = () => {
   const userId = useAppSelector(selectUserId);
@@ -37,16 +42,6 @@ export const Cards = () => {
 
   const { packId } = useParams();
 
-  const pagesCount = Math.ceil(cardsTotalCount / pageSize);
-  const pages = [];
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
-  }
-
-  const onSetCurrentPage = (page: number) => {
-    dispatch(setCardsCurrentPageAC(page));
-  };
-
   const onChangeSearchCardQuestion = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuestion(e.currentTarget.value);
   };
@@ -57,6 +52,14 @@ export const Cards = () => {
 
   const onOpenAddCardModal = () => {
     setIsOpenAddCardModal(true);
+  };
+
+  const onSetCurrentPage = (page: number) => {
+    dispatch(setCardsCurrentPageAC(page));
+  };
+
+  const onSetCardsCountPerPage = (itemsCountPerPage: number) => {
+    dispatch(setCardsCountPrePageAC(itemsCountPerPage));
   };
 
   return (
@@ -84,17 +87,14 @@ export const Cards = () => {
           />
         </div>
         <CardsListTable />
-        {pages.map((p, index) => (
-          <span
-            key={index}
-            className={
-              currentPage === p ? `${styles.pagination} ${styles.selectedPage}` : styles.pagination
-            }
-            onClick={() => onSetCurrentPage(p)}
-          >
-            {p}
-          </span>
-        ))}
+        <PaginationBlock
+          itemsTotalCount={cardsTotalCount}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onSetCurrentPage={onSetCurrentPage}
+          onSetItemsCountPerPage={onSetCardsCountPerPage}
+          itemsName="cards"
+        />
         {isOpenAddCardModal && (
           <AddCardModal
             packId={packId}

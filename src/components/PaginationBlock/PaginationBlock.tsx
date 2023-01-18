@@ -24,10 +24,6 @@ export const PaginationBlock: FC<PropsType> = ({
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
 
   const pagesCount = Math.ceil(itemsTotalCount / pageSize);
-  const pages = [];
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
-  }
 
   const onChangeCurrentPage = (event: React.ChangeEvent<unknown>, page: number) => {
     onSetCurrentPage(page);

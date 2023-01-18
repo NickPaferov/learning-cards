@@ -25,6 +25,7 @@ import { CardType } from "../../api/cards-api";
 import { EditCardModal } from "./CardsModals/EditCardModal";
 import { DeleteCardModal } from "./CardsModals/DeleteCardModal";
 import Rating from "@mui/material/Rating";
+import IconButton from "@mui/material/IconButton/IconButton";
 
 export const CardsListTable = () => {
   const userId = useAppSelector(selectUserId);
@@ -57,6 +58,8 @@ export const CardsListTable = () => {
     dispatch(setSortCardsParamAC(sortCardsParam[0] === "0" ? 1 + sortBy : 0 + sortBy));
   };
 
+  const sortCardsDirection = sortCardsParam[0] === "0" ? <span>▲</span> : <span>▼</span>;
+
   return (
     <div>
       {cards.length ? (
@@ -66,23 +69,19 @@ export const CardsListTable = () => {
               <TableRow sx={{ backgroundColor: "#EFEFEF" }}>
                 <TableCell onClick={() => onSortCards("question")}>
                   Question
-                  {sortCardsParam.slice(1) === "question" &&
-                    (sortCardsParam[0] === "0" ? <span>▲</span> : <span>▼</span>)}
+                  {sortCardsParam.slice(1) === "question" && sortCardsDirection}
                 </TableCell>
                 <TableCell align="right" onClick={() => onSortCards("answer")}>
                   Answer
-                  {sortCardsParam.slice(1) === "answer" &&
-                    (sortCardsParam[0] === "0" ? <span>▲</span> : <span>▼</span>)}
+                  {sortCardsParam.slice(1) === "answer" && sortCardsDirection}
                 </TableCell>
                 <TableCell align="right" onClick={() => onSortCards("updated")}>
                   Last Updated
-                  {sortCardsParam.slice(1) === "updated" &&
-                    (sortCardsParam[0] === "0" ? <span>▲</span> : <span>▼</span>)}
+                  {sortCardsParam.slice(1) === "updated" && sortCardsDirection}
                 </TableCell>
                 <TableCell align="right" onClick={() => onSortCards("grade")}>
                   Grade
-                  {sortCardsParam.slice(1) === "grade" &&
-                    (sortCardsParam[0] === "0" ? <span>▲</span> : <span>▼</span>)}
+                  {sortCardsParam.slice(1) === "grade" && sortCardsDirection}
                 </TableCell>
                 {userId === packUserId && <TableCell align="right">Actions</TableCell>}
               </TableRow>
@@ -102,26 +101,24 @@ export const CardsListTable = () => {
                   </TableCell>
                   {userId === card.user_id && (
                     <TableCell align="right">
-                      <BorderColorOutlinedIcon
-                        color={isRequestProcessing ? "disabled" : "action"}
+                      <IconButton
+                        disabled={isRequestProcessing}
                         onClick={() => {
-                          if (isRequestProcessing) {
-                            return;
-                          }
                           setCard(card);
                           setIsEditCardModalOpen(true);
                         }}
-                      />
-                      <DeleteOutlinedIcon
-                        color={isRequestProcessing ? "disabled" : "action"}
+                      >
+                        <BorderColorOutlinedIcon />
+                      </IconButton>
+                      <IconButton
+                        disabled={isRequestProcessing}
                         onClick={() => {
-                          if (isRequestProcessing) {
-                            return;
-                          }
                           setCard(card);
                           setIsDeleteCardModalOpen(true);
                         }}
-                      />
+                      >
+                        <DeleteOutlinedIcon />
+                      </IconButton>
                     </TableCell>
                   )}
                 </TableRow>

@@ -28,6 +28,7 @@ import {
 import { EditPackModal } from "./PacksModals/EditPackModal";
 import { PackType } from "../../api/packs-api";
 import { DeletePackModal } from "./PacksModals/DeletePackModal";
+import IconButton from "@mui/material/IconButton/IconButton";
 
 export const PacksListTable = () => {
   const userId = useAppSelector(selectUserId);
@@ -69,11 +70,10 @@ export const PacksListTable = () => {
   };
 
   const onStartLearning = (pack: PackType) => {
-    if (pack.cardsCount < 1 || isRequestProcessing) {
-      return;
-    }
     navigate(`${PATHS.LEARN}/${pack._id}`);
   };
+
+  const sortPacksDirection = sortPacksParam[0] === "0" ? <span>▲</span> : <span>▼</span>;
 
   return (
     <div>
@@ -84,23 +84,19 @@ export const PacksListTable = () => {
               <TableRow sx={{ backgroundColor: "#EFEFEF" }}>
                 <TableCell onClick={() => onSortPacks("name")}>
                   Name
-                  {sortPacksParam.slice(1) === "name" &&
-                    (sortPacksParam[0] === "0" ? <span>▲</span> : <span>▼</span>)}
+                  {sortPacksParam.slice(1) === "name" && sortPacksDirection}
                 </TableCell>
                 <TableCell align="right" onClick={() => onSortPacks("cardsCount")}>
                   Cards
-                  {sortPacksParam.slice(1) === "cardsCount" &&
-                    (sortPacksParam[0] === "0" ? <span>▲</span> : <span>▼</span>)}
+                  {sortPacksParam.slice(1) === "cardsCount" && sortPacksDirection}
                 </TableCell>
                 <TableCell align="right" onClick={() => onSortPacks("updated")}>
                   Last Updated
-                  {sortPacksParam.slice(1) === "updated" &&
-                    (sortPacksParam[0] === "0" ? <span>▲</span> : <span>▼</span>)}
+                  {sortPacksParam.slice(1) === "updated" && sortPacksDirection}
                 </TableCell>
                 <TableCell align="right" onClick={() => onSortPacks("user_name")}>
                   Created By
-                  {sortPacksParam.slice(1) === "user_name" &&
-                    (sortPacksParam[0] === "0" ? <span>▲</span> : <span>▼</span>)}
+                  {sortPacksParam.slice(1) === "user_name" && sortPacksDirection}
                 </TableCell>
                 <TableCell align="right">Actions</TableCell>
               </TableRow>
@@ -117,33 +113,33 @@ export const PacksListTable = () => {
                   </TableCell>
                   <TableCell align="right">{pack.user_name}</TableCell>
                   <TableCell align="right">
-                    <SchoolOutlinedIcon
-                      color={pack.cardsCount < 1 || isRequestProcessing ? "disabled" : "action"}
+                    <IconButton
+                      disabled={pack.cardsCount < 1 || isRequestProcessing}
                       onClick={() => onStartLearning(pack)}
-                    />
+                    >
+                      <SchoolOutlinedIcon />
+                    </IconButton>
                     {userId === pack.user_id && (
-                      <BorderColorOutlinedIcon
-                        color={isRequestProcessing ? "disabled" : "action"}
+                      <IconButton
+                        disabled={isRequestProcessing}
                         onClick={() => {
-                          if (isRequestProcessing) {
-                            return;
-                          }
                           setPack(pack);
                           setIsOpenEditPackModal(true);
                         }}
-                      />
+                      >
+                        <BorderColorOutlinedIcon />
+                      </IconButton>
                     )}
                     {userId === pack.user_id && (
-                      <DeleteOutlinedIcon
-                        color={isRequestProcessing ? "disabled" : "action"}
+                      <IconButton
+                        disabled={isRequestProcessing}
                         onClick={() => {
-                          if (isRequestProcessing) {
-                            return;
-                          }
                           setPack(pack);
                           setIsOpenDeletePackModal(true);
                         }}
-                      />
+                      >
+                        <DeleteOutlinedIcon />
+                      </IconButton>
                     )}
                   </TableCell>
                 </TableRow>

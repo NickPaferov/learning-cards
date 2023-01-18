@@ -45,6 +45,8 @@ export type UpdateCardParamsType = {
   _id: string;
   question?: string;
   answer?: string;
+  answerImg?: string;
+  questionImg?: string;
 };
 
 export type UpdateCardGradeParamsType = {

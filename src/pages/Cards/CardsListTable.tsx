@@ -67,40 +67,40 @@ export const CardsListTable = () => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow sx={{ backgroundColor: "#EFEFEF" }}>
-                <TableCell onClick={() => onSortCards("question")}>
+                <TableCell align="left" onClick={() => onSortCards("question")}>
                   Question
                   {sortCardsParam.slice(1) === "question" && sortCardsDirection}
                 </TableCell>
-                <TableCell align="right" onClick={() => onSortCards("answer")}>
+                <TableCell align="left" onClick={() => onSortCards("answer")}>
                   Answer
                   {sortCardsParam.slice(1) === "answer" && sortCardsDirection}
                 </TableCell>
-                <TableCell align="right" onClick={() => onSortCards("updated")}>
+                <TableCell align="left" onClick={() => onSortCards("updated")}>
                   Last Updated
                   {sortCardsParam.slice(1) === "updated" && sortCardsDirection}
                 </TableCell>
-                <TableCell align="right" onClick={() => onSortCards("grade")}>
+                <TableCell align="left" onClick={() => onSortCards("grade")}>
                   Grade
                   {sortCardsParam.slice(1) === "grade" && sortCardsDirection}
                 </TableCell>
-                {userId === packUserId && <TableCell align="right">Actions</TableCell>}
+                {userId === packUserId && <TableCell align="left">Actions</TableCell>}
               </TableRow>
             </TableHead>
             <TableBody>
               {cards.map((card) => (
                 <TableRow key={card._id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                  <TableCell component="th" scope="row">
+                  <TableCell align="left" component="th" scope="row">
                     {card.question}
                   </TableCell>
-                  <TableCell align="right">{card.answer}</TableCell>
-                  <TableCell align="right">
+                  <TableCell align="left">{card.answer}</TableCell>
+                  <TableCell align="left">
                     {new Date(card.updated).toLocaleString("ru-RU")}
                   </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="left">
                     <Rating name="grade" value={card.grade} precision={0.1} readOnly />
                   </TableCell>
                   {userId === card.user_id && (
-                    <TableCell align="right">
+                    <TableCell align="left">
                       <IconButton
                         disabled={isRequestProcessing}
                         onClick={() => {

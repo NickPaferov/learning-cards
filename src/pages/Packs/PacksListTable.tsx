@@ -82,23 +82,23 @@ export const PacksListTable = () => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow sx={{ backgroundColor: "#EFEFEF" }}>
-                <TableCell onClick={() => onSortPacks("name")}>
+                <TableCell align="left" onClick={() => onSortPacks("name")}>
                   Name
                   {sortPacksParam.slice(1) === "name" && sortPacksDirection}
                 </TableCell>
-                <TableCell align="right" onClick={() => onSortPacks("cardsCount")}>
+                <TableCell align="left" onClick={() => onSortPacks("cardsCount")}>
                   Cards
                   {sortPacksParam.slice(1) === "cardsCount" && sortPacksDirection}
                 </TableCell>
-                <TableCell align="right" onClick={() => onSortPacks("updated")}>
+                <TableCell align="left" onClick={() => onSortPacks("updated")}>
                   Last Updated
                   {sortPacksParam.slice(1) === "updated" && sortPacksDirection}
                 </TableCell>
-                <TableCell align="right" onClick={() => onSortPacks("user_name")}>
+                <TableCell align="left" onClick={() => onSortPacks("user_name")}>
                   Created By
                   {sortPacksParam.slice(1) === "user_name" && sortPacksDirection}
                 </TableCell>
-                <TableCell align="right">Actions</TableCell>
+                <TableCell align="left">Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -107,12 +107,12 @@ export const PacksListTable = () => {
                   <TableCell component="th" scope="row">
                     <Link to={`${PATHS.CARDS}/${pack._id}`}>{pack.name}</Link>
                   </TableCell>
-                  <TableCell align="right">{pack.cardsCount}</TableCell>
-                  <TableCell align="right">
+                  <TableCell align="left">{pack.cardsCount}</TableCell>
+                  <TableCell align="left">
                     {new Date(pack.updated).toLocaleString("ru-RU")}
                   </TableCell>
-                  <TableCell align="right">{pack.user_name}</TableCell>
-                  <TableCell align="right">
+                  <TableCell align="left">{pack.user_name}</TableCell>
+                  <TableCell align="left">
                     <IconButton
                       disabled={pack.cardsCount < 1 || isRequestProcessing}
                       onClick={() => onStartLearning(pack)}

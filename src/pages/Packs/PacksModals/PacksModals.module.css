@@ -12,3 +12,9 @@
     display: flex;
     flex-direction: column;
 }
+
+.packCover {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}

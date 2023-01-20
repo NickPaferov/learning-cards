@@ -29,6 +29,7 @@ import { EditPackModal } from "./PacksModals/EditPackModal";
 import { PackType } from "../../api/packs-api";
 import { DeletePackModal } from "./PacksModals/DeletePackModal";
 import IconButton from "@mui/material/IconButton/IconButton";
+import noCover from "./../../assets/images/noCover.png";
 
 export const PacksListTable = () => {
   const userId = useAppSelector(selectUserId);
@@ -82,6 +83,7 @@ export const PacksListTable = () => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow sx={{ backgroundColor: "#EFEFEF" }}>
+                <TableCell align="left">Cover</TableCell>
                 <TableCell align="left" onClick={() => onSortPacks("name")}>
                   Name
                   {sortPacksParam.slice(1) === "name" && sortPacksDirection}
@@ -104,6 +106,9 @@ export const PacksListTable = () => {
             <TableBody>
               {packs.map((pack) => (
                 <TableRow key={pack._id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                  <TableCell sx={{ maxWidth: 100 }} align="left">
+                    <img style={{ maxWidth: "100%" }} alt="cover" src={pack.deckCover || noCover} />
+                  </TableCell>
                   <TableCell component="th" scope="row">
                     <Link to={`${PATHS.CARDS}/${pack._id}`}>{pack.name}</Link>
                   </TableCell>

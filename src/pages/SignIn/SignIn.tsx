@@ -77,7 +77,7 @@ export const SignIn = () => {
         <button disabled={isRequestProcessing}>Sign In</button>
       </form>
       <Link to="/forgot-password">Forgot Password?</Link>
-      <span className={styles.clarification}>Already have an account?</span>
+      <span className={styles.clarification}>Don't have an account?</span>
       <Link to={PATHS.SIGNUP}>Sign Up</Link>
     </div>
   );

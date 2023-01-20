@@ -6,6 +6,7 @@ export const selectLoginStatus = (state: AppRootStateType) => state.auth.isLogge
 export const selectUserId = (state: AppRootStateType) => state.auth.user?._id;
 export const selectUserName = (state: AppRootStateType) => state.auth.user?.name;
 export const selectUserEmail = (state: AppRootStateType) => state.auth.user?.email;
+export const selectUserAvatar = (state: AppRootStateType) => state.auth.user?.avatar;
 export const selectInstructionSendStatus = (state: AppRootStateType) =>
   state.auth.isInstructionsSent;
 export const selectPasswordChangeStatus = (state: AppRootStateType) => state.auth.isPasswordChanged;

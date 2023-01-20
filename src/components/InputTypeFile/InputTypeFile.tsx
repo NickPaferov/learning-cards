@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FC, ReactNode } from "react";
 import { useAppDispatch } from "../../bll/store";
 import { setAppErrorAC } from "../../bll/app-reducer";
+import { convertFileToBase64 } from "../../utils/convertFileToBase64";
 
 type PropsType = {
   children: ReactNode;
@@ -15,13 +16,9 @@ export const InputTypeFile: FC<PropsType> = ({ children, callBack }) => {
       const file = e.target.files[0];
 
       if (file.size < 1000000) {
-        const reader = new FileReader();
-
-        reader.onloadend = () => {
-          const file64 = reader.result as string;
+        convertFileToBase64(file, (file64: string) => {
           callBack(file64);
-        };
-        reader.readAsDataURL(file);
+        });
       } else {
         dispatch(setAppErrorAC("uploading file is too large"));
       }

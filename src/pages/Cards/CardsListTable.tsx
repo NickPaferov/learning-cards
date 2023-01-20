@@ -89,10 +89,28 @@ export const CardsListTable = () => {
             <TableBody>
               {cards.map((card) => (
                 <TableRow key={card._id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                  <TableCell align="left" component="th" scope="row">
-                    {card.question}
+                  <TableCell sx={{ maxWidth: 200 }} align="left" component="th" scope="row">
+                    {card.questionImg ? (
+                      <img
+                        style={{ maxWidth: "100%", height: "100px" }}
+                        alt="questionImg"
+                        src={card.questionImg}
+                      />
+                    ) : (
+                      card.question
+                    )}
                   </TableCell>
-                  <TableCell align="left">{card.answer}</TableCell>
+                  <TableCell sx={{ maxWidth: 200 }} align="left">
+                    {card.answerImg ? (
+                      <img
+                        style={{ maxWidth: "100%", height: "100px" }}
+                        alt="answerImg"
+                        src={card.answerImg}
+                      />
+                    ) : (
+                      card.answer
+                    )}
+                  </TableCell>
                   <TableCell align="left">
                     {new Date(card.updated).toLocaleString("ru-RU")}
                   </TableCell>

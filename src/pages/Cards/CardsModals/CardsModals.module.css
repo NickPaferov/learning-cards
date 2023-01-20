@@ -7,3 +7,14 @@
     display: flex;
     flex-direction: column;
 }
+
+.selector {
+    display: flex;
+    flex-direction: column;
+}
+
+.imageWrapper {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}

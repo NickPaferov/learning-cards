@@ -32,6 +32,11 @@ export const DeletePackModal: FC<PropsType> = ({ pack, isOpenModal, setIsOpenMod
     >
       <div className={styles.clarification}>
         <span>Do you really want to remove pack {pack ? `"${pack.name}"` : "this pack"}?</span>
+        <div className={styles.packCover}>
+          {pack && pack.deckCover && (
+            <img style={{ maxWidth: "200px" }} alt="cover" src={pack.deckCover} />
+          )}
+        </div>
         {pack && pack.cardsCount > 0 && <span>All cards will be deleted.</span>}
       </div>
     </BasicModal>

@@ -74,7 +74,7 @@ export const EditPackModal: FC<PropsType> = ({ pack, isOpenModal, setIsOpenModal
         />
         <InputTypeFile callBack={onUploadPackCover}>
           <Button style={{ width: "100%" }} variant="contained" component="span">
-            Update pack cover
+            Upload pack cover
           </Button>
         </InputTypeFile>
         <div className={styles.packCover}>

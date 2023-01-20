@@ -35,7 +35,26 @@ export const DeleteCardModal: FC<PropsType> = ({ packId, card, isOpenModal, setI
     >
       <div className={styles.clarification}>
         <span>Do you really want to remove this card from pack "{cardsListName}"?</span>
-        {card && <span>Question: "{card.question}"</span>}
+        {card?.questionImg ? (
+          <div>
+            <span>Question:</span>
+            <div className={styles.imageWrapper}>
+              <img style={{ maxWidth: "200px" }} alt={"questionImage"} src={card.questionImg} />
+            </div>
+          </div>
+        ) : (
+          <span>Question: "{card?.question}"</span>
+        )}
+        {card?.answerImg ? (
+          <div>
+            <span>Answer:</span>
+            <div className={styles.imageWrapper}>
+              <img style={{ maxWidth: "200px" }} alt={"questionImage"} src={card.answerImg} />
+            </div>
+          </div>
+        ) : (
+          <span>Answer: "{card?.answer}"</span>
+        )}
       </div>
     </BasicModal>
   );

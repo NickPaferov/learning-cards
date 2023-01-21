@@ -39,18 +39,22 @@ export const EditCardModal: FC<PropsType> = ({ packId, card, isOpenModal, setIsO
   useEffect(() => {
     if (card && questionFormat === "text") {
       setQuestionImage("noData");
+      setQuestion(card.question);
     }
     if (card && questionFormat === "image") {
       setQuestionImage(card.questionImg);
+      setQuestion("no question");
     }
   }, [card, questionFormat]);
 
   useEffect(() => {
     if (card && answerFormat === "text") {
       setAnswerImage("noData");
+      setAnswer(card.answer);
     }
     if (card && answerFormat === "image") {
       setAnswerImage(card.answerImg);
+      setAnswer("no answer");
     }
   }, [card, answerFormat]);
 

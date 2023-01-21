@@ -3,7 +3,7 @@ import React from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import styles from "./Layout.module.css";
 import { useAppSelector } from "../../bll/store";
-import avatarImg from "../../assets/images/avatar.png";
+import defaultAvatar from "../../assets/images/avatar.png";
 import { DropDownMenu } from "../DropDownMenu/DropDownMenu";
 import { PATHS } from "../../app/App";
 import {
@@ -34,11 +34,7 @@ export const Layout = () => {
           </NavLink>
           {isLoggedIn ? (
             <div className={styles.userInfo}>
-              {avatar ? (
-                <img alt="avatar" src={avatar} className={styles.avatar} />
-              ) : (
-                <img alt="avatar" src={avatarImg} className={styles.avatar} />
-              )}
+              <img alt="avatar" src={avatar || defaultAvatar} className={styles.avatar} />
               <span>{userName}</span>
               <DropDownMenu />
             </div>

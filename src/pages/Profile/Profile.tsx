@@ -17,6 +17,7 @@ import IconButton from "@mui/material/IconButton/IconButton";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import { InputTypeFile } from "../../components/InputTypeFile/InputTypeFile";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
+import { setAppErrorAC } from "../../bll/app-reducer";
 
 type FormInputsType = {
   name: string;
@@ -36,6 +37,9 @@ export const Profile = () => {
   const dispatch = useAppDispatch();
 
   const [editMode, setEditMode] = useState(false);
+  const [isAvatarBroken, setIsAvatarBroken] = useState(false);
+
+  console.log("isAvatarBroken", isAvatarBroken);
 
   const {
     register,
@@ -52,6 +56,7 @@ export const Profile = () => {
   };
 
   const onUpdateAvatar = (file64: string) => {
+    setIsAvatarBroken(false);
     dispatch(updateMeTC({ avatar: file64 }));
   };
 
@@ -63,12 +68,22 @@ export const Profile = () => {
     setEditMode(true);
   };
 
+  const handleError = () => {
+    setIsAvatarBroken(true);
+    dispatch(setAppErrorAC("uploading image is broken"));
+  };
+
   return (
     <div className={styles.profile}>
       <BackToPacks />
       <div className={styles.wrapper}>
         <h2>Personal information</h2>
-        <img alt="avatar" src={avatar || defaultAvatar} className={styles.avatar} />
+        <img
+          alt="avatar"
+          src={isAvatarBroken ? defaultAvatar : avatar}
+          className={styles.avatar}
+          onError={handleError}
+        />
         <InputTypeFile callBack={onUpdateAvatar}>
           <IconButton component="span">
             <PhotoCameraIcon />

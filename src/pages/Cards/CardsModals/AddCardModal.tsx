@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import { BasicModal } from "../../../components/BasicModal/BasicModal";
 import { addCardTC } from "../../../bll/cards-reducer";
 import { useAppDispatch } from "../../../bll/store";
@@ -29,6 +29,18 @@ export const AddCardModal: FC<PropsType> = ({ packId, isOpenModal, setIsOpenModa
   const onChangeAnswer = (e: ChangeEvent<HTMLInputElement>) => {
     setAnswer(e.currentTarget.value);
   };
+
+  useEffect(() => {
+    if (questionFormat === "text") {
+      setQuestionImage("");
+    }
+  }, [questionFormat]);
+
+  useEffect(() => {
+    if (answerFormat === "text") {
+      setAnswerImage("");
+    }
+  }, [answerFormat]);
 
   const onAddCard = () => {
     const newQuestion = question.trim();

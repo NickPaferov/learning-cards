@@ -43,17 +43,17 @@ export const DeleteCardModal: FC<PropsType> = ({ packId, card, isOpenModal, setI
             </div>
           </div>
         ) : (
-          <span>Question: "{card?.question}"</span>
+          <span>Question: {card?.question}</span>
         )}
         {card?.answerImg && card?.answerImg !== "noData" ? (
           <div>
             <span>Answer:</span>
             <div className={styles.imageWrapper}>
-              <img style={{ maxWidth: "200px" }} alt={"questionImage"} src={card.answerImg} />
+              <img style={{ maxWidth: "200px" }} alt={"answerImage"} src={card.answerImg} />
             </div>
           </div>
         ) : (
-          <span>Answer: "{card?.answer}"</span>
+          <span>Answer: {card?.answer}</span>
         )}
       </div>
     </BasicModal>

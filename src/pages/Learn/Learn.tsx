@@ -83,7 +83,18 @@ export const Learn = () => {
           <div>Learn pack "{cardsListName}"</div>
           <div className={styles.wrapper}>
             <div className={styles.questionInfo}>
-              <span>Question: {card?.question}</span>
+              {card?.questionImg && card?.questionImg !== "noData" ? (
+                <div className={styles.questionImage}>
+                  <span>Question:</span>
+                  <img
+                    style={{ maxWidth: "200px", margin: "10px 0" }}
+                    alt={"questionImage"}
+                    src={card.questionImg}
+                  />
+                </div>
+              ) : (
+                <span>Question: {card?.question}</span>
+              )}
               <span className={styles.clarification}>
                 Number of attempts to answer this question: {card?.shots}
               </span>
@@ -91,7 +102,19 @@ export const Learn = () => {
             {isAnswerAreaVisible ? (
               <div>
                 <div className={styles.answerArea}>
-                  <span>Answer: {card?.answer}</span>
+                  {card?.answerImg && card?.answerImg !== "noData" ? (
+                    <div className={styles.answerImage}>
+                      <span>Answer:</span>
+                      <img
+                        style={{ maxWidth: "200px", margin: "10px 0" }}
+                        alt={"answerImage"}
+                        src={card.answerImg}
+                      />
+                    </div>
+                  ) : (
+                    <span>Answer: {card?.answer}</span>
+                  )}
+
                   <span>Rate yourself:</span>
                   {grades.map((grade, index) => (
                     <div key={index}>

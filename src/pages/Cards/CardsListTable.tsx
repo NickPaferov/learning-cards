@@ -90,7 +90,7 @@ export const CardsListTable = () => {
               {cards.map((card) => (
                 <TableRow key={card._id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   <TableCell sx={{ maxWidth: 200 }} align="left" component="th" scope="row">
-                    {card.questionImg ? (
+                    {card.questionImg && card.questionImg !== "noData" ? (
                       <img
                         style={{ maxWidth: "100%", height: "100px" }}
                         alt="questionImg"
@@ -101,7 +101,7 @@ export const CardsListTable = () => {
                     )}
                   </TableCell>
                   <TableCell sx={{ maxWidth: 200 }} align="left">
-                    {card.answerImg ? (
+                    {card.answerImg && card.answerImg !== "noData" ? (
                       <img
                         style={{ maxWidth: "100%", height: "100px" }}
                         alt="answerImg"

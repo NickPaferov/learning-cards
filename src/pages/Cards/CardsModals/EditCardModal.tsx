@@ -17,11 +17,15 @@ type PropsType = {
 export const EditCardModal: FC<PropsType> = ({ packId, card, isOpenModal, setIsOpenModal }) => {
   const dispatch = useAppDispatch();
 
-  const [questionFormat, setQuestionFormat] = useState(card?.questionImg ? "image" : "text");
+  const [questionFormat, setQuestionFormat] = useState(
+    card?.questionImg && card?.questionImg !== "noData" ? "image" : "text"
+  );
   const [question, setQuestion] = useState(card?.question || "");
   const [questionImage, setQuestionImage] = useState(card?.questionImg || "");
 
-  const [answerFormat, setAnswerFormat] = useState(card?.answerImg ? "image" : "text");
+  const [answerFormat, setAnswerFormat] = useState(
+    card?.answerImg && card?.answerImg !== "noData" ? "image" : "text"
+  );
   const [answer, setAnswer] = useState(card?.answer || "");
   const [answerImage, setAnswerImage] = useState(card?.answerImg || "");
 
@@ -117,7 +121,7 @@ export const EditCardModal: FC<PropsType> = ({ packId, card, isOpenModal, setIsO
         </InputTypeFile>
       )}
       <div className={styles.imageWrapper}>
-        {questionFormat === "image" && questionImage && (
+        {questionFormat === "image" && questionImage && questionImage !== "noData" && (
           <img style={{ maxWidth: "200px" }} alt={"questionImage"} src={questionImage} />
         )}
       </div>
@@ -142,7 +146,7 @@ export const EditCardModal: FC<PropsType> = ({ packId, card, isOpenModal, setIsO
         </InputTypeFile>
       )}
       <div className={styles.imageWrapper}>
-        {answerFormat === "image" && answerImage && (
+        {answerFormat === "image" && answerImage && answerImage !== "noData" && (
           <img style={{ maxWidth: "200px" }} alt={"answerImage"} src={answerImage} />
         )}
       </div>

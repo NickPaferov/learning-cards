@@ -7,11 +7,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { fetchCardsTC, setSortCardsParamAC } from "../../bll/cards-reducer";
+import { fetchCardsTC, setAreCardsFetchedAC, setSortCardsParamAC } from "../../bll/cards-reducer";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useParams } from "react-router-dom";
 import {
+  selectAreCardsFetchedStatus,
   selectCardQuestion,
   selectCards,
   selectCardsCountPerPage,
@@ -26,6 +27,7 @@ import { EditCardModal } from "./CardsModals/EditCardModal";
 import { DeleteCardModal } from "./CardsModals/DeleteCardModal";
 import Rating from "@mui/material/Rating";
 import IconButton from "@mui/material/IconButton/IconButton";
+import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 
 export const CardsListTable = () => {
   const userId = useAppSelector(selectUserId);
@@ -36,6 +38,7 @@ export const CardsListTable = () => {
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const cardsCountPerPage = useAppSelector(selectCardsCountPerPage);
   const sortCardsParam = useAppSelector(selectSortCardsParam);
+  const areCardsFetched = useAppSelector(selectAreCardsFetchedStatus);
 
   const dispatch = useAppDispatch();
 
@@ -49,6 +52,9 @@ export const CardsListTable = () => {
     if (packId) {
       dispatch(fetchCardsTC(packId));
     }
+    return () => {
+      dispatch(setAreCardsFetchedAC(false));
+    };
   }, [dispatch, currentPage, packId, cardQuestion, sortCardsParam, cardsCountPerPage]);
 
   const onSortCards = (sortBy: string) => {
@@ -62,7 +68,7 @@ export const CardsListTable = () => {
 
   return (
     <div>
-      {cards.length ? (
+      {areCardsFetched && cards.length ? (
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -144,8 +150,10 @@ export const CardsListTable = () => {
             </TableBody>
           </Table>
         </TableContainer>
-      ) : (
+      ) : !isRequestProcessing ? (
         <div>No cards</div>
+      ) : (
+        <CircularProgress />
       )}
       {isEditCardModalOpen && (
         <EditCardModal

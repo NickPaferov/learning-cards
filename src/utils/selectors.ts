@@ -41,3 +41,4 @@ export const selectCardQuestion = (state: AppRootStateType) => state.cards.cardQ
 export const selectPackUserId = (state: AppRootStateType) => state.cards.packUserId;
 export const selectSortCardsParam = (state: AppRootStateType) => state.cards.sortCards;
 export const selectCardsCountPerPage = (state: AppRootStateType) => state.cards.pageCount;
+export const selectAreCardsFetchedStatus = (state: AppRootStateType) => state.cards.areCardsFetched;

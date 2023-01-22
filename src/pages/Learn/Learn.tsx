@@ -3,13 +3,18 @@ import styles from "./Learn.module.css";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import {
+  selectAreCardsFetchedStatus,
   selectCards,
   selectCardsListName,
-  selectCardsTotalCount,
   selectRequestProcessingStatus,
 } from "../../utils/selectors";
 import { CardType } from "../../api/cards-api";
-import { fetchCardsTC, setCardsCountPrePageAC, updateCardGradeTC } from "../../bll/cards-reducer";
+import {
+  fetchCardsTC,
+  setAreCardsFetchedAC,
+  setCardsCountPrePageAC,
+  updateCardGradeTC,
+} from "../../bll/cards-reducer";
 import { BackToPacks } from "../../components/BackToPacks/BackToPacks";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 
@@ -38,8 +43,8 @@ export const Learn = () => {
   const { packId } = useParams();
   const cards = useAppSelector(selectCards);
   const cardsListName = useAppSelector(selectCardsListName);
-  const cardsTotalCount = useAppSelector(selectCardsTotalCount);
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
+  const areCardsFetched = useAppSelector(selectAreCardsFetchedStatus);
 
   const [card, setCard] = useState<CardType | null>(null);
 
@@ -47,14 +52,19 @@ export const Learn = () => {
 
   const defaultSelectedGrade = grades.filter((grade) => grade.isSelected)[0].value;
   const [selectedGrade, setSelectedGrade] = useState(defaultSelectedGrade);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (packId) {
-      dispatch(setCardsCountPrePageAC(cardsTotalCount));
+      dispatch(setCardsCountPrePageAC(100));
       dispatch(fetchCardsTC(packId));
     }
-  }, [dispatch, packId, cardsTotalCount]);
+    return () => {
+      dispatch(setCardsCountPrePageAC(5));
+      dispatch(setAreCardsFetchedAC(false));
+    };
+  }, [dispatch, packId]);
 
   useEffect(() => {
     setCard(getCard(cards));
@@ -78,7 +88,7 @@ export const Learn = () => {
   return (
     <div className={styles.learnPage}>
       <BackToPacks />
-      {card && !isRequestProcessing ? (
+      {areCardsFetched && card ? (
         <div>
           <div>Learn pack "{cardsListName}"</div>
           <div className={styles.wrapper}>
@@ -114,7 +124,6 @@ export const Learn = () => {
                   ) : (
                     <span>Answer: {card?.answer}</span>
                   )}
-
                   <span>Rate yourself:</span>
                   {grades.map((grade, index) => (
                     <div key={index}>

@@ -30,6 +30,7 @@ import { PackType } from "../../api/packs-api";
 import { DeletePackModal } from "./PacksModals/DeletePackModal";
 import IconButton from "@mui/material/IconButton/IconButton";
 import noCover from "./../../assets/images/noCover.png";
+import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 
 export const PacksListTable = () => {
   const userId = useAppSelector(selectUserId);
@@ -152,8 +153,10 @@ export const PacksListTable = () => {
             </TableBody>
           </Table>
         </TableContainer>
-      ) : (
+      ) : !isRequestProcessing ? (
         <div>No packs</div>
+      ) : (
+        <CircularProgress />
       )}
       {isOpenEditPackModal && (
         <EditPackModal

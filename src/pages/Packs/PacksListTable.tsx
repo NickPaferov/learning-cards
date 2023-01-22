@@ -11,7 +11,7 @@ import { fetchPacksTC, setSortPacksParamAC } from "../../bll/packs-reducer";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../app/App";
 import {
   selectAreMyPacksStatus,
@@ -75,6 +75,10 @@ export const PacksListTable = () => {
     navigate(`${PATHS.LEARN}/${pack._id}`);
   };
 
+  const onMoveToCards = (pack: PackType) => {
+    navigate(`${PATHS.CARDS}/${pack._id}`);
+  };
+
   const sortPacksDirection = sortPacksParam[0] === "0" ? <span>▲</span> : <span>▼</span>;
 
   return (
@@ -111,7 +115,21 @@ export const PacksListTable = () => {
                     <img style={{ maxWidth: "100%" }} alt="cover" src={pack.deckCover || noCover} />
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    <Link to={`${PATHS.CARDS}/${pack._id}`}>{pack.name}</Link>
+                    <button
+                      style={{
+                        border: "none",
+                        backgroundColor: "transparent",
+                        color: "darkblue",
+                        opacity: isRequestProcessing ? "0.5" : "1",
+                        fontSize: "14px",
+                        textDecorationLine: "underline",
+                        cursor: "pointer",
+                      }}
+                      disabled={isRequestProcessing}
+                      onClick={() => onMoveToCards(pack)}
+                    >
+                      {pack.name}
+                    </button>
                   </TableCell>
                   <TableCell align="left">{pack.cardsCount}</TableCell>
                   <TableCell align="left">

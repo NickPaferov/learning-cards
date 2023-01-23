@@ -45,10 +45,14 @@ export const Packs = () => {
   }, [debouncedValue]);
 
   const onSetMyPacks = () => {
+    dispatch(setResetAllPacksFiltersAC());
+    dispatch(setPackNameSearchAC(searchPack));
     dispatch(setAreMyPacksAC(true));
   };
 
   const onSetAllPacks = () => {
+    dispatch(setResetAllPacksFiltersAC());
+    dispatch(setPackNameSearchAC(searchPack));
     dispatch(setAreMyPacksAC(false));
   };
 

@@ -51,8 +51,8 @@ export const packsReducer = (
         pageCount: 5,
         cardPacksTotalCount: 0,
         areMyPacks: false,
-        min: state.minCardsCount,
-        max: state.maxCardsCount,
+        min: 0,
+        max: 0,
         packName: "",
         sortPacks: "0updated",
       };

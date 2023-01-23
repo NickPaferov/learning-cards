@@ -21,12 +21,7 @@ export const RangeSlider = () => {
 
   const dispatch = useAppDispatch();
 
-  const [value, setValue] = useState<number[]>([minCardsCount, maxCardsCount]);
-
-  // to change slider values in UI after reset all filters
-  useEffect(() => {
-    setValue([minCardsSearchParam, maxCardsSearchParam]);
-  }, [minCardsSearchParam, maxCardsSearchParam]);
+  const [value, setValue] = useState<number[]>([minCardsSearchParam, maxCardsSearchParam]);
 
   // to set min/max slider values after server response
   useEffect(() => {

@@ -9,6 +9,7 @@ import {
 } from "../../bll/cards-reducer";
 import { useParams } from "react-router-dom";
 import {
+  selectAreCardsFetchedStatus,
   selectCardQuestion,
   selectCards,
   selectCardsListName,
@@ -34,6 +35,8 @@ export const Cards = () => {
   const cardsListName = useAppSelector(selectCardsListName);
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const cardQuestion = useAppSelector(selectCardQuestion);
+  const areCardsFetched = useAppSelector(selectAreCardsFetchedStatus);
+
   const dispatch = useAppDispatch();
 
   const [isOpenAddCardModal, setIsOpenAddCardModal] = useState(false);
@@ -67,7 +70,7 @@ export const Cards = () => {
       <BackToPacks />
       <div>
         <div className={styles.header}>
-          <h3>{cardsListName}</h3>
+          <h3>{areCardsFetched && cardsListName}</h3>
           {userId === packUserId ? (
             <button disabled={isRequestProcessing} onClick={onOpenAddCardModal}>
               Add new card

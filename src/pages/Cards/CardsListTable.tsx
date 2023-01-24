@@ -8,8 +8,6 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { fetchCardsTC, setAreCardsFetchedAC, setSortCardsParamAC } from "../../bll/cards-reducer";
-import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useParams } from "react-router-dom";
 import {
   selectAreCardsFetchedStatus,
@@ -26,8 +24,9 @@ import { CardType } from "../../api/cards-api";
 import { EditCardModal } from "./CardsModals/EditCardModal";
 import { DeleteCardModal } from "./CardsModals/DeleteCardModal";
 import Rating from "@mui/material/Rating";
-import IconButton from "@mui/material/IconButton/IconButton";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
+import { EditItemIcon } from "../../components/EditItemIcon/EditItemIcon";
+import { DeleteItemIcon } from "../../components/DeleteItemIcon/DeleteItemIcon";
 
 export const CardsListTable = () => {
   const userId = useAppSelector(selectUserId);
@@ -62,6 +61,16 @@ export const CardsListTable = () => {
       return;
     }
     dispatch(setSortCardsParamAC(sortCardsParam[0] === "0" ? 1 + sortBy : 0 + sortBy));
+  };
+
+  const onOpenEditCardModal = (card: CardType) => {
+    setCard(card);
+    setIsEditCardModalOpen(true);
+  };
+
+  const onOpenDeleteCardModal = (card: CardType) => {
+    setCard(card);
+    setIsDeleteCardModalOpen(true);
   };
 
   const sortCardsDirection = sortCardsParam[0] === "0" ? <span>▲</span> : <span>▼</span>;
@@ -125,24 +134,8 @@ export const CardsListTable = () => {
                   </TableCell>
                   {userId === card.user_id && (
                     <TableCell align="left">
-                      <IconButton
-                        disabled={isRequestProcessing}
-                        onClick={() => {
-                          setCard(card);
-                          setIsEditCardModalOpen(true);
-                        }}
-                      >
-                        <BorderColorOutlinedIcon />
-                      </IconButton>
-                      <IconButton
-                        disabled={isRequestProcessing}
-                        onClick={() => {
-                          setCard(card);
-                          setIsDeleteCardModalOpen(true);
-                        }}
-                      >
-                        <DeleteOutlinedIcon />
-                      </IconButton>
+                      <EditItemIcon callBack={() => onOpenEditCardModal(card)} />
+                      <DeleteItemIcon callBack={() => onOpenDeleteCardModal(card)} />
                     </TableCell>
                   )}
                 </TableRow>

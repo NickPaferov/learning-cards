@@ -8,9 +8,6 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { fetchPacksTC, setSortPacksParamAC } from "../../bll/packs-reducer";
-import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
-import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useNavigate } from "react-router-dom";
 import { PATHS } from "../../app/App";
 import {
@@ -28,9 +25,11 @@ import {
 import { EditPackModal } from "./PacksModals/EditPackModal";
 import { PackType } from "../../api/packs-api";
 import { DeletePackModal } from "./PacksModals/DeletePackModal";
-import IconButton from "@mui/material/IconButton/IconButton";
 import noCover from "./../../assets/images/noCover.png";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
+import { LearnItemIcon } from "../../components/LearnItemIcon/LearnItemIcon";
+import { EditItemIcon } from "../../components/EditItemIcon/EditItemIcon";
+import { DeleteItemIcon } from "../../components/DeleteItemIcon/DeleteItemIcon";
 
 export const PacksListTable = () => {
   const userId = useAppSelector(selectUserId);
@@ -71,12 +70,22 @@ export const PacksListTable = () => {
     dispatch(setSortPacksParamAC(sortPacksParam[0] === "0" ? 1 + sortBy : 0 + sortBy));
   };
 
+  const onMoveToCards = (pack: PackType) => {
+    navigate(`${PATHS.CARDS}/${pack._id}`);
+  };
+
   const onStartLearning = (pack: PackType) => {
     navigate(`${PATHS.LEARN}/${pack._id}`);
   };
 
-  const onMoveToCards = (pack: PackType) => {
-    navigate(`${PATHS.CARDS}/${pack._id}`);
+  const onOpenEditPackModal = (pack: PackType) => {
+    setPack(pack);
+    setIsOpenEditPackModal(true);
+  };
+
+  const onOpenDeletePackModal = (pack: PackType) => {
+    setPack(pack);
+    setIsOpenDeletePackModal(true);
   };
 
   const sortPacksDirection = sortPacksParam[0] === "0" ? <span>▲</span> : <span>▼</span>;
@@ -137,33 +146,15 @@ export const PacksListTable = () => {
                   </TableCell>
                   <TableCell align="left">{pack.user_name}</TableCell>
                   <TableCell align="left">
-                    <IconButton
+                    <LearnItemIcon
                       disabled={pack.cardsCount < 1 || isRequestProcessing}
-                      onClick={() => onStartLearning(pack)}
-                    >
-                      <SchoolOutlinedIcon />
-                    </IconButton>
+                      callBack={() => onStartLearning(pack)}
+                    />
                     {userId === pack.user_id && (
-                      <IconButton
-                        disabled={isRequestProcessing}
-                        onClick={() => {
-                          setPack(pack);
-                          setIsOpenEditPackModal(true);
-                        }}
-                      >
-                        <BorderColorOutlinedIcon />
-                      </IconButton>
+                      <EditItemIcon callBack={() => onOpenEditPackModal(pack)} />
                     )}
                     {userId === pack.user_id && (
-                      <IconButton
-                        disabled={isRequestProcessing}
-                        onClick={() => {
-                          setPack(pack);
-                          setIsOpenDeletePackModal(true);
-                        }}
-                      >
-                        <DeleteOutlinedIcon />
-                      </IconButton>
+                      <DeleteItemIcon callBack={() => onOpenDeletePackModal(pack)} />
                     )}
                   </TableCell>
                 </TableRow>

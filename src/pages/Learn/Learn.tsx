@@ -103,7 +103,7 @@ export const Learn = () => {
                   />
                 </div>
               ) : (
-                <span>Question: {card?.question}</span>
+                <span className={styles.questionText}>Question: {card?.question}</span>
               )}
               <span className={styles.clarification}>
                 Number of attempts to answer this question: {card?.shots}
@@ -122,7 +122,7 @@ export const Learn = () => {
                       />
                     </div>
                   ) : (
-                    <span>Answer: {card?.answer}</span>
+                    <span className={styles.answerText}>Answer: {card?.answer}</span>
                   )}
                   <span>Rate yourself:</span>
                   {grades.map((grade, index) => (

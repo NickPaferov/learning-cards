@@ -20,6 +20,10 @@
     align-items: flex-start;
 }
 
+.questionText, .answerText {
+    text-align: left;
+}
+
 .clarification {
     opacity: 0.6;
     font-size: 14px;

@@ -1,38 +1,59 @@
-import React, { useState } from "react";
+import React from "react";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { PATHS } from "../../app/App";
+import { logoutTC } from "../../bll/auth-reducer";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../bll/store";
-import { logoutTC } from "../../bll/auth-reducer";
-import { PATHS } from "../../app/App";
-import styles from "./DropDownMenu.module.css";
+import IconButton from "@mui/material/IconButton/IconButton";
 
 export const DropDownMenu = () => {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const onOpenMenu = () => {
-    setIsMenuOpen(true);
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
-  const navigateToProfile = () => {
+  const onNavigateToProfile = () => {
     navigate(PATHS.PROFILE);
-    setIsMenuOpen(false);
   };
 
-  const logOut = () => {
+  const onLogOut = () => {
     dispatch(logoutTC());
   };
 
   return (
-    <div className={styles.dropDownMenu}>
-      {isMenuOpen ? (
-        <div>
-          <div onClick={navigateToProfile}>Profile</div>
-          <div onClick={logOut}>LogOut</div>
-        </div>
-      ) : (
-        <div onClick={onOpenMenu}>☰</div>
-      )}
+    <div>
+      <IconButton
+        id="basic-button"
+        aria-controls={open ? "basic-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        onClick={handleClick}
+        color={"inherit"}
+      >
+        <MoreVertIcon />
+      </IconButton>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <MenuItem onClick={onNavigateToProfile}>Profile</MenuItem>
+        <MenuItem onClick={onLogOut}>LogOut</MenuItem>
+      </Menu>
     </div>
   );
 };

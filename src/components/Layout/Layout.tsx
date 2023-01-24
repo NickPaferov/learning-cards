@@ -34,14 +34,12 @@ export const Layout = () => {
           </NavLink>
           {isLoggedIn ? (
             <div className={styles.userInfo}>
-              <img alt="avatar" src={avatar || defaultAvatar} className={styles.avatar} />
               <span>{userName}</span>
+              <img alt="avatar" src={avatar || defaultAvatar} className={styles.avatar} />
               <DropDownMenu />
             </div>
           ) : (
-            <button className={styles.btnSignIn} onClick={onSignIn}>
-              SignIn
-            </button>
+            <button onClick={onSignIn}>Sign In</button>
           )}
         </div>
       </header>

@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { SignIn } from "../pages/SignIn/SignIn";
 import { SignUp } from "../pages/SignUp/SignUp";
 import { Profile } from "../pages/Profile/Profile";
 import { ForgotPassword } from "../pages/ForgotPassword/ForgotPassword";
-import { HomePage } from "../pages/HomePage/HomePage";
 import { NotFound } from "../pages/NotFound/NotFound";
 import { Layout } from "../components/Layout/Layout";
 import { SetNewPassword } from "../pages/SetNewPassword/SetNewPassword";
@@ -59,7 +58,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path={PATHS.INDEX} element={<Layout />}>
-          <Route index element={<HomePage />} />
+          <Route index element={<Navigate to={PATHS.PACKS} />} />
           <Route element={<ProtectedRoutes userIsAuth={false} redirectTo={PATHS.PACKS} />}>
             <Route path={PATHS.SIGNUP} element={<SignUp />} />
             <Route path={PATHS.SIGNIN} element={<SignIn />} />

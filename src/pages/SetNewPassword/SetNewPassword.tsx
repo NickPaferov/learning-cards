@@ -8,6 +8,7 @@ import { setNewPasswordTC } from "../../bll/auth-reducer";
 import { Navigate, useParams } from "react-router-dom";
 import { PATHS } from "../../app/App";
 import { selectPasswordChangeStatus, selectRequestProcessingStatus } from "../../utils/selectors";
+import Button from "@mui/material/Button/Button";
 
 type FormInputsType = {
   email: string;
@@ -93,7 +94,9 @@ export const SetNewPassword = () => {
         <span className={styles.clarification}>
           Create new password and we will send you further instructions to email
         </span>
-        <button disabled={isRequestProcessing}>Create new password</button>
+        <Button type="submit" variant="contained" disabled={isRequestProcessing}>
+          Create new password
+        </Button>
       </form>
     </div>
   );

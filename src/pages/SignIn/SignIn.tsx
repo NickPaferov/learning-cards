@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { loginTC } from "../../bll/auth-reducer";
 import { PATHS } from "../../app/App";
 import { selectRequestProcessingStatus } from "../../utils/selectors";
+import Button from "@mui/material/Button/Button";
 
 type FormInputsType = {
   email: string;
@@ -74,7 +75,9 @@ export const SignIn = () => {
           />
           <span>Remember me</span>
         </div>
-        <button disabled={isRequestProcessing}>Sign In</button>
+        <Button type="submit" variant="contained" disabled={isRequestProcessing}>
+          Sign In
+        </Button>
       </form>
       <Link to="/forgot-password">Forgot Password?</Link>
       <span className={styles.clarification}>Don't have an account?</span>

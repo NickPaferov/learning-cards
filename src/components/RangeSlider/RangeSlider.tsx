@@ -46,7 +46,7 @@ export const RangeSlider = () => {
       <div className={styles.slider}>
         <span className={styles.value}>{value[0]}</span>
         <Slider
-          getAriaLabel={() => "Cards count"}
+          sx={{ margin: "0 20px" }}
           value={value}
           min={minCardsCount}
           max={maxCardsCount}

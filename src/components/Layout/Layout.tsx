@@ -12,6 +12,7 @@ import {
   selectUserAvatar,
   selectUserName,
 } from "../../utils/selectors";
+import Button from "@mui/material/Button/Button";
 
 export const Layout = () => {
   const isLoggedIn = useAppSelector(selectLoginStatus);
@@ -39,7 +40,9 @@ export const Layout = () => {
               <DropDownMenu />
             </div>
           ) : (
-            <button onClick={onSignIn}>Sign In</button>
+            <Button variant="contained" onClick={onSignIn}>
+              Sign In
+            </Button>
           )}
         </div>
       </header>

@@ -30,6 +30,7 @@ export const DeleteCardModal: FC<PropsType> = ({ packId, card, isOpenModal, setI
       setIsOpenModal={setIsOpenModal}
       title={"Delete pack"}
       onConfirmIntention={onDeleteCard}
+      buttonColor={"error"}
       buttonTitle={"Delete"}
       autoFocus={true}
     >

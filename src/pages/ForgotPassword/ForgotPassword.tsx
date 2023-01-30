@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { CheckEmail } from "../CheckEmail/CheckEmail";
 import { PATHS } from "../../app/App";
 import { selectInstructionSendStatus, selectRequestProcessingStatus } from "../../utils/selectors";
+import Button from "@mui/material/Button/Button";
 
 type FormInputsType = {
   email: string;
@@ -56,7 +57,9 @@ export const ForgotPassword = () => {
         <span className={styles.clarification}>
           Enter your email address and we will send you further instructions
         </span>
-        <button disabled={isRequestProcessing}>Send instructions</button>
+        <Button type="submit" variant="contained" disabled={isRequestProcessing}>
+          Send instructions
+        </Button>
       </form>
       <span className={styles.clarification}>Did you remember your password?</span>
       <Link to={PATHS.SIGNIN}>Try logging in</Link>

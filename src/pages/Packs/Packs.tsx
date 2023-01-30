@@ -22,6 +22,8 @@ import {
 } from "../../utils/selectors";
 import { AddPackModal } from "./PacksModals/AddPackModal";
 import { PaginationBlock } from "../../components/PaginationBlock/PaginationBlock";
+import Button from "@mui/material/Button/Button";
+import ButtonGroup from "@mui/material/ButtonGroup/ButtonGroup";
 
 export const Packs = () => {
   const pageSize = useAppSelector(selectPacksPageSize);
@@ -81,9 +83,9 @@ export const Packs = () => {
     <div className={styles.packsList}>
       <div className={styles.header}>
         <h3>Packs list</h3>
-        <button disabled={isRequestProcessing} onClick={onOpenAddPackModal}>
+        <Button variant="contained" disabled={isRequestProcessing} onClick={onOpenAddPackModal}>
           Add new pack
-        </button>
+        </Button>
       </div>
       <div className={styles.searchParams}>
         <div className={styles.searchName}>
@@ -99,26 +101,23 @@ export const Packs = () => {
         <div className={styles.whoseArePacks}>
           <label>Show packs cards</label>
           <div>
-            <button
-              className={`${styles.btn} ${areMyPacks && styles.activeBtn}`}
-              disabled={isRequestProcessing}
-              onClick={onSetMyPacks}
-            >
-              My
-            </button>
-            <button
-              className={`${styles.btn} ${!areMyPacks && styles.activeBtn}`}
-              disabled={isRequestProcessing}
-              onClick={onSetAllPacks}
-            >
-              All
-            </button>
+            <ButtonGroup disabled={isRequestProcessing}>
+              <Button variant={areMyPacks ? "contained" : "outlined"} onClick={onSetMyPacks}>
+                My
+              </Button>
+              <Button variant={areMyPacks ? "outlined" : "contained"} onClick={onSetAllPacks}>
+                All
+              </Button>
+            </ButtonGroup>
           </div>
         </div>
-        <RangeSlider />
-        <button disabled={isRequestProcessing} onClick={onResetAllPacksFilters}>
+        <div className={styles.numbersOfCards}>
+          <label>Number of cards</label>
+          <RangeSlider />
+        </div>
+        <Button variant="outlined" disabled={isRequestProcessing} onClick={onResetAllPacksFilters}>
           <FilterAltOffIcon />
-        </button>
+        </Button>
       </div>
       <PacksListTable />
       <PaginationBlock

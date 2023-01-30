@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { registerTC } from "../../bll/auth-reducer";
 import { PATHS } from "../../app/App";
 import { selectRegisterStatus, selectRequestProcessingStatus } from "../../utils/selectors";
+import Button from "@mui/material/Button/Button";
 
 type FormInputsType = {
   email: string;
@@ -89,7 +90,9 @@ export const SignUp = () => {
           <span onClick={handleConfirmPasswordVisibility}>👁</span>
           <p className={styles.error}>{errors.confirmPassword?.message}</p>
         </div>
-        <button disabled={isRequestProcessing}>Sign Up</button>
+        <Button type="submit" variant="contained" disabled={isRequestProcessing}>
+          Sign Up
+        </Button>
       </form>
       <span className={styles.clarification}>Already have an account?</span>
       <Link to={PATHS.SIGNIN}>Sign In</Link>

@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
 import styles from "./BasicModal.module.css";
+import Button from "@mui/material/Button/Button";
 
 const style = {
   position: "absolute" as "absolute",
@@ -22,6 +23,7 @@ type PropsType = {
   setIsOpenModal: (value: boolean) => void;
   title: string;
   onConfirmIntention: () => void;
+  buttonColor?: "error";
   buttonTitle: string;
   autoFocus?: boolean;
 };
@@ -32,6 +34,7 @@ export const BasicModal: FC<PropsType> = ({
   setIsOpenModal,
   title,
   onConfirmIntention,
+  buttonColor,
   buttonTitle,
   autoFocus,
 }) => {
@@ -50,10 +53,17 @@ export const BasicModal: FC<PropsType> = ({
           <hr />
           {children}
           <div className={styles.btnBlock}>
-            <button onClick={handleCloseModal}>Cancel</button>
-            <button autoFocus={autoFocus} onClick={onConfirmIntention}>
+            <Button variant="outlined" onClick={handleCloseModal}>
+              Cancel
+            </Button>
+            <Button
+              color={buttonColor}
+              variant="contained"
+              autoFocus={autoFocus}
+              onClick={onConfirmIntention}
+            >
               {buttonTitle}
-            </button>
+            </Button>
           </div>
         </Box>
       </Modal>

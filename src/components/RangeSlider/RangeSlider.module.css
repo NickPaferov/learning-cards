@@ -4,7 +4,7 @@
 
 .value {
     min-width: 30px;
-    margin: 0 20px;
-    padding: 5px;
-    border: 1px solid gray;
+    padding: 6px;
+    border: 1px solid cornflowerblue;
+    border-radius: 10%;
 }

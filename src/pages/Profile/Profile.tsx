@@ -18,6 +18,7 @@ import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import { InputTypeFile } from "../../components/InputTypeFile/InputTypeFile";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { setAppErrorAC } from "../../bll/app-reducer";
+import Button from "@mui/material/Button/Button";
 
 type FormInputsType = {
   name: string;
@@ -92,7 +93,9 @@ export const Profile = () => {
         {editMode ? (
           <form onSubmit={handleSubmit(onSubmit)}>
             <input autoFocus={true} defaultValue={userName} {...register("name")} />
-            <button disabled={isRequestProcessing}>Save</button>
+            <Button type="submit" variant="contained" disabled={isRequestProcessing}>
+              Save
+            </Button>
             <p className={styles.error}>{errors.name?.message}</p>
           </form>
         ) : (
@@ -104,9 +107,9 @@ export const Profile = () => {
           </div>
         )}
         <span className={styles.email}>{email}</span>
-        <button disabled={isRequestProcessing} onClick={onLogOut}>
+        <Button variant="contained" disabled={isRequestProcessing} onClick={onLogOut}>
           Log out
-        </button>
+        </Button>
       </div>
     </div>
   );

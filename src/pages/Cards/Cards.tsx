@@ -7,7 +7,7 @@ import {
   setCardsCountPrePageAC,
   setCardsCurrentPageAC,
 } from "../../bll/cards-reducer";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   selectAreCardsFetchedStatus,
   selectCardQuestion,
@@ -24,6 +24,8 @@ import { useDebounce } from "../../hooks/useDebounce";
 import { BackToPacks } from "../../components/BackToPacks/BackToPacks";
 import { AddCardModal } from "./CardsModals/AddCardModal";
 import { PaginationBlock } from "../../components/PaginationBlock/PaginationBlock";
+import Button from "@mui/material/Button/Button";
+import { PATHS } from "../../app/App";
 
 export const Cards = () => {
   const userId = useAppSelector(selectUserId);
@@ -38,6 +40,7 @@ export const Cards = () => {
   const areCardsFetched = useAppSelector(selectAreCardsFetchedStatus);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [isOpenAddCardModal, setIsOpenAddCardModal] = useState(false);
   const [searchQuestion, setSearchQuestion] = useState(cardQuestion);
@@ -65,6 +68,10 @@ export const Cards = () => {
     dispatch(setCardsCountPrePageAC(itemsCountPerPage));
   };
 
+  const onStartLearning = () => {
+    navigate(`${PATHS.LEARN}/${packId}`);
+  };
+
   return (
     <div className={styles.cardsList}>
       <BackToPacks />
@@ -72,11 +79,17 @@ export const Cards = () => {
         <div className={styles.header}>
           <h3>{areCardsFetched && cardsListName}</h3>
           {userId === packUserId ? (
-            <button disabled={isRequestProcessing} onClick={onOpenAddCardModal}>
+            <Button variant="contained" disabled={isRequestProcessing} onClick={onOpenAddCardModal}>
               Add new card
-            </button>
+            </Button>
           ) : (
-            <button disabled={isRequestProcessing || !cards.length}>Learn to pack</button>
+            <Button
+              variant="contained"
+              disabled={isRequestProcessing || !cards.length}
+              onClick={onStartLearning}
+            >
+              Learn pack
+            </Button>
           )}
         </div>
         <div className={styles.searchQuestion}>

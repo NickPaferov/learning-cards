@@ -17,6 +17,7 @@ import {
 } from "../../bll/cards-reducer";
 import { BackToPacks } from "../../components/BackToPacks/BackToPacks";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
+import Button from "@mui/material/Button/Button";
 
 const grades = [
   { value: 1, name: "Didn't know", isSelected: false },
@@ -140,15 +141,15 @@ export const Learn = () => {
                     </div>
                   ))}
                 </div>
-                <button autoFocus onClick={() => onSetNewQuestion(card?._id)}>
+                <Button variant="contained" autoFocus onClick={() => onSetNewQuestion(card?._id)}>
                   Next question
-                </button>
+                </Button>
               </div>
             ) : (
               <div>
-                <button autoFocus onClick={onShowAnswerArea}>
+                <Button variant="contained" autoFocus onClick={onShowAnswerArea}>
                   Show answer
-                </button>
+                </Button>
               </div>
             )}
           </div>

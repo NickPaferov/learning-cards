@@ -27,6 +27,7 @@ export const DeletePackModal: FC<PropsType> = ({ pack, isOpenModal, setIsOpenMod
       setIsOpenModal={setIsOpenModal}
       title={"Delete pack"}
       onConfirmIntention={onDeletePack}
+      buttonColor={"error"}
       buttonTitle={"Delete"}
       autoFocus={true}
     >

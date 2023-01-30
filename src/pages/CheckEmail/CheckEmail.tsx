@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./CheckEmail.module.css";
 import letterImg from "../../assets/images/letter.png";
 import { PATHS } from "../../app/App";
+import Button from "@mui/material/Button/Button";
 
 type PropsType = {
   email: string;
@@ -22,7 +23,9 @@ export const CheckEmail = (props: PropsType) => {
       <span className={styles.clarification}>
         We've sent an Email with instructions to {props.email}
       </span>
-      <button onClick={onMoveToLogin}>Back to login</button>
+      <Button variant="contained" onClick={onMoveToLogin}>
+        Back to login
+      </Button>
     </div>
   );
 };

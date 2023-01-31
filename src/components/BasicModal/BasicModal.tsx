@@ -17,13 +17,22 @@ const style = {
   p: 4,
 };
 
+type ButtonColorType =
+  | "inherit"
+  | "primary"
+  | "secondary"
+  | "success"
+  | "error"
+  | "info"
+  | "warning";
+
 type PropsType = {
   children: ReactNode;
   isOpenModal: boolean;
   setIsOpenModal: (value: boolean) => void;
   title: string;
   onConfirmIntention: () => void;
-  buttonColor?: "error";
+  buttonColor?: ButtonColorType;
   buttonTitle: string;
   autoFocus?: boolean;
 };

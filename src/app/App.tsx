@@ -17,19 +17,7 @@ import { Packs } from "../pages/Packs/Packs";
 import { Cards } from "../pages/Cards/Cards";
 import { selectAppInitStatus } from "../utils/selectors";
 import { Learn } from "../pages/Learn/Learn";
-
-export enum PATHS {
-  INDEX = "/",
-  PACKS = "/packs",
-  CARDS = "/cards",
-  LEARN = "/learn",
-  SIGNUP = "/signup",
-  SIGNIN = "/signin",
-  PROFILE = "/profile",
-  FORGOT_PASSWORD = "/forgot-password",
-  SET_NEW_PASSWORD = "/set-new-password",
-  NOT_FOUND = "*",
-}
+import { PATHS } from "../enums/paths";
 
 function App() {
   const isInit = useAppSelector(selectAppInitStatus);

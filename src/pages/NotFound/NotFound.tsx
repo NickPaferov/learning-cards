@@ -1,9 +1,9 @@
 import Button from "@mui/material/Button/Button";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { PATHS } from "../../app/App";
 import styles from "./NotFound.module.css";
 import error404 from "../../assets/images/error404.png";
+import { PATHS } from "../../enums/paths";
 
 export const NotFound = () => {
   const navigate = useNavigate();

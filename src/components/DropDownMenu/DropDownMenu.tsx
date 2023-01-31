@@ -2,11 +2,11 @@ import React from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { PATHS } from "../../app/App";
 import { logoutTC } from "../../bll/auth-reducer";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../bll/store";
 import IconButton from "@mui/material/IconButton/IconButton";
+import { PATHS } from "../../enums/paths";
 
 export const DropDownMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

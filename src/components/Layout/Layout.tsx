@@ -5,7 +5,6 @@ import styles from "./Layout.module.css";
 import { useAppSelector } from "../../bll/store";
 import defaultAvatar from "../../assets/images/avatar.png";
 import { DropDownMenu } from "../DropDownMenu/DropDownMenu";
-import { PATHS } from "../../app/App";
 import {
   selectLoginStatus,
   selectRequestProcessingStatus,
@@ -13,6 +12,7 @@ import {
   selectUserName,
 } from "../../utils/selectors";
 import Button from "@mui/material/Button/Button";
+import { PATHS } from "../../enums/paths";
 
 export const Layout = () => {
   const isLoggedIn = useAppSelector(selectLoginStatus);

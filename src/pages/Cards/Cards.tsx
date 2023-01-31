@@ -25,7 +25,7 @@ import { BackToPacks } from "../../components/BackToPacks/BackToPacks";
 import { AddCardModal } from "./CardsModals/AddCardModal";
 import { PaginationBlock } from "../../components/PaginationBlock/PaginationBlock";
 import Button from "@mui/material/Button/Button";
-import { PATHS } from "../../app/App";
+import { PATHS } from "../../enums/paths";
 
 export const Cards = () => {
   const userId = useAppSelector(selectUserId);

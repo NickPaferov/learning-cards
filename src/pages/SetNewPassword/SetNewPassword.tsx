@@ -6,9 +6,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { setNewPasswordTC } from "../../bll/auth-reducer";
 import { Navigate, useParams } from "react-router-dom";
-import { PATHS } from "../../app/App";
 import { selectPasswordChangeStatus, selectRequestProcessingStatus } from "../../utils/selectors";
 import Button from "@mui/material/Button/Button";
+import { PATHS } from "../../enums/paths";
 
 type FormInputsType = {
   email: string;

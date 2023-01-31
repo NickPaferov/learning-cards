@@ -6,9 +6,9 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { registerTC } from "../../bll/auth-reducer";
-import { PATHS } from "../../app/App";
 import { selectRegisterStatus, selectRequestProcessingStatus } from "../../utils/selectors";
 import Button from "@mui/material/Button/Button";
+import { PATHS } from "../../enums/paths";
 
 type FormInputsType = {
   email: string;

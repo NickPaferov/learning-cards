@@ -9,7 +9,6 @@ import Paper from "@mui/material/Paper";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { fetchPacksTC, setSortPacksParamAC } from "../../bll/packs-reducer";
 import { useNavigate } from "react-router-dom";
-import { PATHS } from "../../app/App";
 import {
   selectAreMyPacksStatus,
   selectCurrentPacksPage,
@@ -30,6 +29,7 @@ import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import { LearnItemIcon } from "../../components/LearnItemIcon/LearnItemIcon";
 import { EditItemIcon } from "../../components/EditItemIcon/EditItemIcon";
 import { DeleteItemIcon } from "../../components/DeleteItemIcon/DeleteItemIcon";
+import { PATHS } from "../../enums/paths";
 
 export const PacksListTable = () => {
   const userId = useAppSelector(selectUserId);

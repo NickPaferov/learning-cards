@@ -1,6 +1,6 @@
 import LinearProgress from "@mui/material/LinearProgress/LinearProgress";
 import React from "react";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import styles from "./Layout.module.css";
 import { useAppSelector } from "../../bll/store";
 import defaultAvatar from "../../assets/images/avatar.png";
@@ -19,7 +19,12 @@ export const Layout = () => {
   const userName = useAppSelector(selectUserName);
   const avatar = useAppSelector(selectUserAvatar);
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
+
   const navigate = useNavigate();
+
+  const onMoveToStartPage = () => {
+    navigate(PATHS.INDEX);
+  };
 
   const onSignIn = () => {
     navigate(PATHS.SIGNIN);
@@ -30,9 +35,14 @@ export const Layout = () => {
       {isRequestProcessing && <LinearProgress />}
       <header>
         <div className={styles.wrapper}>
-          <NavLink to={PATHS.INDEX} className={styles.link}>
+          <Button
+            sx={{ fontSize: "20px", fontWeight: "bold" }}
+            color="inherit"
+            disabled={isRequestProcessing}
+            onClick={onMoveToStartPage}
+          >
             Learning Cards
-          </NavLink>
+          </Button>
           {isLoggedIn ? (
             <div className={styles.userInfo}>
               <span>{userName}</span>
@@ -40,7 +50,7 @@ export const Layout = () => {
               <DropDownMenu />
             </div>
           ) : (
-            <Button variant="contained" onClick={onSignIn}>
+            <Button variant="contained" disabled={isRequestProcessing} onClick={onSignIn}>
               Sign In
             </Button>
           )}

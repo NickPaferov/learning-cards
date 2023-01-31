@@ -27,13 +27,6 @@ footer {
     align-items: center;
 }
 
-.link {
-    color: black;
-    font-size: 24px;
-    cursor: pointer;
-    text-decoration: none;
-}
-
 .userInfo {
     display: flex;
     align-items: center;

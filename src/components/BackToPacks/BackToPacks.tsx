@@ -4,6 +4,7 @@ import styles from "./BackToPacks.module.css";
 import { useAppSelector } from "../../bll/store";
 import { selectRequestProcessingStatus } from "../../utils/selectors";
 import { PATHS } from "../../enums/paths";
+import Button from "@mui/material/Button/Button";
 
 export const BackToPacks = () => {
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
@@ -15,11 +16,9 @@ export const BackToPacks = () => {
 
   return (
     <div className={styles.navToPacks}>
-      {!isRequestProcessing ? (
-        <span onClick={onMoveToPacksList}>🡨 Back to Packs List</span>
-      ) : (
-        <span>Please wait for the page refresh</span>
-      )}
+      <Button color="inherit" disabled={isRequestProcessing} onClick={onMoveToPacksList}>
+        🡨 Back to Packs List
+      </Button>
     </div>
   );
 };

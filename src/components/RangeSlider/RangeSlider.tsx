@@ -15,18 +15,17 @@ import {
 export const RangeSlider = () => {
   const minCardsCount = useAppSelector(selectMinCardsCount);
   const maxCardsCount = useAppSelector(selectMaxCardsCount);
-  const minCardsSearchParam = useAppSelector(selectMinCardsSearchParam);
-  const maxCardsSearchParam = useAppSelector(selectMaxCardsSearchParam);
+  const minCardsSearchParam = useAppSelector(selectMinCardsSearchParam) || minCardsCount;
+  const maxCardsSearchParam = useAppSelector(selectMaxCardsSearchParam) || maxCardsCount;
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
 
   const dispatch = useAppDispatch();
 
   const [value, setValue] = useState<number[]>([minCardsSearchParam, maxCardsSearchParam]);
 
-  // to set min/max slider values after server response
   useEffect(() => {
-    setValue([minCardsCount, maxCardsCount]);
-  }, [minCardsCount, maxCardsCount]);
+    setValue([minCardsSearchParam, maxCardsSearchParam]);
+  }, [minCardsSearchParam, maxCardsSearchParam]);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);

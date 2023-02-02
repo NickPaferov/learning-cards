@@ -31,8 +31,10 @@ export const selectCurrentPacksPage = (state: AppRootStateType): number => state
 export const selectPackName = (state: AppRootStateType): string => state.packs.packName;
 export const selectAreMyPacksStatus = (state: AppRootStateType): boolean => state.packs.areMyPacks;
 export const selectPacks = (state: AppRootStateType): PackType[] => state.packs.cardPacks; // for Search
-export const selectMinCardsSearchParam = (state: AppRootStateType): number => state.packs.min;
-export const selectMaxCardsSearchParam = (state: AppRootStateType): number => state.packs.max;
+export const selectMinCardsSearchParam = (state: AppRootStateType): number | null =>
+  state.packs.min;
+export const selectMaxCardsSearchParam = (state: AppRootStateType): number | null =>
+  state.packs.max;
 export const selectMinCardsCount = (state: AppRootStateType): number => state.packs.minCardsCount;
 export const selectMaxCardsCount = (state: AppRootStateType): number => state.packs.maxCardsCount;
 export const selectSortPacksParam = (state: AppRootStateType): string => state.packs.sortPacks;

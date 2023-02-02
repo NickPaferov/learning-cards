@@ -15,8 +15,8 @@ const initialState = {
   pageCount: 5,
   cardPacksTotalCount: 0,
   areMyPacks: false,
-  min: 0,
-  max: 0,
+  min: null as number | null,
+  max: null as number | null,
   minCardsCount: 0,
   maxCardsCount: 0,
   packName: "",
@@ -51,8 +51,8 @@ export const packsReducer = (
         pageCount: 5,
         cardPacksTotalCount: 0,
         areMyPacks: false,
-        min: 0,
-        max: 0,
+        min: null,
+        max: null,
         packName: "",
         sortPacks: "0updated",
       };
@@ -69,7 +69,7 @@ export const setPacksCurrentPageAC = (page: number) =>
 export const setAreMyPacksAC = (areMyPacks: boolean) =>
   ({ type: "PACKS/SET-ARE-MY-PACKS", areMyPacks } as const);
 
-export const setMinMaxCardsCountAC = (min: number, max: number) =>
+export const setMinMaxCardsCountAC = (min: number | null, max: number | null) =>
   ({ type: "PACKS/SET-MIN-MAX-CARDS-COUNT", min, max } as const);
 
 export const setPackNameSearchAC = (packName: string) =>

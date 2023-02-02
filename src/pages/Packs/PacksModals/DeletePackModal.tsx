@@ -4,6 +4,7 @@ import { useAppDispatch } from "../../../bll/store";
 import { deletePackTC } from "../../../bll/packs-reducer";
 import { PackType } from "../../../api/packs-api";
 import styles from "./PacksModals.module.css";
+import { limitDisplayedTextLength } from "../../../utils/limitDisplayedTextLength";
 
 type PropsType = {
   pack: null | PackType;
@@ -32,7 +33,10 @@ export const DeletePackModal: FC<PropsType> = ({ pack, isOpenModal, setIsOpenMod
       autoFocus={true}
     >
       <div className={styles.clarification}>
-        <span>Do you really want to remove pack {pack ? `"${pack.name}"` : "this pack"}?</span>
+        <span>
+          Do you really want to remove pack{" "}
+          {pack ? `"${limitDisplayedTextLength(pack.name, 30)}"` : "this pack"}?
+        </span>
         <div className={styles.packCover}>
           {pack && pack.deckCover && (
             <img style={{ maxWidth: "200px" }} alt="cover" src={pack.deckCover} />

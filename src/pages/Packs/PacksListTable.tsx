@@ -30,6 +30,7 @@ import { LearnItemIcon } from "../../components/LearnItemIcon/LearnItemIcon";
 import { EditItemIcon } from "../../components/EditItemIcon/EditItemIcon";
 import { DeleteItemIcon } from "../../components/DeleteItemIcon/DeleteItemIcon";
 import { PATHS } from "../../enums/paths";
+import { limitDisplayedTextLength } from "../../utils/limitDisplayedTextLength";
 
 export const PacksListTable = () => {
   const userId = useAppSelector(selectUserId);
@@ -137,7 +138,7 @@ export const PacksListTable = () => {
                       disabled={isRequestProcessing}
                       onClick={() => onMoveToCards(pack)}
                     >
-                      {pack.name}
+                      {limitDisplayedTextLength(pack.name, 30)}
                     </button>
                   </TableCell>
                   <TableCell align="left">{pack.cardsCount}</TableCell>

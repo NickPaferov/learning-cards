@@ -27,6 +27,7 @@ import Rating from "@mui/material/Rating";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import { EditItemIcon } from "../../components/EditItemIcon/EditItemIcon";
 import { DeleteItemIcon } from "../../components/DeleteItemIcon/DeleteItemIcon";
+import { limitDisplayedTextLength } from "../../utils/limitDisplayedTextLength";
 
 export const CardsListTable = () => {
   const userId = useAppSelector(selectUserId);
@@ -112,7 +113,7 @@ export const CardsListTable = () => {
                         src={card.questionImg}
                       />
                     ) : (
-                      card.question
+                      limitDisplayedTextLength(card.question, 30)
                     )}
                   </TableCell>
                   <TableCell sx={{ maxWidth: 200 }} align="left">
@@ -123,7 +124,7 @@ export const CardsListTable = () => {
                         src={card.answerImg}
                       />
                     ) : (
-                      card.answer
+                      limitDisplayedTextLength(card.answer, 30)
                     )}
                   </TableCell>
                   <TableCell align="left">

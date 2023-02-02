@@ -21,6 +21,7 @@ import { PaginationBlock } from "../../components/PaginationBlock/PaginationBloc
 import Button from "@mui/material/Button/Button";
 import { PATHS } from "../../enums/paths";
 import { CardsFilters } from "./CardsFilter";
+import { limitDisplayedTextLength } from "../../utils/limitDisplayedTextLength";
 
 export const Cards = () => {
   const userId = useAppSelector(selectUserId);
@@ -61,7 +62,7 @@ export const Cards = () => {
       <BackToPacks />
       <div>
         <div className={styles.header}>
-          <h3>{areCardsFetched && cardsListName}</h3>
+          <h3>{areCardsFetched && limitDisplayedTextLength(cardsListName, 30)}</h3>
           {userId === packUserId ? (
             <Button variant="contained" disabled={isRequestProcessing} onClick={onOpenAddCardModal}>
               Add new card

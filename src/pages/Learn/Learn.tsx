@@ -18,6 +18,7 @@ import {
 import { BackToPacks } from "../../components/BackToPacks/BackToPacks";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import Button from "@mui/material/Button/Button";
+import { limitDisplayedTextLength } from "../../utils/limitDisplayedTextLength";
 
 const grades = [
   { value: 1, name: "Didn't know", isSelected: false },
@@ -91,7 +92,7 @@ export const Learn = () => {
       <BackToPacks />
       {areCardsFetched && card ? (
         <div>
-          <div>Learn pack "{cardsListName}"</div>
+          <div>Learn pack "{limitDisplayedTextLength(cardsListName, 30)}"</div>
           <div className={styles.wrapper}>
             <div className={styles.questionInfo}>
               {card?.questionImg && card?.questionImg !== "noData" ? (
@@ -104,7 +105,9 @@ export const Learn = () => {
                   />
                 </div>
               ) : (
-                <span className={styles.questionText}>Question: {card?.question}</span>
+                <span className={styles.questionText}>
+                  Question: {card && limitDisplayedTextLength(card.question, 30)}
+                </span>
               )}
               <span className={styles.clarification}>
                 Number of attempts to answer this question: {card?.shots}
@@ -123,7 +126,9 @@ export const Learn = () => {
                       />
                     </div>
                   ) : (
-                    <span className={styles.answerText}>Answer: {card?.answer}</span>
+                    <span className={styles.answerText}>
+                      Answer: {card && limitDisplayedTextLength(card.answer, 30)}
+                    </span>
                   )}
                   <span>Rate yourself:</span>
                   {grades.map((grade, index) => (

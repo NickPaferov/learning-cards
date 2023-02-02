@@ -5,6 +5,7 @@ import { CardType } from "../../../api/cards-api";
 import { deleteCardTC } from "../../../bll/cards-reducer";
 import styles from "./CardsModals.module.css";
 import { selectCardsListName } from "../../../utils/selectors";
+import { limitDisplayedTextLength } from "../../../utils/limitDisplayedTextLength";
 
 type PropsType = {
   packId: string | undefined;
@@ -35,7 +36,10 @@ export const DeleteCardModal: FC<PropsType> = ({ packId, card, isOpenModal, setI
       autoFocus={true}
     >
       <div className={styles.clarification}>
-        <span>Do you really want to remove this card from pack "{cardsListName}"?</span>
+        <span>
+          Do you really want to remove this card from pack "
+          {limitDisplayedTextLength(cardsListName, 30)}"?
+        </span>
         {card?.questionImg && card?.questionImg !== "noData" ? (
           <div>
             <span>Question:</span>
@@ -44,7 +48,7 @@ export const DeleteCardModal: FC<PropsType> = ({ packId, card, isOpenModal, setI
             </div>
           </div>
         ) : (
-          <span>Question: {card?.question}</span>
+          <span>Question: {card && limitDisplayedTextLength(card.question, 30)}</span>
         )}
         {card?.answerImg && card?.answerImg !== "noData" ? (
           <div>
@@ -54,7 +58,7 @@ export const DeleteCardModal: FC<PropsType> = ({ packId, card, isOpenModal, setI
             </div>
           </div>
         ) : (
-          <span>Answer: {card?.answer}</span>
+          <span>Answer: {card && limitDisplayedTextLength(card.answer, 30)}</span>
         )}
       </div>
     </BasicModal>

@@ -12,13 +12,14 @@ import { CardType } from "../../api/cards-api";
 import {
   fetchCardsTC,
   setAreCardsFetchedAC,
-  setCardsCountPrePageAC,
+  setCardsCountPerPageAC,
   updateCardGradeTC,
 } from "../../bll/cards-reducer";
 import { BackToPacks } from "../../components/BackToPacks/BackToPacks";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import Button from "@mui/material/Button/Button";
 import { limitDisplayedTextLength } from "../../utils/limitDisplayedTextLength";
+import { DEFAULT_PAGE_SIZE, LEARNING_CARDS_PER_PAGE } from "../../constants/constants";
 
 const grades = [
   { value: 1, name: "Didn't know", isSelected: false },
@@ -59,11 +60,11 @@ export const Learn = () => {
 
   useEffect(() => {
     if (packId) {
-      dispatch(setCardsCountPrePageAC(100));
+      dispatch(setCardsCountPerPageAC(LEARNING_CARDS_PER_PAGE));
       dispatch(fetchCardsTC(packId));
     }
     return () => {
-      dispatch(setCardsCountPrePageAC(5));
+      dispatch(setCardsCountPerPageAC(DEFAULT_PAGE_SIZE));
       dispatch(setAreCardsFetchedAC(false));
     };
   }, [dispatch, packId]);

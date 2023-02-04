@@ -2,7 +2,7 @@ import LinearProgress from "@mui/material/LinearProgress/LinearProgress";
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import styles from "./Layout.module.css";
-import { useAppSelector } from "../../bll/store";
+import { useAppDispatch, useAppSelector } from "../../bll/store";
 import defaultAvatar from "../../assets/images/avatar.png";
 import { DropDownMenu } from "../DropDownMenu/DropDownMenu";
 import {
@@ -13,6 +13,8 @@ import {
 } from "../../utils/selectors";
 import Button from "@mui/material/Button/Button";
 import { PATHS } from "../../enums/paths";
+import MenuItem from "@mui/material/MenuItem";
+import { logoutTC } from "../../bll/auth-reducer";
 
 export const Layout = () => {
   const isLoggedIn = useAppSelector(selectLoginStatus);
@@ -20,6 +22,7 @@ export const Layout = () => {
   const avatar = useAppSelector(selectUserAvatar);
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
 
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const onMoveToStartPage = () => {
@@ -28,6 +31,14 @@ export const Layout = () => {
 
   const onSignIn = () => {
     navigate(PATHS.SIGNIN);
+  };
+
+  const onNavigateToProfile = () => {
+    navigate(PATHS.PROFILE);
+  };
+
+  const onLogOut = () => {
+    dispatch(logoutTC());
   };
 
   return (
@@ -47,7 +58,10 @@ export const Layout = () => {
             <div className={styles.userInfo}>
               <span>{userName}</span>
               <img alt="avatar" src={avatar || defaultAvatar} className={styles.avatar} />
-              <DropDownMenu />
+              <DropDownMenu>
+                <MenuItem onClick={onNavigateToProfile}>Profile</MenuItem>
+                <MenuItem onClick={onLogOut}>LogOut</MenuItem>
+              </DropDownMenu>
             </div>
           ) : (
             <Button variant="contained" disabled={isRequestProcessing} onClick={onSignIn}>

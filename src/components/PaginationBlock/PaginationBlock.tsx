@@ -3,6 +3,7 @@ import { Pagination } from "@mui/material";
 import { useAppSelector } from "../../bll/store";
 import styles from "./PaginationBlock.module.css";
 import { selectRequestProcessingStatus } from "../../utils/selectors";
+import { DEFAULT_PAGE } from "../../constants/constants";
 
 type PropsType = {
   itemsTotalCount: number;
@@ -31,6 +32,7 @@ export const PaginationBlock: FC<PropsType> = ({
 
   const onChangeItemsCountPerPage = (e: ChangeEvent<HTMLSelectElement>) => {
     onSetItemsCountPerPage(+e.currentTarget.value);
+    onSetCurrentPage(DEFAULT_PAGE);
   };
 
   return (
@@ -40,13 +42,17 @@ export const PaginationBlock: FC<PropsType> = ({
         shape="rounded"
         color="primary"
         disabled={isRequestProcessing}
-        defaultPage={currentPage}
+        page={currentPage}
         onChange={onChangeCurrentPage}
       />
       <div>
         <span>Show </span>
-        <select disabled={isRequestProcessing} onChange={onChangeItemsCountPerPage}>
-          <option value={5}>5</option>
+        <select
+          disabled={isRequestProcessing}
+          value={pageSize}
+          onChange={onChangeItemsCountPerPage}
+        >
+          <option value={5}>{5}</option>
           <option value={10}>10</option>
           <option value={15}>15</option>
         </select>

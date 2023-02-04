@@ -9,11 +9,12 @@ import {
 import { AppThunkType } from "./store";
 import { setAppIsRequestProcessingAC } from "./app-reducer";
 import { handleError } from "../utils/error-utils";
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "../constants/constants";
 
 const initialState = {
   cards: [] as CardType[],
-  page: 1,
-  pageCount: 5,
+  page: DEFAULT_PAGE,
+  pageCount: DEFAULT_PAGE_SIZE,
   cardsTotalCount: 0,
   packName: "",
   cardQuestion: "",
@@ -68,7 +69,7 @@ export const setCardQuestionAC = (cardQuestion: string) =>
 export const setSortCardsParamAC = (sortCardsParam: string) =>
   ({ type: "CARDS/SET-SORT-CARDS-PARAM", sortCardsParam } as const);
 
-export const setCardsCountPrePageAC = (pageCount: number) =>
+export const setCardsCountPerPageAC = (pageCount: number) =>
   ({ type: "CARDS/SET-CARDS-COUNT-PER-PAGE", pageCount } as const);
 
 export const setAreCardsFetchedAC = (areCardsFetched: boolean) =>
@@ -88,7 +89,6 @@ export const fetchCardsTC =
         sortCards,
       });
       dispatch(setCardsAC(res.data));
-      dispatch(setCardsTotalCountAC(res.data.cardsTotalCount));
       dispatch(setAreCardsFetchedAC(true));
     } catch (e) {
       handleError(e, dispatch);
@@ -155,5 +155,5 @@ export type CardsActionsType =
   | ReturnType<typeof setCardsTotalCountAC>
   | ReturnType<typeof setCardQuestionAC>
   | ReturnType<typeof setSortCardsParamAC>
-  | ReturnType<typeof setCardsCountPrePageAC>
+  | ReturnType<typeof setCardsCountPerPageAC>
   | ReturnType<typeof setAreCardsFetchedAC>;

@@ -40,8 +40,6 @@ export const Profile = () => {
   const [editMode, setEditMode] = useState(false);
   const [isAvatarBroken, setIsAvatarBroken] = useState(false);
 
-  console.log("isAvatarBroken", isAvatarBroken);
-
   const {
     register,
     handleSubmit,

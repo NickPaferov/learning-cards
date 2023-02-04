@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
-import { setMinMaxCardsCountAC } from "../../bll/packs-reducer";
+import { setMinMaxCardsCountAC, setPacksCurrentPageAC } from "../../bll/packs-reducer";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import styles from "./RangeSlider.module.css";
 import {
@@ -11,6 +11,7 @@ import {
   selectMinCardsSearchParam,
   selectRequestProcessingStatus,
 } from "../../utils/selectors";
+import { DEFAULT_PAGE } from "../../constants/constants";
 
 export const RangeSlider = () => {
   const minCardsCount = useAppSelector(selectMinCardsCount);
@@ -37,6 +38,7 @@ export const RangeSlider = () => {
   ) => {
     if (Array.isArray(value)) {
       dispatch(setMinMaxCardsCountAC(value[0], value[1]));
+      dispatch(setPacksCurrentPageAC(DEFAULT_PAGE));
     }
   };
 

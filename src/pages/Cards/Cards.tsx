@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CardsListTable } from "./CardsListTable";
 import styles from "./Cards.module.css";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { setCardsCountPrePageAC, setCardsCurrentPageAC } from "../../bll/cards-reducer";
+import { setCardsCountPerPageAC, setCardsCurrentPageAC } from "../../bll/cards-reducer";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   selectAreCardsFetchedStatus,
@@ -22,6 +22,9 @@ import Button from "@mui/material/Button/Button";
 import { PATHS } from "../../enums/paths";
 import { CardsFilters } from "./CardsFilter";
 import { limitDisplayedTextLength } from "../../utils/limitDisplayedTextLength";
+import { DropDownMenu } from "../../components/DropDownMenu/DropDownMenu";
+import MenuItem from "@mui/material/MenuItem";
+import { LearnItemIcon } from "../../components/LearnItemIcon/LearnItemIcon";
 
 export const Cards = () => {
   const userId = useAppSelector(selectUserId);
@@ -50,7 +53,7 @@ export const Cards = () => {
   };
 
   const onSetCardsCountPerPage = (itemsCountPerPage: number) => {
-    dispatch(setCardsCountPrePageAC(itemsCountPerPage));
+    dispatch(setCardsCountPerPageAC(itemsCountPerPage));
   };
 
   const onStartLearning = () => {
@@ -62,7 +65,19 @@ export const Cards = () => {
       <BackToPacks />
       <div>
         <div className={styles.header}>
-          <h3>{areCardsFetched && limitDisplayedTextLength(cardsListName, 30)}</h3>
+          <div className={styles.packMenu}>
+            <h3>{areCardsFetched && limitDisplayedTextLength(cardsListName, 30)}</h3>
+            {userId === packUserId && (
+              <DropDownMenu>
+                <MenuItem>
+                  <LearnItemIcon
+                    disabled={cards.length < 1 || isRequestProcessing}
+                    callBack={onStartLearning}
+                  />
+                </MenuItem>
+              </DropDownMenu>
+            )}
+          </div>
           {userId === packUserId ? (
             <Button variant="contained" disabled={isRequestProcessing} onClick={onOpenAddCardModal}>
               Add new card

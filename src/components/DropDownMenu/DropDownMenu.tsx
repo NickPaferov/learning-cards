@@ -1,15 +1,15 @@
-import React from "react";
+import React, { FC, ReactNode } from "react";
 import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { logoutTC } from "../../bll/auth-reducer";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { useAppSelector } from "../../bll/store";
 import IconButton from "@mui/material/IconButton/IconButton";
-import { PATHS } from "../../enums/paths";
 import { selectRequestProcessingStatus } from "../../utils/selectors";
 
-export const DropDownMenu = () => {
+type PropsType = {
+  children: ReactNode;
+};
+
+export const DropDownMenu: FC<PropsType> = ({ children }) => {
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -18,19 +18,8 @@ export const DropDownMenu = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const onNavigateToProfile = () => {
-    navigate(PATHS.PROFILE);
-  };
-
-  const onLogOut = () => {
-    dispatch(logoutTC());
   };
 
   return (
@@ -55,8 +44,7 @@ export const DropDownMenu = () => {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={onNavigateToProfile}>Profile</MenuItem>
-        <MenuItem onClick={onLogOut}>LogOut</MenuItem>
+        {children}
       </Menu>
     </div>
   );

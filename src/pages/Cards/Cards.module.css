@@ -9,6 +9,11 @@
     align-items: center;
 }
 
+.packMenu {
+    display: flex;
+    align-items: center;
+}
+
 .searchQuestion {
     display: flex;
     flex-direction: column;

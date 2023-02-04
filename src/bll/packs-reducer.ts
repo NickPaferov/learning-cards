@@ -8,11 +8,12 @@ import {
 import { AppRootStateType, AppThunkType } from "./store";
 import { setAppIsRequestProcessingAC } from "./app-reducer";
 import { handleError } from "../utils/error-utils";
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "../constants/constants";
 
 const initialState = {
   cardPacks: [] as PackType[],
-  page: 1,
-  pageCount: 5,
+  page: DEFAULT_PAGE,
+  pageCount: DEFAULT_PAGE_SIZE,
   cardPacksTotalCount: 0,
   areMyPacks: false,
   min: null as number | null,
@@ -47,9 +48,8 @@ export const packsReducer = (
     case "PACKS/RESET-ALL-PACKS-FILTERS":
       return {
         ...state,
-        page: 1,
-        pageCount: 5,
-        cardPacksTotalCount: 0,
+        page: DEFAULT_PAGE,
+        pageCount: DEFAULT_PAGE_SIZE,
         areMyPacks: false,
         min: null,
         max: null,

@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { setPacksCountPrePageAC, setPacksCurrentPageAC } from "../../bll/packs-reducer";
 import {
   selectCurrentPacksPage,
-  selectPacksPageSize,
+  selectPacksCountPerPage,
   selectPacksTotalCount,
   selectRequestProcessingStatus,
 } from "../../utils/selectors";
@@ -15,7 +15,7 @@ import Button from "@mui/material/Button/Button";
 import { PacksFilters } from "./PacksFilters";
 
 export const Packs = () => {
-  const pageSize = useAppSelector(selectPacksPageSize);
+  const pageSize = useAppSelector(selectPacksCountPerPage);
   const packsTotalCount = useAppSelector(selectPacksTotalCount);
   const currentPage = useAppSelector(selectCurrentPacksPage);
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);

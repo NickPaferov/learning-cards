@@ -8,7 +8,7 @@ import {
   selectAreCardsFetchedStatus,
   selectCards,
   selectCardsListName,
-  selectCardsPageSize,
+  selectCardsCountPerPage,
   selectCardsTotalCount,
   selectCurrentCardsPage,
   selectPackUserId,
@@ -30,7 +30,7 @@ export const Cards = () => {
   const userId = useAppSelector(selectUserId);
   const packUserId = useAppSelector(selectPackUserId);
   const cards = useAppSelector(selectCards);
-  const pageSize = useAppSelector(selectCardsPageSize);
+  const pageSize = useAppSelector(selectCardsCountPerPage);
   const cardsTotalCount = useAppSelector(selectCardsTotalCount);
   const currentPage = useAppSelector(selectCurrentCardsPage);
   const cardsListName = useAppSelector(selectCardsListName);

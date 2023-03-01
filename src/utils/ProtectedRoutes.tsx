@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAppSelector } from "../bll/store";
-import { selectLoginStatus } from "../utils/selectors";
+import { selectLoginStatus } from "./selectors";
 
 type PropsType = {
   userIsAuth: boolean;

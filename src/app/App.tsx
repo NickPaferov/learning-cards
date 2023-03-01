@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from "../bll/store";
 import { initializeAppTC } from "../bll/app-reducer";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import { ErrorSnackbar } from "../components/ErrorSnackbar/ErrorSnackbar";
-import { ProtectedRoutes } from "../hooks/ProtectedRoute";
+import { ProtectedRoutes } from "../utils/ProtectedRoutes";
 import { Packs } from "../pages/Packs/Packs";
 import { Cards } from "../pages/Cards/Cards";
 import { selectAppInitStatus } from "../utils/selectors";

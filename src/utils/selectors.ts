@@ -24,7 +24,7 @@ export const selectRequestProcessingStatus = (state: AppRootStateType): boolean 
 export const selectAppError = (state: AppRootStateType): string | null => state.app.error;
 
 //packsSelectors
-export const selectPacksPageSize = (state: AppRootStateType): number => state.packs.pageCount;
+export const selectPacksCountPerPage = (state: AppRootStateType): number => state.packs.pageCount;
 export const selectPacksTotalCount = (state: AppRootStateType): number =>
   state.packs.cardPacksTotalCount;
 export const selectCurrentPacksPage = (state: AppRootStateType): number => state.packs.page;
@@ -38,10 +38,9 @@ export const selectMaxCardsSearchParam = (state: AppRootStateType): number | nul
 export const selectMinCardsCount = (state: AppRootStateType): number => state.packs.minCardsCount;
 export const selectMaxCardsCount = (state: AppRootStateType): number => state.packs.maxCardsCount;
 export const selectSortPacksParam = (state: AppRootStateType): string => state.packs.sortPacks;
-export const selectPacksCountPerPage = (state: AppRootStateType): number => state.packs.pageCount;
 
 //cardsSelectors
-export const selectCardsPageSize = (state: AppRootStateType): number => state.cards.pageCount;
+export const selectCardsCountPerPage = (state: AppRootStateType): number => state.cards.pageCount;
 export const selectCardsTotalCount = (state: AppRootStateType): number =>
   state.cards.cardsTotalCount;
 export const selectCurrentCardsPage = (state: AppRootStateType): number => state.cards.page;
@@ -50,6 +49,5 @@ export const selectCardsListName = (state: AppRootStateType): string => state.ca
 export const selectCardQuestion = (state: AppRootStateType): string => state.cards.cardQuestion; // for Search
 export const selectPackUserId = (state: AppRootStateType): string => state.cards.packUserId;
 export const selectSortCardsParam = (state: AppRootStateType): string => state.cards.sortCards;
-export const selectCardsCountPerPage = (state: AppRootStateType): number => state.cards.pageCount;
 export const selectAreCardsFetchedStatus = (state: AppRootStateType): boolean =>
   state.cards.areCardsFetched;

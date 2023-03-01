@@ -28,6 +28,7 @@ import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import { EditItemIcon } from "../../components/EditItemIcon/EditItemIcon";
 import { DeleteItemIcon } from "../../components/DeleteItemIcon/DeleteItemIcon";
 import { limitDisplayedTextLength } from "../../utils/limitDisplayedTextLength";
+import { LEARNING_CARDS_PER_PAGE } from "../../constants/constants";
 
 export const CardsListTable = () => {
   const userId = useAppSelector(selectUserId);
@@ -49,7 +50,7 @@ export const CardsListTable = () => {
   const { packId } = useParams();
 
   useEffect(() => {
-    if (packId) {
+    if (packId && cardsCountPerPage !== LEARNING_CARDS_PER_PAGE) {
       dispatch(fetchCardsTC(packId));
     }
     return () => {

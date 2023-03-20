@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,10 +7,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { fetchPacksTC, setSortPacksParamAC } from "../../bll/packs-reducer";
+import { fetchPacksTC, setAreMyPacksAC, setSortPacksParamAC } from "../../bll/packs-reducer";
 import { useNavigate } from "react-router-dom";
 import {
-  selectAreMyPacksStatus,
   selectCurrentPacksPage,
   selectMaxCardsSearchParam,
   selectMinCardsSearchParam,
@@ -32,10 +31,13 @@ import { DeleteItemIcon } from "../../components/DeleteItemIcon/DeleteItemIcon";
 import { PATHS } from "../../enums/paths";
 import { limitDisplayedTextLength } from "../../utils/limitDisplayedTextLength";
 
-export const PacksListTable = () => {
+type PropsType = {
+  searchParams: URLSearchParams;
+};
+
+export const PacksListTable: FC<PropsType> = ({ searchParams }) => {
   const userId = useAppSelector(selectUserId);
   const packs = useAppSelector(selectPacks);
-  const areMyPacks = useAppSelector(selectAreMyPacksStatus);
   const currentPage = useAppSelector(selectCurrentPacksPage);
   const minCardsSearchParam = useAppSelector(selectMinCardsSearchParam);
   const maxCardsSearchParam = useAppSelector(selectMaxCardsSearchParam);
@@ -52,16 +54,18 @@ export const PacksListTable = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const areMyPacksFilter = Boolean(searchParams.get("areMyPacks") === "true");
+    dispatch(setAreMyPacksAC(areMyPacksFilter));
     dispatch(fetchPacksTC());
   }, [
     dispatch,
     packName,
-    areMyPacks,
     currentPage,
     minCardsSearchParam,
     maxCardsSearchParam,
     sortPacksParam,
     packsCountPerPage,
+    searchParams,
   ]);
 
   const onSortPacks = (sortBy: string) => {

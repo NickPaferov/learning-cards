@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import styles from "./Packs.module.css";
 import ButtonGroup from "@mui/material/ButtonGroup/ButtonGroup";
 import Button from "@mui/material/Button/Button";
@@ -17,7 +17,11 @@ import {
 } from "../../bll/packs-reducer";
 import { useDebounce } from "../../hooks/useDebounce";
 
-export const PacksFilters = () => {
+type PropsType = {
+  setSearchParams: (params: { areMyPacks: string }) => void;
+};
+
+export const PacksFilters: FC<PropsType> = ({ setSearchParams }) => {
   const packName = useAppSelector(selectPackName);
   const areMyPacks = useAppSelector(selectAreMyPacksStatus);
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
@@ -44,16 +48,19 @@ export const PacksFilters = () => {
     dispatch(setResetAllPacksFiltersAC());
     dispatch(setPackNameSearchAC(searchPack));
     dispatch(setAreMyPacksAC(true));
+    setSearchParams({ areMyPacks: "true" });
   };
 
   const onSetAllPacks = () => {
     dispatch(setResetAllPacksFiltersAC());
     dispatch(setPackNameSearchAC(searchPack));
     dispatch(setAreMyPacksAC(false));
+    setSearchParams({ areMyPacks: "false" });
   };
 
   const onResetAllPacksFilters = () => {
     dispatch(setResetAllPacksFiltersAC());
+    setSearchParams({ areMyPacks: "false" });
   };
 
   return (

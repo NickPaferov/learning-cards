@@ -13,6 +13,7 @@ import { AddPackModal } from "./PacksModals/AddPackModal";
 import { PaginationBlock } from "../../components/PaginationBlock/PaginationBlock";
 import Button from "@mui/material/Button/Button";
 import { PacksFilters } from "./PacksFilters";
+import { useSearchParams } from "react-router-dom";
 
 export const Packs = () => {
   const pageSize = useAppSelector(selectPacksCountPerPage);
@@ -23,6 +24,7 @@ export const Packs = () => {
   const dispatch = useAppDispatch();
 
   const [isOpenAddPackModal, setOpenAddPackModal] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const onOpenAddPackModal = () => {
     setOpenAddPackModal(true);
@@ -44,8 +46,8 @@ export const Packs = () => {
           Add new pack
         </Button>
       </div>
-      <PacksFilters />
-      <PacksListTable />
+      <PacksFilters setSearchParams={setSearchParams} />
+      <PacksListTable searchParams={searchParams} />
       <PaginationBlock
         itemsTotalCount={packsTotalCount}
         pageSize={pageSize}

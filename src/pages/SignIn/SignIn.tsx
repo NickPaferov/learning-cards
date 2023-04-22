@@ -63,7 +63,7 @@ export const SignIn = () => {
             disabled={isRequestProcessing}
             {...register("password")}
           />
-          <span onClick={handlePasswordVisibility}>👁</span>
+          <span className = {styles.passwordVisibility} onClick={handlePasswordVisibility}>👁</span>
           <p className={styles.error}>{errors.password?.message}</p>
         </div>
         <div>

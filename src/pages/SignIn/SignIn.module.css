@@ -23,6 +23,11 @@
     font-size: 14px;
 }
 
+.passwordVisibility{
+    cursor: pointer;
+    margin-left: 5px;
+}
+
 .error {
     color: red;
 }

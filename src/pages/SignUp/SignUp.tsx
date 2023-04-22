@@ -27,7 +27,7 @@ const schema = yup
     confirmPassword: yup
       .string()
       .required("Confirm password is required")
-      .oneOf([yup.ref("password"), null], "Passwords must match"),
+      .oneOf([yup.ref("password"), null], "Passwords must match")
   })
   .required();
 
@@ -41,9 +41,9 @@ export const SignUp = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<FormInputsType>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema)
   });
 
   const onSubmit = ({ email, password }: FormInputsType) => {
@@ -77,7 +77,7 @@ export const SignUp = () => {
             disabled={isRequestProcessing}
             {...register("password")}
           />
-          <span onClick={handlePasswordVisibility}>👁</span>
+          <span className={styles.passwordVisibility} onClick={handlePasswordVisibility}>👁</span>
           <p className={styles.error}>{errors.password?.message}</p>
         </div>
         <div>
@@ -87,7 +87,7 @@ export const SignUp = () => {
             disabled={isRequestProcessing}
             {...register("confirmPassword")}
           />
-          <span onClick={handleConfirmPasswordVisibility}>👁</span>
+          <span className={styles.passwordVisibility} onClick={handleConfirmPasswordVisibility}>👁</span>
           <p className={styles.error}>{errors.confirmPassword?.message}</p>
         </div>
         <Button type="submit" variant="contained" disabled={isRequestProcessing}>

@@ -9,6 +9,8 @@ import { loginTC } from "../../bll/auth-reducer";
 import { selectRequestProcessingStatus } from "../../utils/selectors";
 import Button from "@mui/material/Button/Button";
 import { PATHS } from "../../enums/paths";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 type FormInputsType = {
   email: string;
@@ -57,17 +59,25 @@ export const SignIn = () => {
           <p className={styles.error}>{errors.email?.message}</p>
         </div>
         <div>
+          <div className={styles.password}>
           <input
             type={isPasswordVisible ? "text" : "password"}
             placeholder="Password"
             disabled={isRequestProcessing}
             {...register("password")}
           />
-          <span className = {styles.passwordVisibility} onClick={handlePasswordVisibility}>👁</span>
+            {isPasswordVisible
+              ? <VisibilityOffIcon className={styles.passwordVisibility} fontSize="small"
+                                   onClick={handlePasswordVisibility} />
+              : <VisibilityIcon className={styles.passwordVisibility} fontSize="small"
+                                onClick={handlePasswordVisibility} />
+            }
+          </div>
           <p className={styles.error}>{errors.password?.message}</p>
         </div>
         <div>
           <input
+            className={styles.checkbox}
             type="checkbox"
             defaultChecked={true}
             disabled={isRequestProcessing}
@@ -75,7 +85,7 @@ export const SignIn = () => {
           />
           <span>Remember me</span>
         </div>
-        <Button type="submit" variant="contained" disabled={isRequestProcessing}>
+        <Button className={styles.btn} type="submit" variant="contained" disabled={isRequestProcessing}>
           Sign In
         </Button>
       </form>

@@ -9,6 +9,8 @@ import { registerTC } from "../../bll/auth-reducer";
 import { selectRegisterStatus, selectRequestProcessingStatus } from "../../utils/selectors";
 import Button from "@mui/material/Button/Button";
 import { PATHS } from "../../enums/paths";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 type FormInputsType = {
   email: string;
@@ -71,26 +73,40 @@ export const SignUp = () => {
           <p className={styles.error}>{errors.email?.message}</p>
         </div>
         <div>
-          <input
-            type={isPasswordVisible ? "text" : "password"}
-            placeholder="Password"
-            disabled={isRequestProcessing}
-            {...register("password")}
-          />
-          <span className={styles.passwordVisibility} onClick={handlePasswordVisibility}>👁</span>
+          <div className={styles.password}>
+            <input
+              type={isPasswordVisible ? "text" : "password"}
+              placeholder="Password"
+              disabled={isRequestProcessing}
+              {...register("password")}
+            />
+            {isPasswordVisible
+              ? <VisibilityOffIcon className={styles.passwordVisibility} fontSize="small"
+                                   onClick={handlePasswordVisibility} />
+              : <VisibilityIcon className={styles.passwordVisibility} fontSize="small"
+                                onClick={handlePasswordVisibility} />
+            }
+          </div>
           <p className={styles.error}>{errors.password?.message}</p>
         </div>
         <div>
-          <input
-            type={isConfirmPasswordVisible ? "text" : "password"}
-            placeholder="Confirm password"
-            disabled={isRequestProcessing}
-            {...register("confirmPassword")}
-          />
-          <span className={styles.passwordVisibility} onClick={handleConfirmPasswordVisibility}>👁</span>
+          <div className={styles.confirmPassword}>
+            <input
+              type={isConfirmPasswordVisible ? "text" : "password"}
+              placeholder="Confirm password"
+              disabled={isRequestProcessing}
+              {...register("confirmPassword")}
+            />
+            {isConfirmPasswordVisible
+              ? <VisibilityOffIcon className={styles.confirmPasswordVisibility} fontSize="small"
+                                   onClick={handleConfirmPasswordVisibility} />
+              : <VisibilityIcon className={styles.confirmPasswordVisibility} fontSize="small"
+                                onClick={handleConfirmPasswordVisibility} />
+            }
+          </div>
           <p className={styles.error}>{errors.confirmPassword?.message}</p>
         </div>
-        <Button type="submit" variant="contained" disabled={isRequestProcessing}>
+        <Button className = {styles.btn} type="submit" variant="contained" disabled={isRequestProcessing}>
           Sign Up
         </Button>
       </form>

@@ -6,14 +6,14 @@ import {
   selectAreCardsFetchedStatus,
   selectCards,
   selectCardsListName,
-  selectRequestProcessingStatus,
+  selectRequestProcessingStatus
 } from "../../utils/selectors";
 import { CardType } from "../../api/cards-api";
 import {
   fetchCardsTC,
   setAreCardsFetchedAC,
   setCardsCountPerPageAC,
-  updateCardGradeTC,
+  updateCardGradeTC
 } from "../../bll/cards-reducer";
 import { BackToPacks } from "../../components/BackToPacks/BackToPacks";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
@@ -26,7 +26,7 @@ const grades = [
   { value: 2, name: "Forgot", isSelected: false },
   { value: 3, name: "Thought a lot", isSelected: false },
   { value: 4, name: "Confused", isSelected: false },
-  { value: 5, name: "Knew the answer", isSelected: true },
+  { value: 5, name: "Knew the answer", isSelected: true }
 ];
 
 const getCard = (cards: CardType[]) => {
@@ -107,7 +107,7 @@ export const Learn = () => {
                 </div>
               ) : (
                 <span className={styles.questionText}>
-                  Question: {card && limitDisplayedTextLength(card.question, 30)}
+                  Question: {card && limitDisplayedTextLength(card.question, 50)}
                 </span>
               )}
               <span className={styles.clarification}>
@@ -128,7 +128,7 @@ export const Learn = () => {
                     </div>
                   ) : (
                     <span className={styles.answerText}>
-                      Answer: {card && limitDisplayedTextLength(card.answer, 30)}
+                      Answer: {card && limitDisplayedTextLength(card.answer, 50)}
                     </span>
                   )}
                   <span>Rate yourself:</span>

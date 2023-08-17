@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
-import styles from "./Packs.module.css";
+import styles from "./PacksFilter.module.css";
 import ButtonGroup from "@mui/material/ButtonGroup/ButtonGroup";
 import Button from "@mui/material/Button/Button";
 import { RangeSlider } from "../../components/RangeSlider/RangeSlider";
@@ -8,12 +8,12 @@ import { useAppDispatch, useAppSelector } from "../../bll/store";
 import {
   selectAreMyPacksStatus,
   selectPackName,
-  selectRequestProcessingStatus,
+  selectRequestProcessingStatus
 } from "../../utils/selectors";
 import {
   setAreMyPacksAC,
   setPackNameSearchAC,
-  setResetAllPacksFiltersAC,
+  setResetAllPacksFiltersAC
 } from "../../bll/packs-reducer";
 import { useDebounce } from "../../hooks/useDebounce";
 

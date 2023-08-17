@@ -20,6 +20,11 @@
     border-radius: 50%;
 }
 
+input {
+    font-size: 14px;
+    margin-right: 10px;
+}
+
 .error {
     color: red;
 }

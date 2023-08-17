@@ -17,7 +17,7 @@ export const BackToPacks = () => {
   return (
     <div className={styles.navToPacks}>
       <Button color="inherit" disabled={isRequestProcessing} onClick={onMoveToPacksList}>
-        🡨 Back to Packs List
+        &lArr; Back to Packs List
       </Button>
     </div>
   );

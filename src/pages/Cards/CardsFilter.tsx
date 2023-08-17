@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import styles from "./Cards.module.css";
+import styles from "./CardsFilter.module.css";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { selectCardQuestion, selectRequestProcessingStatus } from "../../utils/selectors";
 import { useDebounce } from "../../hooks/useDebounce";

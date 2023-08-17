@@ -1,6 +1,12 @@
-.header, .btnBlock {
+.header {
     display: flex;
     justify-content: space-between;
+}
+
+.btnBlock {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 26px;
 }
 
 .modalTitle {

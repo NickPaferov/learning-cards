@@ -93,7 +93,7 @@ export const Learn = () => {
       <BackToPacks />
       {areCardsFetched && card ? (
         <div>
-          <div>Learn pack "{limitDisplayedTextLength(cardsListName, 30)}"</div>
+          <div className={styles.learnPack}>Learn pack "{limitDisplayedTextLength(cardsListName, 30)}"</div>
           <div className={styles.wrapper}>
             <div className={styles.questionInfo}>
               {card?.questionImg && card?.questionImg !== "noData" ? (
@@ -133,7 +133,7 @@ export const Learn = () => {
                   )}
                   <span>Rate yourself:</span>
                   {grades.map((grade, index) => (
-                    <div key={index}>
+                    <div className={styles.rate} key={index}>
                       <label>
                         <input
                           type="radio"
@@ -147,13 +147,13 @@ export const Learn = () => {
                     </div>
                   ))}
                 </div>
-                <Button variant="contained" autoFocus onClick={() => onSetNewQuestion(card?._id)}>
+                <Button className={styles.btn} variant="contained" autoFocus onClick={() => onSetNewQuestion(card?._id)}>
                   Next question
                 </Button>
               </div>
             ) : (
               <div>
-                <Button variant="contained" autoFocus onClick={onShowAnswerArea}>
+                <Button className={styles.btn} variant="contained" autoFocus onClick={onShowAnswerArea}>
                   Show answer
                 </Button>
               </div>

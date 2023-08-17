@@ -70,7 +70,7 @@ export const SignUp = () => {
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div>
           <input placeholder="Email" disabled={isRequestProcessing} {...register("email")} />
-          <p className={styles.error}>{errors.email?.message}</p>
+          <span className={styles.error}>{errors.email?.message}</span>
         </div>
         <div>
           <div className={styles.password}>
@@ -87,7 +87,7 @@ export const SignUp = () => {
                                 onClick={handlePasswordVisibility} />
             }
           </div>
-          <p className={styles.error}>{errors.password?.message}</p>
+          <span className={styles.error}>{errors.password?.message}</span>
         </div>
         <div>
           <div className={styles.confirmPassword}>
@@ -104,7 +104,7 @@ export const SignUp = () => {
                                 onClick={handleConfirmPasswordVisibility} />
             }
           </div>
-          <p className={styles.error}>{errors.confirmPassword?.message}</p>
+          <span className={styles.error}>{errors.confirmPassword?.message}</span>
         </div>
         <Button className = {styles.btn} type="submit" variant="contained" disabled={isRequestProcessing}>
           Sign Up

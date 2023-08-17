@@ -56,7 +56,7 @@ export const SignIn = () => {
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div>
           <input placeholder="Email" disabled={isRequestProcessing} {...register("email")} />
-          <p className={styles.error}>{errors.email?.message}</p>
+          <span className={styles.error}>{errors.email?.message}</span>
         </div>
         <div>
           <div className={styles.password}>
@@ -73,7 +73,7 @@ export const SignIn = () => {
                                 onClick={handlePasswordVisibility} />
             }
           </div>
-          <p className={styles.error}>{errors.password?.message}</p>
+          <span className={styles.error}>{errors.password?.message}</span>
         </div>
         <div>
           <input

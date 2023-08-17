@@ -53,7 +53,7 @@ export const ForgotPassword = () => {
       <h2>Forgot your password?</h2>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <input placeholder="Email" disabled={isRequestProcessing} {...register("email")} />
-        <p className={styles.error}>{errors.email?.message}</p>
+        <span className={styles.error}>{errors.email?.message}</span>
         <span className={styles.clarification}>
           Enter your email address and we will send you further instructions
         </span>

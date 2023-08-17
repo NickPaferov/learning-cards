@@ -38,3 +38,9 @@ footer {
     border-radius: 50%;
     margin-left: 10px;
 }
+
+@media screen and (max-width: 406px) {
+    header {
+        height: 80px;
+    }
+}

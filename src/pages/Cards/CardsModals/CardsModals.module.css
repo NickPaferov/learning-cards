@@ -1,6 +1,17 @@
+.modal {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .input {
     display: flex;
     flex-direction: column;
+}
+
+.input input {
+    font-size: 16px;
+    margin-top: 5px;
 }
 
 .clarification {
@@ -11,6 +22,11 @@
 .selector {
     display: flex;
     flex-direction: column;
+}
+
+.format {
+    font-size: 16px;
+    margin-top: 5px;
 }
 
 .imageWrapper {

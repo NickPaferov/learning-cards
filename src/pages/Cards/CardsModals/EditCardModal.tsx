@@ -68,7 +68,7 @@ export const EditCardModal: FC<PropsType> = ({ packId, card, isOpenModal, setIsO
           question: newQuestion,
           questionImg: questionImage,
           answer: newAnswer,
-          answerImg: answerImage,
+          answerImg: answerImage
         })
       );
       setIsOpenModal(false);
@@ -99,60 +99,62 @@ export const EditCardModal: FC<PropsType> = ({ packId, card, isOpenModal, setIsO
       onConfirmIntention={onUpdateCard}
       buttonTitle={"Save"}
     >
-      <div className={styles.selector}>
-        <span>Choose a question format</span>
-        <select defaultValue={questionFormat} onChange={onSelectQuestionFormat}>
-          <option value="text">Text</option>
-          <option value="image">Image</option>
-        </select>
-      </div>
-      {questionFormat === "text" && (
-        <div className={styles.input}>
-          <label>Question</label>
-          <input
-            autoFocus={true}
-            placeholder="Card question"
-            value={question}
-            onChange={onChangeQuestion}
-          />
+      <div className={styles.modal}>
+        <div className={styles.selector}>
+          <span>Choose a question format</span>
+          <select className={styles.format} defaultValue={questionFormat} onChange={onSelectQuestionFormat}>
+            <option value="text">Text</option>
+            <option value="image">Image</option>
+          </select>
         </div>
-      )}
-      {questionFormat === "image" && (
-        <InputTypeFile callBack={onUploadQuestionImage}>
-          <Button style={{ width: "100%" }} variant="contained" component="span">
-            Upload question image
-          </Button>
-        </InputTypeFile>
-      )}
-      <div className={styles.imageWrapper}>
-        {questionFormat === "image" && questionImage && questionImage !== "noData" && (
-          <img style={{ maxWidth: "200px" }} alt={"questionImage"} src={questionImage} />
+        {questionFormat === "text" && (
+          <div className={styles.input}>
+            <label>Question</label>
+            <input
+              autoFocus={true}
+              placeholder="Card question"
+              value={question}
+              onChange={onChangeQuestion}
+            />
+          </div>
         )}
-      </div>
-      <div className={styles.selector}>
-        <span>Choose an answer format</span>
-        <select defaultValue={answerFormat} onChange={onSelectAnswerFormat}>
-          <option value="text">Text</option>
-          <option value="image">Image</option>
-        </select>
-      </div>
-      {answerFormat === "text" && (
-        <div className={styles.input}>
-          <label>Answer</label>
-          <input type="text" placeholder="Card answer" value={answer} onChange={onChangeAnswer} />
+        {questionFormat === "image" && (
+          <InputTypeFile callBack={onUploadQuestionImage}>
+            <Button style={{ width: "100%" }} variant="contained" component="span">
+              Upload question image
+            </Button>
+          </InputTypeFile>
+        )}
+        <div className={styles.imageWrapper}>
+          {questionFormat === "image" && questionImage && questionImage !== "noData" && (
+            <img style={{ maxWidth: "200px" }} alt={"questionImage"} src={questionImage} />
+          )}
         </div>
-      )}
-      {answerFormat === "image" && (
-        <InputTypeFile callBack={onUploadAnswerImage}>
-          <Button style={{ width: "100%" }} variant="contained" component="span">
-            Upload answer image
-          </Button>
-        </InputTypeFile>
-      )}
-      <div className={styles.imageWrapper}>
-        {answerFormat === "image" && answerImage && answerImage !== "noData" && (
-          <img style={{ maxWidth: "200px" }} alt={"answerImage"} src={answerImage} />
+        <div className={styles.selector}>
+          <span>Choose an answer format</span>
+          <select className={styles.format} defaultValue={answerFormat} onChange={onSelectAnswerFormat}>
+            <option value="text">Text</option>
+            <option value="image">Image</option>
+          </select>
+        </div>
+        {answerFormat === "text" && (
+          <div className={styles.input}>
+            <label>Answer</label>
+            <input type="text" placeholder="Card answer" value={answer} onChange={onChangeAnswer} />
+          </div>
         )}
+        {answerFormat === "image" && (
+          <InputTypeFile callBack={onUploadAnswerImage}>
+            <Button style={{ width: "100%" }} variant="contained" component="span">
+              Upload answer image
+            </Button>
+          </InputTypeFile>
+        )}
+        <div className={styles.imageWrapper}>
+          {answerFormat === "image" && answerImage && answerImage !== "noData" && (
+            <img style={{ maxWidth: "200px" }} alt={"answerImage"} src={answerImage} />
+          )}
+        </div>
       </div>
     </BasicModal>
   );

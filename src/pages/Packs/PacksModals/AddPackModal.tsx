@@ -58,7 +58,7 @@ export const AddPackModal: FC<PropsType> = ({ isOpenModal, setIsOpenModal }) => 
         <input
           autoFocus={true}
           type="text"
-          placeholder="Name Pack"
+          placeholder="Name pack"
           className={styles.packName}
           onChange={onChangePackName}
           onKeyPress={onEnterPress}

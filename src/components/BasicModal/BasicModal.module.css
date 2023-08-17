@@ -1,14 +1,14 @@
 .header {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .btnBlock {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 26px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 26px;
 }
 
 .modalTitle {
-    font-weight: bold;
+  font-weight: bold;
 }

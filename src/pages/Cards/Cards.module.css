@@ -1,15 +1,15 @@
 .cardsList {
-    width: 80%;
-    margin: auto;
+  width: 80%;
+  margin: auto;
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .packMenu {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }

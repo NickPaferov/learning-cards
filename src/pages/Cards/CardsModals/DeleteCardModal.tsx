@@ -14,7 +14,12 @@ type PropsType = {
   setIsOpenModal: (value: boolean) => void;
 };
 
-export const DeleteCardModal: FC<PropsType> = ({ packId, card, isOpenModal, setIsOpenModal }) => {
+export const DeleteCardModal: FC<PropsType> = ({
+  packId,
+  card,
+  isOpenModal,
+  setIsOpenModal,
+}) => {
   const cardsListName = useAppSelector(selectCardsListName);
   const dispatch = useAppDispatch();
 
@@ -44,21 +49,33 @@ export const DeleteCardModal: FC<PropsType> = ({ packId, card, isOpenModal, setI
           <div>
             <span>Question:</span>
             <div className={styles.imageWrapper}>
-              <img style={{ maxWidth: "200px" }} alt={"questionImage"} src={card.questionImg} />
+              <img
+                style={{ maxWidth: "200px" }}
+                alt={"questionImage"}
+                src={card.questionImg}
+              />
             </div>
           </div>
         ) : (
-          <span>Question: {card && limitDisplayedTextLength(card.question, 30)}</span>
+          <span>
+            Question: {card && limitDisplayedTextLength(card.question, 30)}
+          </span>
         )}
         {card?.answerImg && card?.answerImg !== "noData" ? (
           <div>
             <span>Answer:</span>
             <div className={styles.imageWrapper}>
-              <img style={{ maxWidth: "200px" }} alt={"answerImage"} src={card.answerImg} />
+              <img
+                style={{ maxWidth: "200px" }}
+                alt={"answerImage"}
+                src={card.answerImg}
+              />
             </div>
           </div>
         ) : (
-          <span>Answer: {card && limitDisplayedTextLength(card.answer, 30)}</span>
+          <span>
+            Answer: {card && limitDisplayedTextLength(card.answer, 30)}
+          </span>
         )}
       </div>
     </BasicModal>

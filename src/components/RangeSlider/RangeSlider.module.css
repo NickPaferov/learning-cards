@@ -1,10 +1,10 @@
 .slider {
-    display: flex;
+  display: flex;
 }
 
 .value {
-    min-width: 30px;
-    padding: 6px;
-    border: 1px solid cornflowerblue;
-    border-radius: 10%;
+  min-width: 30px;
+  padding: 6px;
+  border: 1px solid cornflowerblue;
+  border-radius: 10%;
 }

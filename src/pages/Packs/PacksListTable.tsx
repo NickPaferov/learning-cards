@@ -7,7 +7,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { fetchPacksTC, setAreMyPacksAC, setSortPacksParamAC } from "../../bll/packs-reducer";
+import {
+  fetchPacksTC,
+  setAreMyPacksAC,
+  setSortPacksParamAC,
+} from "../../bll/packs-reducer";
 import { useNavigate } from "react-router-dom";
 import {
   selectCurrentPacksPage,
@@ -72,7 +76,9 @@ export const PacksListTable: FC<PropsType> = ({ searchParams }) => {
     if (isRequestProcessing) {
       return;
     }
-    dispatch(setSortPacksParamAC(sortPacksParam[0] === "0" ? 1 + sortBy : 0 + sortBy));
+    dispatch(
+      setSortPacksParamAC(sortPacksParam[0] === "0" ? 1 + sortBy : 0 + sortBy)
+    );
   };
 
   const onMoveToCards = (pack: PackType) => {
@@ -93,7 +99,8 @@ export const PacksListTable: FC<PropsType> = ({ searchParams }) => {
     setIsOpenDeletePackModal(true);
   };
 
-  const sortPacksDirection = sortPacksParam[0] === "0" ? <span>▲</span> : <span>▼</span>;
+  const sortPacksDirection =
+    sortPacksParam[0] === "0" ? <span>▲</span> : <span>▼</span>;
 
   return (
     <div>
@@ -107,26 +114,41 @@ export const PacksListTable: FC<PropsType> = ({ searchParams }) => {
                   Name
                   {sortPacksParam.slice(1) === "name" && sortPacksDirection}
                 </TableCell>
-                <TableCell align="left" onClick={() => onSortPacks("cardsCount")}>
+                <TableCell
+                  align="left"
+                  onClick={() => onSortPacks("cardsCount")}
+                >
                   Cards
-                  {sortPacksParam.slice(1) === "cardsCount" && sortPacksDirection}
+                  {sortPacksParam.slice(1) === "cardsCount" &&
+                    sortPacksDirection}
                 </TableCell>
                 <TableCell align="left" onClick={() => onSortPacks("updated")}>
                   Last Updated
                   {sortPacksParam.slice(1) === "updated" && sortPacksDirection}
                 </TableCell>
-                <TableCell align="left" onClick={() => onSortPacks("user_name")}>
+                <TableCell
+                  align="left"
+                  onClick={() => onSortPacks("user_name")}
+                >
                   Created By
-                  {sortPacksParam.slice(1) === "user_name" && sortPacksDirection}
+                  {sortPacksParam.slice(1) === "user_name" &&
+                    sortPacksDirection}
                 </TableCell>
                 <TableCell align="left">Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {packs.map((pack) => (
-                <TableRow key={pack._id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableRow
+                  key={pack._id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
                   <TableCell sx={{ maxWidth: 100 }} align="left">
-                    <img style={{ maxWidth: "100%" }} alt="cover" src={pack.deckCover || noCover} />
+                    <img
+                      style={{ maxWidth: "100%" }}
+                      alt="cover"
+                      src={pack.deckCover || noCover}
+                    />
                   </TableCell>
                   <TableCell component="th" scope="row">
                     <button
@@ -156,10 +178,14 @@ export const PacksListTable: FC<PropsType> = ({ searchParams }) => {
                       callBack={() => onStartLearning(pack)}
                     />
                     {userId === pack.user_id && (
-                      <EditItemIcon callBack={() => onOpenEditPackModal(pack)} />
+                      <EditItemIcon
+                        callBack={() => onOpenEditPackModal(pack)}
+                      />
                     )}
                     {userId === pack.user_id && (
-                      <DeleteItemIcon callBack={() => onOpenDeletePackModal(pack)} />
+                      <DeleteItemIcon
+                        callBack={() => onOpenDeletePackModal(pack)}
+                      />
                     )}
                   </TableCell>
                 </TableRow>

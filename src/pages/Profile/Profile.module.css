@@ -1,35 +1,35 @@
 .profile {
-    width: 80%;
-    margin: auto;
+  width: 80%;
+  margin: auto;
 }
 
 .wrapper {
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 400px;
-    width: 300px;
-    border: 1px solid black;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 400px;
+  width: 300px;
+  border: 1px solid black;
 }
 
 .avatar {
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
 }
 
 input {
-    font-size: 14px;
-    margin-right: 10px;
+  font-size: 14px;
+  margin-right: 10px;
 }
 
 .error {
-    color: red;
+  color: red;
 }
 
 .email {
-    opacity: 0.6;
-    font-size: 14px;
+  opacity: 0.6;
+  font-size: 14px;
 }

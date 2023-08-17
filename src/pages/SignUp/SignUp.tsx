@@ -6,11 +6,14 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { registerTC } from "../../bll/auth-reducer";
-import { selectRegisterStatus, selectRequestProcessingStatus } from "../../utils/selectors";
+import {
+  selectRegisterStatus,
+  selectRequestProcessingStatus,
+} from "../../utils/selectors";
 import Button from "@mui/material/Button/Button";
 import { PATHS } from "../../enums/paths";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { PasswordVisibilityIcon } from "../../components/PasswordVisiblityIcon/PasswordVisibilityIcon";
+import { ConfirmPasswordVisibilityIcon } from "../../components/ConfirmPasswordVisibilityIcon/ConfirmPasswordVisibilityIcon";
 
 type FormInputsType = {
   email: string;
@@ -20,7 +23,10 @@ type FormInputsType = {
 
 const schema = yup
   .object({
-    email: yup.string().required("Email is required").email("Must be a valid email"),
+    email: yup
+      .string()
+      .required("Email is required")
+      .email("Must be a valid email"),
     password: yup
       .string()
       .required("Password is required")
@@ -29,7 +35,7 @@ const schema = yup
     confirmPassword: yup
       .string()
       .required("Confirm password is required")
-      .oneOf([yup.ref("password"), null], "Passwords must match")
+      .oneOf([yup.ref("password"), null], "Passwords must match"),
   })
   .required();
 
@@ -38,14 +44,15 @@ export const SignUp = () => {
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const dispatch = useAppDispatch();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+    useState(false);
 
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<FormInputsType>({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
   });
 
   const onSubmit = ({ email, password }: FormInputsType) => {
@@ -69,7 +76,11 @@ export const SignUp = () => {
       <h2>SignUp</h2>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <input placeholder="Email" disabled={isRequestProcessing} {...register("email")} />
+          <input
+            placeholder="Email"
+            disabled={isRequestProcessing}
+            {...register("email")}
+          />
           <span className={styles.error}>{errors.email?.message}</span>
         </div>
         <div>
@@ -80,12 +91,10 @@ export const SignUp = () => {
               disabled={isRequestProcessing}
               {...register("password")}
             />
-            {isPasswordVisible
-              ? <VisibilityOffIcon className={styles.passwordVisibility} fontSize="small"
-                                   onClick={handlePasswordVisibility} />
-              : <VisibilityIcon className={styles.passwordVisibility} fontSize="small"
-                                onClick={handlePasswordVisibility} />
-            }
+            <PasswordVisibilityIcon
+              isPasswordVisible={isPasswordVisible}
+              handlePasswordVisibility={handlePasswordVisibility}
+            />
           </div>
           <span className={styles.error}>{errors.password?.message}</span>
         </div>
@@ -97,16 +106,21 @@ export const SignUp = () => {
               disabled={isRequestProcessing}
               {...register("confirmPassword")}
             />
-            {isConfirmPasswordVisible
-              ? <VisibilityOffIcon className={styles.confirmPasswordVisibility} fontSize="small"
-                                   onClick={handleConfirmPasswordVisibility} />
-              : <VisibilityIcon className={styles.confirmPasswordVisibility} fontSize="small"
-                                onClick={handleConfirmPasswordVisibility} />
-            }
+            <ConfirmPasswordVisibilityIcon
+              isConfirmPasswordVisible={isConfirmPasswordVisible}
+              handleConfirmPasswordVisibility={handleConfirmPasswordVisibility}
+            />
           </div>
-          <span className={styles.error}>{errors.confirmPassword?.message}</span>
+          <span className={styles.error}>
+            {errors.confirmPassword?.message}
+          </span>
         </div>
-        <Button className = {styles.btn} type="submit" variant="contained" disabled={isRequestProcessing}>
+        <Button
+          className={styles.btn}
+          type="submit"
+          variant="contained"
+          disabled={isRequestProcessing}
+        >
           Sign Up
         </Button>
       </form>

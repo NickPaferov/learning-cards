@@ -57,14 +57,22 @@ export const Layout = () => {
           {isLoggedIn ? (
             <div className={styles.userInfo}>
               <span>{userName}</span>
-              <img alt="avatar" src={avatar || defaultAvatar} className={styles.avatar} />
+              <img
+                alt="avatar"
+                src={avatar || defaultAvatar}
+                className={styles.avatar}
+              />
               <DropDownMenu>
                 <MenuItem onClick={onNavigateToProfile}>Profile</MenuItem>
                 <MenuItem onClick={onLogOut}>LogOut</MenuItem>
               </DropDownMenu>
             </div>
           ) : (
-            <Button variant="contained" disabled={isRequestProcessing} onClick={onSignIn}>
+            <Button
+              variant="contained"
+              disabled={isRequestProcessing}
+              onClick={onSignIn}
+            >
               Sign In
             </Button>
           )}

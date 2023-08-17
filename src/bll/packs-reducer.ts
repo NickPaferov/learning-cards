@@ -61,7 +61,8 @@ export const packsReducer = (
   }
 };
 
-const setPacksAC = (data: GetPacksResponseType) => ({ type: "PACKS/SET-PACKS", data } as const);
+const setPacksAC = (data: GetPacksResponseType) =>
+  ({ type: "PACKS/SET-PACKS", data } as const);
 
 export const setPacksCurrentPageAC = (page: number) =>
   ({ type: "PACKS/SET-PACKS-CURRENT-PAGE", page } as const);
@@ -81,13 +82,15 @@ export const setSortPacksParamAC = (sortPacksParam: string) =>
 export const setPacksCountPrePageAC = (pageCount: number) =>
   ({ type: "PACKS/SET-PACKS-COUNT-PER-PAGE", pageCount } as const);
 
-export const setResetAllPacksFiltersAC = () => ({ type: "PACKS/RESET-ALL-PACKS-FILTERS" } as const);
+export const setResetAllPacksFiltersAC = () =>
+  ({ type: "PACKS/RESET-ALL-PACKS-FILTERS" } as const);
 
 export const fetchPacksTC =
   (): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
     dispatch(setAppIsRequestProcessingAC(true));
 
-    const { min, max, page, pageCount, areMyPacks, packName, sortPacks } = getState().packs;
+    const { min, max, page, pageCount, areMyPacks, packName, sortPacks } =
+      getState().packs;
     let user_id = getState().auth.user?._id;
     user_id = areMyPacks ? user_id : "";
 

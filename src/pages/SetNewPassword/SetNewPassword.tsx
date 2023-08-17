@@ -6,11 +6,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { setNewPasswordTC } from "../../bll/auth-reducer";
 import { Navigate, useParams } from "react-router-dom";
-import { selectPasswordChangeStatus, selectRequestProcessingStatus } from "../../utils/selectors";
+import {
+  selectPasswordChangeStatus,
+  selectRequestProcessingStatus,
+} from "../../utils/selectors";
 import Button from "@mui/material/Button/Button";
 import { PATHS } from "../../enums/paths";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import { PasswordVisibilityIcon } from "../../components/PasswordVisiblityIcon/PasswordVisibilityIcon";
+import { ConfirmPasswordVisibilityIcon } from "../../components/ConfirmPasswordVisibilityIcon/ConfirmPasswordVisibilityIcon";
 
 type FormInputsType = {
   email: string;
@@ -37,7 +40,8 @@ export const SetNewPassword = () => {
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const dispatch = useAppDispatch();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+    useState(false);
 
   const {
     register,
@@ -80,14 +84,12 @@ export const SetNewPassword = () => {
             disabled={isRequestProcessing}
             {...register("password")}
           />
-          {isPasswordVisible
-            ? <VisibilityOffIcon className={styles.passwordVisibility} fontSize="small"
-                                 onClick={handlePasswordVisibility} />
-            : <VisibilityIcon className={styles.passwordVisibility} fontSize="small"
-                              onClick={handlePasswordVisibility} />
-          }
+          <PasswordVisibilityIcon
+            isPasswordVisible={isPasswordVisible}
+            handlePasswordVisibility={handlePasswordVisibility}
+          />
         </div>
-          <span className={styles.error}>{errors.password?.message}</span>
+        <span className={styles.error}>{errors.password?.message}</span>
         <div className={styles.confirmPassword}>
           <input
             type={isConfirmPasswordVisible ? "text" : "password"}
@@ -95,18 +97,20 @@ export const SetNewPassword = () => {
             disabled={isRequestProcessing}
             {...register("confirmPassword")}
           />
-          {isConfirmPasswordVisible
-            ? <VisibilityOffIcon className={styles.confirmPasswordVisibility} fontSize="small"
-                                 onClick={handleConfirmPasswordVisibility} />
-            : <VisibilityIcon className={styles.confirmPasswordVisibility} fontSize="small"
-                              onClick={handleConfirmPasswordVisibility} />
-          }
+          <ConfirmPasswordVisibilityIcon
+            isConfirmPasswordVisible={isConfirmPasswordVisible}
+            handleConfirmPasswordVisibility={handleConfirmPasswordVisibility}
+          />
         </div>
-          <span className={styles.error}>{errors.confirmPassword?.message}</span>
+        <span className={styles.error}>{errors.confirmPassword?.message}</span>
         <span className={styles.clarification}>
           Create new password and we will send you further instructions to email
         </span>
-        <Button type="submit" variant="contained" disabled={isRequestProcessing}>
+        <Button
+          type="submit"
+          variant="contained"
+          disabled={isRequestProcessing}
+        >
           Create new password
         </Button>
       </form>

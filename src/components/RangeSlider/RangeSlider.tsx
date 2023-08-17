@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
-import { setMinMaxCardsCountAC, setPacksCurrentPageAC } from "../../bll/packs-reducer";
+import {
+  setMinMaxCardsCountAC,
+  setPacksCurrentPageAC,
+} from "../../bll/packs-reducer";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import styles from "./RangeSlider.module.css";
 import {
@@ -16,13 +19,18 @@ import { DEFAULT_PAGE } from "../../constants/constants";
 export const RangeSlider = () => {
   const minCardsCount = useAppSelector(selectMinCardsCount);
   const maxCardsCount = useAppSelector(selectMaxCardsCount);
-  const minCardsSearchParam = useAppSelector(selectMinCardsSearchParam) || minCardsCount;
-  const maxCardsSearchParam = useAppSelector(selectMaxCardsSearchParam) || maxCardsCount;
+  const minCardsSearchParam =
+    useAppSelector(selectMinCardsSearchParam) || minCardsCount;
+  const maxCardsSearchParam =
+    useAppSelector(selectMaxCardsSearchParam) || maxCardsCount;
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
 
   const dispatch = useAppDispatch();
 
-  const [value, setValue] = useState<number[]>([minCardsSearchParam, maxCardsSearchParam]);
+  const [value, setValue] = useState<number[]>([
+    minCardsSearchParam,
+    maxCardsSearchParam,
+  ]);
 
   useEffect(() => {
     setValue([minCardsSearchParam, maxCardsSearchParam]);

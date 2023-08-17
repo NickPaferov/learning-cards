@@ -1,20 +1,20 @@
 .wrapper {
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 400px;
-    width: 300px;
-    border: 1px solid black;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 400px;
+  width: 300px;
+  border: 1px solid black;
 }
 
 .letter {
-    height: 100px;
-    width: 100px;
+  height: 100px;
+  width: 100px;
 }
 
 .clarification {
-    opacity: 0.6;
-    font-size: 14px;
+  opacity: 0.6;
+  font-size: 14px;
 }

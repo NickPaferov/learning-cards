@@ -39,7 +39,8 @@ export const authReducer = (
   }
 };
 
-export const setAuthUserAC = (user: UserDataType) => ({ type: "AUTH/SET-USER", user } as const);
+export const setAuthUserAC = (user: UserDataType) =>
+  ({ type: "AUTH/SET-USER", user } as const);
 
 export const setAuthIsRegisteredAC = (isRegistered: boolean) =>
   ({ type: "AUTH/SET-IS-REGISTERED", isRegistered } as const);
@@ -149,8 +150,12 @@ type InitialStateType = typeof initialState;
 type SetAuthUserType = ReturnType<typeof setAuthUserAC>;
 type SetAuthIsRegisteredType = ReturnType<typeof setAuthIsRegisteredAC>;
 type SetAuthIsLoggedInType = ReturnType<typeof setAuthIsLoggedInAC>;
-type SetAuthIsInstructionsSentType = ReturnType<typeof setAuthIsInstructionsSentAC>;
-type SetAuthIsPasswordChangedType = ReturnType<typeof setAuthIsPasswordChangedAC>;
+type SetAuthIsInstructionsSentType = ReturnType<
+  typeof setAuthIsInstructionsSentAC
+>;
+type SetAuthIsPasswordChangedType = ReturnType<
+  typeof setAuthIsPasswordChangedAC
+>;
 
 export type AuthActionsType =
   | SetAuthUserType

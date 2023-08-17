@@ -11,7 +11,10 @@ type PropsType = {
   setIsOpenModal: (value: boolean) => void;
 };
 
-export const AddPackModal: FC<PropsType> = ({ isOpenModal, setIsOpenModal }) => {
+export const AddPackModal: FC<PropsType> = ({
+  isOpenModal,
+  setIsOpenModal,
+}) => {
   const dispatch = useAppDispatch();
 
   const [packName, setPackName] = useState("");
@@ -30,7 +33,13 @@ export const AddPackModal: FC<PropsType> = ({ isOpenModal, setIsOpenModal }) => 
 
   const onAddPack = () => {
     const newPackName = packName.trim();
-    dispatch(addPackTC({ name: newPackName, deckCover: packCover, private: privateStatus }));
+    dispatch(
+      addPackTC({
+        name: newPackName,
+        deckCover: packCover,
+        private: privateStatus,
+      })
+    );
     setIsOpenModal(false);
     setPackCover("");
   };
@@ -64,12 +73,18 @@ export const AddPackModal: FC<PropsType> = ({ isOpenModal, setIsOpenModal }) => 
           onKeyPress={onEnterPress}
         />
         <InputTypeFile callBack={onUploadPackCover}>
-          <Button style={{ width: "100%" }} variant="contained" component="span">
+          <Button
+            style={{ width: "100%" }}
+            variant="contained"
+            component="span"
+          >
             Upload pack cover
           </Button>
         </InputTypeFile>
         <div className={styles.packCover}>
-          {packCover && <img style={{ maxWidth: "200px" }} alt="cover" src={packCover} />}
+          {packCover && (
+            <img style={{ maxWidth: "200px" }} alt="cover" src={packCover} />
+          )}
         </div>
         <div>
           <input

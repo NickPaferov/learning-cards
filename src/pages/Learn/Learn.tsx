@@ -6,27 +6,30 @@ import {
   selectAreCardsFetchedStatus,
   selectCards,
   selectCardsListName,
-  selectRequestProcessingStatus
+  selectRequestProcessingStatus,
 } from "../../utils/selectors";
 import { CardType } from "../../api/cards-api";
 import {
   fetchCardsTC,
   setAreCardsFetchedAC,
   setCardsCountPerPageAC,
-  updateCardGradeTC
+  updateCardGradeTC,
 } from "../../bll/cards-reducer";
 import { BackToPacks } from "../../components/BackToPacks/BackToPacks";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import Button from "@mui/material/Button/Button";
 import { limitDisplayedTextLength } from "../../utils/limitDisplayedTextLength";
-import { DEFAULT_PAGE_SIZE, LEARNING_CARDS_PER_PAGE } from "../../constants/constants";
+import {
+  DEFAULT_PAGE_SIZE,
+  LEARNING_CARDS_PER_PAGE,
+} from "../../constants/constants";
 
 const grades = [
   { value: 1, name: "Didn't know", isSelected: false },
   { value: 2, name: "Forgot", isSelected: false },
   { value: 3, name: "Thought a lot", isSelected: false },
   { value: 4, name: "Confused", isSelected: false },
-  { value: 5, name: "Knew the answer", isSelected: true }
+  { value: 5, name: "Knew the answer", isSelected: true },
 ];
 
 const getCard = (cards: CardType[]) => {
@@ -53,7 +56,8 @@ export const Learn = () => {
 
   const [isAnswerAreaVisible, setIsAnswerAreaVisible] = useState(false);
 
-  const defaultSelectedGrade = grades.filter((grade) => grade.isSelected)[0].value;
+  const defaultSelectedGrade = grades.filter((grade) => grade.isSelected)[0]
+    .value;
   const [selectedGrade, setSelectedGrade] = useState(defaultSelectedGrade);
 
   const dispatch = useAppDispatch();
@@ -84,7 +88,9 @@ export const Learn = () => {
 
   const onSetNewQuestion = (cardId: string | undefined) => {
     if (packId && cardId) {
-      dispatch(updateCardGradeTC(packId, { card_id: cardId, grade: selectedGrade }));
+      dispatch(
+        updateCardGradeTC(packId, { card_id: cardId, grade: selectedGrade })
+      );
     }
   };
 
@@ -93,7 +99,9 @@ export const Learn = () => {
       <BackToPacks />
       {areCardsFetched && card ? (
         <div>
-          <div className={styles.learnPack}>Learn pack "{limitDisplayedTextLength(cardsListName, 30)}"</div>
+          <div className={styles.learnPack}>
+            Learn pack "{limitDisplayedTextLength(cardsListName, 30)}"
+          </div>
           <div className={styles.wrapper}>
             <div className={styles.questionInfo}>
               {card?.questionImg && card?.questionImg !== "noData" ? (
@@ -107,7 +115,8 @@ export const Learn = () => {
                 </div>
               ) : (
                 <span className={styles.questionText}>
-                  Question: {card && limitDisplayedTextLength(card.question, 50)}
+                  Question:{" "}
+                  {card && limitDisplayedTextLength(card.question, 50)}
                 </span>
               )}
               <span className={styles.clarification}>
@@ -128,7 +137,8 @@ export const Learn = () => {
                     </div>
                   ) : (
                     <span className={styles.answerText}>
-                      Answer: {card && limitDisplayedTextLength(card.answer, 50)}
+                      Answer:{" "}
+                      {card && limitDisplayedTextLength(card.answer, 50)}
                     </span>
                   )}
                   <span>Rate yourself:</span>
@@ -147,13 +157,23 @@ export const Learn = () => {
                     </div>
                   ))}
                 </div>
-                <Button className={styles.btn} variant="contained" autoFocus onClick={() => onSetNewQuestion(card?._id)}>
+                <Button
+                  className={styles.btn}
+                  variant="contained"
+                  autoFocus
+                  onClick={() => onSetNewQuestion(card?._id)}
+                >
                   Next question
                 </Button>
               </div>
             ) : (
               <div>
-                <Button className={styles.btn} variant="contained" autoFocus onClick={onShowAnswerArea}>
+                <Button
+                  className={styles.btn}
+                  variant="contained"
+                  autoFocus
+                  onClick={onShowAnswerArea}
+                >
                   Show answer
                 </Button>
               </div>

@@ -13,11 +13,17 @@ type PropsType = {
   setIsOpenModal: (value: boolean) => void;
 };
 
-export const EditPackModal: FC<PropsType> = ({ pack, isOpenModal, setIsOpenModal }) => {
+export const EditPackModal: FC<PropsType> = ({
+  pack,
+  isOpenModal,
+  setIsOpenModal,
+}) => {
   const dispatch = useAppDispatch();
 
   const [packName, setPackName] = useState(pack ? pack.name : "");
-  const [privateStatus, setPrivateStatus] = useState(pack ? pack.private : false);
+  const [privateStatus, setPrivateStatus] = useState(
+    pack ? pack.private : false
+  );
   const [packCover, setPackCover] = useState(pack ? pack.deckCover : "");
 
   const onChangePackName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -73,15 +79,25 @@ export const EditPackModal: FC<PropsType> = ({ pack, isOpenModal, setIsOpenModal
           onKeyPress={onEnterPress}
         />
         <InputTypeFile callBack={onUploadPackCover}>
-          <Button style={{ width: "100%" }} variant="contained" component="span">
+          <Button
+            style={{ width: "100%" }}
+            variant="contained"
+            component="span"
+          >
             Upload pack cover
           </Button>
         </InputTypeFile>
         <div className={styles.packCover}>
-          {packCover && <img style={{ maxWidth: "200px" }} alt="cover" src={packCover} />}
+          {packCover && (
+            <img style={{ maxWidth: "200px" }} alt="cover" src={packCover} />
+          )}
         </div>
         <div>
-          <input type="checkbox" checked={privateStatus} onChange={onChangePackPrivateStatus} />
+          <input
+            type="checkbox"
+            checked={privateStatus}
+            onChange={onChangePackPrivateStatus}
+          />
           <span>Private pack</span>
         </div>
       </div>

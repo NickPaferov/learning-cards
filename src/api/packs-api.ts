@@ -5,13 +5,17 @@ export const packsAPI = {
     return instance.get<GetPacksResponseType>("/cards/pack", { params });
   },
   createPack(params: CreatePackParamsType) {
-    return instance.post<CreatePackResponseType>("/cards/pack", { cardsPack: params });
+    return instance.post<CreatePackResponseType>("/cards/pack", {
+      cardsPack: params,
+    });
   },
   deletePack(id: string) {
     return instance.delete<DeletePackResponseType>(`/cards/pack?id=${id}`);
   },
   updatePack(params: UpdatePackParamsType) {
-    return instance.put<UpdatePackResponseType>("/cards/pack", { cardsPack: params });
+    return instance.put<UpdatePackResponseType>("/cards/pack", {
+      cardsPack: params,
+    });
   },
 };
 

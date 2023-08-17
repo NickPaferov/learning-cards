@@ -1,53 +1,57 @@
 .learnPage {
-    width: 80%;
-    margin: auto;
+  width: 80%;
+  margin: auto;
 }
 
 .learnPack {
-    font-weight: bold;
-    font-size: 18px;
-    margin: 20px 0;
+  font-weight: bold;
+  font-size: 18px;
+  margin: 20px 0;
 }
 
 .wrapper {
-    margin: 20px auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    height: min-content;
-    width: 300px;
-    gap: 20px;
-    border: 1px solid black;
+  margin: 20px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: min-content;
+  width: 300px;
+  gap: 20px;
+  border: 1px solid black;
 }
 
-.questionInfo, .answerArea, .questionImage, .answerImage {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.questionInfo,
+.answerArea,
+.questionImage,
+.answerImage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.questionText, .answerText {
-    font-weight: bold;
-    text-align: left;
-    margin-bottom: 10px;
+.questionText,
+.answerText {
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 10px;
 }
 
 .rate {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 
 .clarification {
-    opacity: 0.6;
-    font-size: 14px;
+  opacity: 0.6;
+  font-size: 14px;
 }
 
 .btn {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 @media screen and (max-width: 440px) {
-    .wrapper {
-        width: 200px;
-    }
+  .wrapper {
+    width: 200px;
+  }
 }

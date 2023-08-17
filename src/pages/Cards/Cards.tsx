@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { CardsListTable } from "./CardsListTable";
 import styles from "./Cards.module.css";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { setCardsCountPerPageAC, setCardsCurrentPageAC } from "../../bll/cards-reducer";
+import {
+  setCardsCountPerPageAC,
+  setCardsCurrentPageAC,
+} from "../../bll/cards-reducer";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   selectAreCardsFetchedStatus,
@@ -66,7 +69,9 @@ export const Cards = () => {
       <div>
         <div className={styles.header}>
           <div className={styles.packMenu}>
-            <h3>{areCardsFetched && limitDisplayedTextLength(cardsListName, 30)}</h3>
+            <h3>
+              {areCardsFetched && limitDisplayedTextLength(cardsListName, 30)}
+            </h3>
             {userId === packUserId && (
               <DropDownMenu>
                 <MenuItem>
@@ -79,7 +84,11 @@ export const Cards = () => {
             )}
           </div>
           {userId === packUserId ? (
-            <Button variant="contained" disabled={isRequestProcessing} onClick={onOpenAddCardModal}>
+            <Button
+              variant="contained"
+              disabled={isRequestProcessing}
+              onClick={onOpenAddCardModal}
+            >
               Add new card
             </Button>
           ) : (

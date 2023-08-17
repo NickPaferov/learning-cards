@@ -7,7 +7,9 @@ import { HashRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./bll/store";
 
-const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 root.render(
   <Provider store={store}>
     <HashRouter>

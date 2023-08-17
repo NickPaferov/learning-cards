@@ -26,7 +26,10 @@ type FormInputsType = {
 
 const schema = yup
   .object({
-    name: yup.string().required("Name is required").max(30, "Name should be at most 30 characters"),
+    name: yup
+      .string()
+      .required("Name is required")
+      .max(30, "Name should be at most 30 characters"),
   })
   .required();
 
@@ -90,8 +93,16 @@ export const Profile = () => {
         </InputTypeFile>
         {editMode ? (
           <form onSubmit={handleSubmit(onSubmit)}>
-            <input autoFocus={true} defaultValue={userName} {...register("name")} />
-            <Button type="submit" variant="contained" disabled={isRequestProcessing}>
+            <input
+              autoFocus={true}
+              defaultValue={userName}
+              {...register("name")}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={isRequestProcessing}
+            >
               Save
             </Button>
             <p className={styles.error}>{errors.name?.message}</p>
@@ -105,7 +116,11 @@ export const Profile = () => {
           </div>
         )}
         <span className={styles.email}>{email}</span>
-        <Button variant="contained" disabled={isRequestProcessing} onClick={onLogOut}>
+        <Button
+          variant="contained"
+          disabled={isRequestProcessing}
+          onClick={onLogOut}
+        >
           Log out
         </Button>
       </div>

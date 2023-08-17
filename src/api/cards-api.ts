@@ -11,7 +11,9 @@ export const cardsAPI = {
     return instance.delete<DeleteCardResponseType>(`/cards/card?id=${id}`);
   },
   updateCard(params: UpdateCardParamsType) {
-    return instance.put<UpdateCardResponseType>("/cards/card", { card: params });
+    return instance.put<UpdateCardResponseType>("/cards/card", {
+      card: params,
+    });
   },
   updateCardGrade(params: UpdateCardGradeParamsType) {
     return instance.put<UpdateCardGradeResponseType>("/cards/grade", params);

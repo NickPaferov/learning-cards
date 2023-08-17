@@ -8,12 +8,12 @@ import { useAppDispatch, useAppSelector } from "../../bll/store";
 import {
   selectAreMyPacksStatus,
   selectPackName,
-  selectRequestProcessingStatus
+  selectRequestProcessingStatus,
 } from "../../utils/selectors";
 import {
   setAreMyPacksAC,
   setPackNameSearchAC,
-  setResetAllPacksFiltersAC
+  setResetAllPacksFiltersAC,
 } from "../../bll/packs-reducer";
 import { useDebounce } from "../../hooks/useDebounce";
 
@@ -79,10 +79,16 @@ export const PacksFilters: FC<PropsType> = ({ setSearchParams }) => {
         <label>Show packs cards</label>
         <div>
           <ButtonGroup disabled={isRequestProcessing}>
-            <Button variant={areMyPacks ? "contained" : "outlined"} onClick={onSetMyPacks}>
+            <Button
+              variant={areMyPacks ? "contained" : "outlined"}
+              onClick={onSetMyPacks}
+            >
               My
             </Button>
-            <Button variant={areMyPacks ? "outlined" : "contained"} onClick={onSetAllPacks}>
+            <Button
+              variant={areMyPacks ? "outlined" : "contained"}
+              onClick={onSetAllPacks}
+            >
               All
             </Button>
           </ButtonGroup>
@@ -92,7 +98,11 @@ export const PacksFilters: FC<PropsType> = ({ setSearchParams }) => {
         <label>Number of cards</label>
         <RangeSlider />
       </div>
-      <Button variant="outlined" disabled={isRequestProcessing} onClick={onResetAllPacksFilters}>
+      <Button
+        variant="outlined"
+        disabled={isRequestProcessing}
+        onClick={onResetAllPacksFilters}
+      >
         <FilterAltOffIcon />
       </Button>
     </div>

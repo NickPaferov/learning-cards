@@ -12,7 +12,11 @@ type PropsType = {
   setIsOpenModal: (value: boolean) => void;
 };
 
-export const DeletePackModal: FC<PropsType> = ({ pack, isOpenModal, setIsOpenModal }) => {
+export const DeletePackModal: FC<PropsType> = ({
+  pack,
+  isOpenModal,
+  setIsOpenModal,
+}) => {
   const dispatch = useAppDispatch();
 
   const onDeletePack = () => {
@@ -39,7 +43,11 @@ export const DeletePackModal: FC<PropsType> = ({ pack, isOpenModal, setIsOpenMod
         </span>
         <div className={styles.packCover}>
           {pack && pack.deckCover && (
-            <img style={{ maxWidth: "200px" }} alt="cover" src={pack.deckCover} />
+            <img
+              style={{ maxWidth: "200px" }}
+              alt="cover"
+              src={pack.deckCover}
+            />
           )}
         </div>
         {pack && pack.cardsCount > 0 && <span>All cards will be deleted.</span>}

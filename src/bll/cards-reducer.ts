@@ -52,7 +52,8 @@ export const cardsReducer = (
   }
 };
 
-const setCardsAC = (data: GetCardsResponseType) => ({ type: "CARDS/SET-CARDS", data } as const);
+const setCardsAC = (data: GetCardsResponseType) =>
+  ({ type: "CARDS/SET-CARDS", data } as const);
 
 export const setCardsCurrentPageAC = (page: number) =>
   ({

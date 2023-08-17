@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { PacksListTable } from "./PacksListTable";
 import styles from "./Packs.module.css";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { setPacksCountPrePageAC, setPacksCurrentPageAC } from "../../bll/packs-reducer";
+import {
+  setPacksCountPrePageAC,
+  setPacksCurrentPageAC,
+} from "../../bll/packs-reducer";
 import {
   selectCurrentPacksPage,
   selectPacksCountPerPage,
@@ -42,7 +45,11 @@ export const Packs = () => {
     <div className={styles.packsList}>
       <div className={styles.header}>
         <h3>Packs list</h3>
-        <Button variant="contained" disabled={isRequestProcessing} onClick={onOpenAddPackModal}>
+        <Button
+          variant="contained"
+          disabled={isRequestProcessing}
+          onClick={onOpenAddPackModal}
+        >
           Add new pack
         </Button>
       </div>
@@ -57,7 +64,10 @@ export const Packs = () => {
         itemsName="packs"
       />
       {isOpenAddPackModal && (
-        <AddPackModal isOpenModal={isOpenAddPackModal} setIsOpenModal={setOpenAddPackModal} />
+        <AddPackModal
+          isOpenModal={isOpenAddPackModal}
+          setIsOpenModal={setOpenAddPackModal}
+        />
       )}
     </div>
   );

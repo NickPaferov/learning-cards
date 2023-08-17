@@ -7,7 +7,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { fetchCardsTC, setAreCardsFetchedAC, setSortCardsParamAC } from "../../bll/cards-reducer";
+import {
+  fetchCardsTC,
+  setAreCardsFetchedAC,
+  setSortCardsParamAC,
+} from "../../bll/cards-reducer";
 import { useParams } from "react-router-dom";
 import {
   selectAreCardsFetchedStatus,
@@ -56,13 +60,22 @@ export const CardsListTable = () => {
     return () => {
       dispatch(setAreCardsFetchedAC(false));
     };
-  }, [dispatch, currentPage, packId, cardQuestion, sortCardsParam, cardsCountPerPage]);
+  }, [
+    dispatch,
+    currentPage,
+    packId,
+    cardQuestion,
+    sortCardsParam,
+    cardsCountPerPage,
+  ]);
 
   const onSortCards = (sortBy: string) => {
     if (isRequestProcessing) {
       return;
     }
-    dispatch(setSortCardsParamAC(sortCardsParam[0] === "0" ? 1 + sortBy : 0 + sortBy));
+    dispatch(
+      setSortCardsParamAC(sortCardsParam[0] === "0" ? 1 + sortBy : 0 + sortBy)
+    );
   };
 
   const onOpenEditCardModal = (card: CardType) => {
@@ -75,7 +88,8 @@ export const CardsListTable = () => {
     setIsDeleteCardModalOpen(true);
   };
 
-  const sortCardsDirection = sortCardsParam[0] === "0" ? <span>▲</span> : <span>▼</span>;
+  const sortCardsDirection =
+    sortCardsParam[0] === "0" ? <span>▲</span> : <span>▼</span>;
 
   return (
     <div>
@@ -100,13 +114,23 @@ export const CardsListTable = () => {
                   Grade
                   {sortCardsParam.slice(1) === "grade" && sortCardsDirection}
                 </TableCell>
-                {userId === packUserId && <TableCell align="left">Actions</TableCell>}
+                {userId === packUserId && (
+                  <TableCell align="left">Actions</TableCell>
+                )}
               </TableRow>
             </TableHead>
             <TableBody>
               {cards.map((card) => (
-                <TableRow key={card._id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                  <TableCell sx={{ maxWidth: 200 }} align="left" component="th" scope="row">
+                <TableRow
+                  key={card._id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell
+                    sx={{ maxWidth: 200 }}
+                    align="left"
+                    component="th"
+                    scope="row"
+                  >
                     {card.questionImg && card.questionImg !== "noData" ? (
                       <img
                         style={{ maxWidth: "100%", height: "100px" }}
@@ -132,12 +156,21 @@ export const CardsListTable = () => {
                     {new Date(card.updated).toLocaleString("ru-RU")}
                   </TableCell>
                   <TableCell align="left">
-                    <Rating name="grade" value={card.grade} precision={0.1} readOnly />
+                    <Rating
+                      name="grade"
+                      value={card.grade}
+                      precision={0.1}
+                      readOnly
+                    />
                   </TableCell>
                   {userId === card.user_id && (
                     <TableCell align="left">
-                      <EditItemIcon callBack={() => onOpenEditCardModal(card)} />
-                      <DeleteItemIcon callBack={() => onOpenDeleteCardModal(card)} />
+                      <EditItemIcon
+                        callBack={() => onOpenEditCardModal(card)}
+                      />
+                      <DeleteItemIcon
+                        callBack={() => onOpenDeleteCardModal(card)}
+                      />
                     </TableCell>
                   )}
                 </TableRow>

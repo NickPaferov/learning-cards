@@ -1,5 +1,9 @@
 import { authAPI } from "../api/auth-api";
-import { setAuthIsLoggedInAC, setAuthIsRegisteredAC, setAuthUserAC } from "./auth-reducer";
+import {
+  setAuthIsLoggedInAC,
+  setAuthIsRegisteredAC,
+  setAuthUserAC,
+} from "./auth-reducer";
 import { AppThunkType } from "./store";
 
 const initialState = {
@@ -32,7 +36,8 @@ export const setAppIsInitializedAC = (isInitialized: boolean) =>
 export const setAppIsRequestProcessingAC = (isRequestProcessing: boolean) =>
   ({ type: "APP/SET-IS-REQUEST-PROCESSING", isRequestProcessing } as const);
 
-export const setAppErrorAC = (error: null | string) => ({ type: "APP/SET-ERROR", error } as const);
+export const setAppErrorAC = (error: null | string) =>
+  ({ type: "APP/SET-ERROR", error } as const);
 
 export const initializeAppTC = (): AppThunkType => async (dispatch) => {
   try {
@@ -47,7 +52,9 @@ export const initializeAppTC = (): AppThunkType => async (dispatch) => {
 };
 
 type SetAppIsInitializedType = ReturnType<typeof setAppIsInitializedAC>;
-type SetAppIsRequestProcessingType = ReturnType<typeof setAppIsRequestProcessingAC>;
+type SetAppIsRequestProcessingType = ReturnType<
+  typeof setAppIsRequestProcessingAC
+>;
 export type SetAppErrorType = ReturnType<typeof setAppErrorAC>;
 
 export type AppActionsType =

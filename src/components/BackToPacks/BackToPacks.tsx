@@ -16,7 +16,11 @@ export const BackToPacks = () => {
 
   return (
     <div className={styles.navToPacks}>
-      <Button color="inherit" disabled={isRequestProcessing} onClick={onMoveToPacksList}>
+      <Button
+        color="inherit"
+        disabled={isRequestProcessing}
+        onClick={onMoveToPacksList}
+      >
         &lArr; Back to Packs List
       </Button>
     </div>

@@ -5,7 +5,10 @@ import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { setAppErrorAC } from "../../bll/app-reducer";
 import { selectAppError } from "../../utils/selectors";
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref
+) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
@@ -13,7 +16,10 @@ export const ErrorSnackbar = () => {
   const error = useAppSelector(selectAppError);
   const dispatch = useAppDispatch();
 
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
     if (reason === "clickaway") {
       return;
     }

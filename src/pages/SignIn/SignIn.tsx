@@ -9,8 +9,7 @@ import { loginTC } from "../../bll/auth-reducer";
 import { selectRequestProcessingStatus } from "../../utils/selectors";
 import Button from "@mui/material/Button/Button";
 import { PATHS } from "../../enums/paths";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import { PasswordVisibilityIcon } from "../../components/PasswordVisiblityIcon/PasswordVisibilityIcon";
 
 type FormInputsType = {
   email: string;
@@ -20,7 +19,10 @@ type FormInputsType = {
 
 const schema = yup
   .object({
-    email: yup.string().required("Email is required").email("Must be a valid email"),
+    email: yup
+      .string()
+      .required("Email is required")
+      .email("Must be a valid email"),
     password: yup
       .string()
       .required("Password is required")
@@ -55,23 +57,25 @@ export const SignIn = () => {
       <h2>SignIn</h2>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <input placeholder="Email" disabled={isRequestProcessing} {...register("email")} />
+          <input
+            placeholder="Email"
+            disabled={isRequestProcessing}
+            {...register("email")}
+          />
           <span className={styles.error}>{errors.email?.message}</span>
         </div>
         <div>
           <div className={styles.password}>
-          <input
-            type={isPasswordVisible ? "text" : "password"}
-            placeholder="Password"
-            disabled={isRequestProcessing}
-            {...register("password")}
-          />
-            {isPasswordVisible
-              ? <VisibilityOffIcon className={styles.passwordVisibility} fontSize="small"
-                                   onClick={handlePasswordVisibility} />
-              : <VisibilityIcon className={styles.passwordVisibility} fontSize="small"
-                                onClick={handlePasswordVisibility} />
-            }
+            <input
+              type={isPasswordVisible ? "text" : "password"}
+              placeholder="Password"
+              disabled={isRequestProcessing}
+              {...register("password")}
+            />
+            <PasswordVisibilityIcon
+              isPasswordVisible={isPasswordVisible}
+              handlePasswordVisibility={handlePasswordVisibility}
+            />
           </div>
           <span className={styles.error}>{errors.password?.message}</span>
         </div>
@@ -85,7 +89,12 @@ export const SignIn = () => {
           />
           <span>Remember me</span>
         </div>
-        <Button className={styles.btn} type="submit" variant="contained" disabled={isRequestProcessing}>
+        <Button
+          className={styles.btn}
+          type="submit"
+          variant="contained"
+          disabled={isRequestProcessing}
+        >
           Sign In
         </Button>
       </form>

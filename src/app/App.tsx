@@ -47,7 +47,11 @@ function App() {
       <Routes>
         <Route path={PATHS.INDEX} element={<Layout />}>
           <Route index element={<Navigate to={PATHS.PACKS} />} />
-          <Route element={<ProtectedRoutes userIsAuth={false} redirectTo={PATHS.PACKS} />}>
+          <Route
+            element={
+              <ProtectedRoutes userIsAuth={false} redirectTo={PATHS.PACKS} />
+            }
+          >
             <Route path={PATHS.SIGNUP} element={<SignUp />} />
             <Route path={PATHS.SIGNIN} element={<SignIn />} />
             <Route path={PATHS.FORGOT_PASSWORD} element={<ForgotPassword />} />
@@ -56,7 +60,11 @@ function App() {
               element={<SetNewPassword />}
             />
           </Route>
-          <Route element={<ProtectedRoutes userIsAuth={true} redirectTo={PATHS.SIGNIN} />}>
+          <Route
+            element={
+              <ProtectedRoutes userIsAuth={true} redirectTo={PATHS.SIGNIN} />
+            }
+          >
             <Route path={PATHS.PACKS} element={<Packs />} />
             <Route path={`${PATHS.CARDS}/:packId`} element={<Cards />} />
             <Route path={`${PATHS.LEARN}/:packId`} element={<Learn />} />

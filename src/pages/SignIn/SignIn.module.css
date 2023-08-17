@@ -1,45 +1,40 @@
 .wrapper {
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 400px;
-    width: 300px;
-    border: 1px solid black;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 400px;
+  width: 300px;
+  border: 1px solid black;
 }
 
 .form {
-    height: 200px;
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: flex-start;
+  height: 200px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
 }
 
 .clarification {
-    opacity: 0.6;
-    font-size: 14px;
+  opacity: 0.6;
+  font-size: 14px;
 }
 
 .password {
-    display: flex;
-}
-
-.passwordVisibility{
-    cursor: pointer;
-    margin-left: 5px;
+  display: flex;
 }
 
 .error {
-    color: red;
+  color: red;
 }
 
 .checkbox {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .btn {
-    align-self: center;
+  align-self: center;
 }

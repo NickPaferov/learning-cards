@@ -11,5 +11,9 @@ type PropsType = {
 export const ProtectedRoutes = ({ userIsAuth, redirectTo }: PropsType) => {
   const isLoggedIn = useAppSelector(selectLoginStatus);
 
-  return userIsAuth === isLoggedIn ? <Outlet /> : <Navigate to={redirectTo} replace />;
+  return userIsAuth === isLoggedIn ? (
+    <Outlet />
+  ) : (
+    <Navigate to={redirectTo} replace />
+  );
 };

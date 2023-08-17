@@ -12,7 +12,11 @@ type PropsType = {
   setIsOpenModal: (value: boolean) => void;
 };
 
-export const AddCardModal: FC<PropsType> = ({ packId, isOpenModal, setIsOpenModal }) => {
+export const AddCardModal: FC<PropsType> = ({
+  packId,
+  isOpenModal,
+  setIsOpenModal,
+}) => {
   const dispatch = useAppDispatch();
 
   const [questionFormat, setQuestionFormat] = useState("text");
@@ -52,7 +56,7 @@ export const AddCardModal: FC<PropsType> = ({ packId, isOpenModal, setIsOpenModa
           question: newQuestion,
           questionImg: questionImage,
           answer: newAnswer,
-          answerImg: answerImage
+          answerImg: answerImage,
         })
       );
       setIsOpenModal(false);
@@ -94,19 +98,31 @@ export const AddCardModal: FC<PropsType> = ({ packId, isOpenModal, setIsOpenModa
         {questionFormat === "text" && (
           <div className={styles.input}>
             <label>Question</label>
-            <input autoFocus={true} placeholder="Card question" onChange={onChangeQuestion} />
+            <input
+              autoFocus={true}
+              placeholder="Card question"
+              onChange={onChangeQuestion}
+            />
           </div>
         )}
         {questionFormat === "image" && (
           <InputTypeFile callBack={onUploadQuestionImage}>
-            <Button style={{ width: "100%" }} variant="contained" component="span">
+            <Button
+              style={{ width: "100%" }}
+              variant="contained"
+              component="span"
+            >
               Upload question image
             </Button>
           </InputTypeFile>
         )}
         <div className={styles.imageWrapper}>
           {questionImage && (
-            <img style={{ maxWidth: "200px" }} alt={"questionImage"} src={questionImage} />
+            <img
+              style={{ maxWidth: "200px" }}
+              alt={"questionImage"}
+              src={questionImage}
+            />
           )}
         </div>
         <div className={styles.selector}>
@@ -119,18 +135,32 @@ export const AddCardModal: FC<PropsType> = ({ packId, isOpenModal, setIsOpenModa
         {answerFormat === "text" && (
           <div className={styles.input}>
             <label>Answer</label>
-            <input type="text" placeholder="Card answer" onChange={onChangeAnswer} />
+            <input
+              type="text"
+              placeholder="Card answer"
+              onChange={onChangeAnswer}
+            />
           </div>
         )}
         {answerFormat === "image" && (
           <InputTypeFile callBack={onUploadAnswerImage}>
-            <Button style={{ width: "100%" }} variant="contained" component="span">
+            <Button
+              style={{ width: "100%" }}
+              variant="contained"
+              component="span"
+            >
               Upload answer image
             </Button>
           </InputTypeFile>
         )}
         <div className={styles.imageWrapper}>
-          {answerImage && <img style={{ maxWidth: "200px" }} alt={"answerImage"} src={answerImage} />}
+          {answerImage && (
+            <img
+              style={{ maxWidth: "200px" }}
+              alt={"answerImage"}
+              src={answerImage}
+            />
+          )}
         </div>
       </div>
     </BasicModal>

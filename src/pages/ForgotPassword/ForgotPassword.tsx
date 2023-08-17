@@ -7,7 +7,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { forgotPasswordTC } from "../../bll/auth-reducer";
 import { useAppDispatch, useAppSelector } from "../../bll/store";
 import { CheckEmail } from "../CheckEmail/CheckEmail";
-import { selectInstructionSendStatus, selectRequestProcessingStatus } from "../../utils/selectors";
+import {
+  selectInstructionSendStatus,
+  selectRequestProcessingStatus,
+} from "../../utils/selectors";
 import Button from "@mui/material/Button/Button";
 import { PATHS } from "../../enums/paths";
 
@@ -16,7 +19,10 @@ type FormInputsType = {
 };
 
 const schema = yup.object({
-  email: yup.string().required("Email is required").email("Must be a valid email"),
+  email: yup
+    .string()
+    .required("Email is required")
+    .email("Must be a valid email"),
 });
 
 export const ForgotPassword = () => {
@@ -24,7 +30,9 @@ export const ForgotPassword = () => {
   const isRequestProcessing = useAppSelector(selectRequestProcessingStatus);
   const dispatch = useAppDispatch();
 
-  const [emailForInstructions, setEmailForInstructions] = useState<null | string>(null);
+  const [emailForInstructions, setEmailForInstructions] = useState<
+    null | string
+  >(null);
 
   const {
     register,
@@ -52,16 +60,26 @@ export const ForgotPassword = () => {
     <div className={styles.wrapper}>
       <h2>Forgot your password?</h2>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <input placeholder="Email" disabled={isRequestProcessing} {...register("email")} />
+        <input
+          placeholder="Email"
+          disabled={isRequestProcessing}
+          {...register("email")}
+        />
         <span className={styles.error}>{errors.email?.message}</span>
         <span className={styles.clarification}>
           Enter your email address and we will send you further instructions
         </span>
-        <Button type="submit" variant="contained" disabled={isRequestProcessing}>
+        <Button
+          type="submit"
+          variant="contained"
+          disabled={isRequestProcessing}
+        >
           Send instructions
         </Button>
       </form>
-      <span className={styles.clarification}>Did you remember your password?</span>
+      <span className={styles.clarification}>
+        Did you remember your password?
+      </span>
       <Link to={PATHS.SIGNIN}>Try logging in</Link>
     </div>
   );

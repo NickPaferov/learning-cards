@@ -26,7 +26,10 @@ export const PaginationBlock: FC<PropsType> = ({
 
   const pagesCount = Math.ceil(itemsTotalCount / pageSize);
 
-  const onChangeCurrentPage = (event: React.ChangeEvent<unknown>, page: number) => {
+  const onChangeCurrentPage = (
+    event: React.ChangeEvent<unknown>,
+    page: number
+  ) => {
     onSetCurrentPage(page);
   };
 

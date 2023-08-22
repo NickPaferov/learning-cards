@@ -55,6 +55,15 @@ export const SignIn = () => {
   return (
     <div className={styles.wrapper}>
       <h2>SignIn</h2>
+      <div className={styles.testAccount}>
+        <div>
+          <span>To use application sign up </span>
+          <Link to={PATHS.SIGNUP}>here</Link>
+        </div>
+        <div>or you can use test account:</div>
+        <div>Email: test@gmail.com</div>
+        <div>Password: 12345678</div>
+      </div>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div>
           <input

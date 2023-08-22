@@ -39,8 +39,14 @@ footer {
   margin-left: 10px;
 }
 
-@media screen and (max-width: 406px) {
+@media screen and (max-width: 512px) {
   header {
-    height: 80px;
+    height: content-box;
+    padding: 10px 0;
+  }
+
+  .wrapper {
+    width: 100%;
+    padding: 0 10px;
   }
 }

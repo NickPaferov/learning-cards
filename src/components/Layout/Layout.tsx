@@ -56,7 +56,11 @@ export const Layout = () => {
           </Button>
           {isLoggedIn ? (
             <div className={styles.userInfo}>
-              <span>{userName}</span>
+              <span>
+                {userName && userName.length && userName.length < 15
+                  ? userName
+                  : `${userName?.slice(0, 15)}...`}
+              </span>
               <img
                 alt="avatar"
                 src={avatar || defaultAvatar}

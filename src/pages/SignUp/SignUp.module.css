@@ -4,9 +4,10 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 400px;
-  width: 300px;
+  height: 500px;
+  width: 350px;
   border: 1px solid black;
+  border-radius: 10px;
 }
 
 .form {

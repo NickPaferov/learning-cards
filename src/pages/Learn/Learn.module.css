@@ -19,6 +19,7 @@
   width: 300px;
   gap: 20px;
   border: 1px solid black;
+  border-radius: 10px;
 }
 
 .questionInfo,

@@ -61,8 +61,8 @@ export const SignIn = () => {
           <Link to={PATHS.SIGNUP}>here</Link>
         </div>
         <div>or you can use test account:</div>
-        <div>Email: test@gmail.com</div>
-        <div>Password: 12345678</div>
+        <div>Email: cards@gmail.com</div>
+        <div>Password: 0123456789</div>
       </div>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div>

@@ -2,45 +2,63 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## The following libraries are installed in this project
 
-In the project directory, you can run:
+- **React**
+- **Redux**
+- **React-Redux**
+- **React-Router-Dom**
+- **React-Hook-Form**
+- **Redux-Thunk**
+- **Yup**
+- **Axios**
+- **Material UI**
 
-### `yarn start`
+## About project
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Learning-cards is an educational project.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+In order to use the application you must sign up and sign in.
 
-### `yarn test`
+Or you can use test account credentials:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Email: **card@gmail.com**
+- Password: **0123456789**
 
-### `yarn build`
+The application has the ability to restore the password if you suddenly forgot it.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The project presents packs with cards.  
+Each card contains a question to be answered.  
+You can see the answer to the question and evaluate your knowledge.  
+Depending on the assessment of your knowledge, the card is assigned a rating.  
+The probability of a card appearing in the learning process is greater than lower its rating.  
+You can scroll through the pack with cards endlessly until you learn the answers to all the questions.  
+Implemented the ability to create your own packs with cards, edit your packs and cards, delete your packs and cards.  
+Other people's packs with cards you can only learn.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## О проекте
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Обучающие карточки - это образовательный проект.
 
-### `yarn eject`
+Для того, чтобы использовать приложение необходимо пройти регистрацию и логинизацию.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Либо Вы можете использовать учетные данные тестового аккаунта:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Email: **cards@gmail.com**
+- Password: **0123456789**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+В приложении реализована возможность восстановления пароля, если вдруг Вы его забыли.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+В проекте представлены колоды с карточками.  
+Каждая карточка содержит вопрос, на который необходимо дать ответ.  
+Можно посмотреть ответ на вопрос и оценить свои знания.  
+В зависимости от оценки Ваших знаний карточке присваивается рейтинг.  
+Вероятность появления карточки в процессе обучения тем больше, чем ниже её рейтинг.  
+Колоду с карточками можно прокручивать бесконечно, пока не выучите ответы на все вопросы.  
+Реализована возможность создавать собственные колоды с карточками, редактировать свои колоды и карточки, удалять свои
+колоды и карточки.  
+По чужим колодам с карточками можно только обучаться.
 
-## Learn More
+## Developer
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **[Nick Paferov](https://github.com/NickPaferov)**

@@ -60,7 +60,7 @@ export const SignIn = () => {
           <span>To use application sign up </span>
           <Link to={PATHS.SIGNUP}>here</Link>
         </div>
-        <div>or you can use test account:</div>
+        <div>or you can use test account credentials:</div>
         <div>Email: cards@gmail.com</div>
         <div>Password: 0123456789</div>
       </div>

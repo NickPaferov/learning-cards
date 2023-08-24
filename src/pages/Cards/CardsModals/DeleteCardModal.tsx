@@ -1,8 +1,11 @@
 import React, { FC } from "react";
 import { BasicModal } from "../../../components/BasicModal/BasicModal";
-import { useAppDispatch, useAppSelector } from "../../../bll/store";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../businessLogicLayer/store";
 import { CardType } from "../../../api/cards-api";
-import { deleteCardTC } from "../../../bll/cards-reducer";
+import { deleteCardTC } from "../../../businessLogicLayer/cards-reducer";
 import styles from "./CardsModals.module.css";
 import { selectCardsListName } from "../../../utils/selectors";
 import { limitDisplayedTextLength } from "../../../utils/limitDisplayedTextLength";

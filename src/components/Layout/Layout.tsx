@@ -2,7 +2,7 @@ import LinearProgress from "@mui/material/LinearProgress/LinearProgress";
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import styles from "./Layout.module.css";
-import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { useAppDispatch, useAppSelector } from "../../businessLogicLayer/store";
 import defaultAvatar from "../../assets/images/avatar.png";
 import { DropDownMenu } from "../DropDownMenu/DropDownMenu";
 import {
@@ -14,7 +14,7 @@ import {
 import Button from "@mui/material/Button/Button";
 import { PATHS } from "../../enums/paths";
 import MenuItem from "@mui/material/MenuItem";
-import { logoutTC } from "../../bll/auth-reducer";
+import { logoutTC } from "../../businessLogicLayer/auth-reducer";
 
 export const Layout = () => {
   const isLoggedIn = useAppSelector(selectLoginStatus);

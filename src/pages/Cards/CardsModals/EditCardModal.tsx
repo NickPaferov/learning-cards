@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import { BasicModal } from "../../../components/BasicModal/BasicModal";
-import { updateCardTC } from "../../../bll/cards-reducer";
-import { useAppDispatch } from "../../../bll/store";
+import { updateCardTC } from "../../../businessLogicLayer/cards-reducer";
+import { useAppDispatch } from "../../../businessLogicLayer/store";
 import styles from "./CardsModals.module.css";
 import { CardType } from "../../../api/cards-api";
 import { InputTypeFile } from "../../../components/InputTypeFile/InputTypeFile";

@@ -6,12 +6,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { useAppDispatch, useAppSelector } from "../../businessLogicLayer/store";
 import {
   fetchPacksTC,
   setAreMyPacksAC,
   setSortPacksParamAC,
-} from "../../bll/packs-reducer";
+} from "../../businessLogicLayer/packs-reducer";
 import { useNavigate } from "react-router-dom";
 import {
   selectCurrentPacksPage,

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import { BasicModal } from "../../../components/BasicModal/BasicModal";
-import { addCardTC } from "../../../bll/cards-reducer";
-import { useAppDispatch } from "../../../bll/store";
+import { addCardTC } from "../../../businessLogicLayer/cards-reducer";
+import { useAppDispatch } from "../../../businessLogicLayer/store";
 import styles from "./CardsModals.module.css";
 import { InputTypeFile } from "../../../components/InputTypeFile/InputTypeFile";
 import Button from "@mui/material/Button/Button";

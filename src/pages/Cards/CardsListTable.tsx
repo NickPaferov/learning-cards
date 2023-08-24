@@ -6,12 +6,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { useAppDispatch, useAppSelector } from "../../businessLogicLayer/store";
 import {
   fetchCardsTC,
   setAreCardsFetchedAC,
   setSortCardsParamAC,
-} from "../../bll/cards-reducer";
+} from "../../businessLogicLayer/cards-reducer";
 import { useParams } from "react-router-dom";
 import {
   selectAreCardsFetchedStatus,

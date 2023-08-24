@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { PacksListTable } from "./PacksListTable";
 import styles from "./Packs.module.css";
-import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { useAppDispatch, useAppSelector } from "../../businessLogicLayer/store";
 import {
   setPacksCountPrePageAC,
   setPacksCurrentPageAC,
-} from "../../bll/packs-reducer";
+} from "../../businessLogicLayer/packs-reducer";
 import {
   selectCurrentPacksPage,
   selectPacksCountPerPage,

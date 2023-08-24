@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import cmnStyles from "../../common/styles/Common.module.css";
 import styles from "./SignUp.module.css";
 import { Link, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { registerTC } from "../../bll/auth-reducer";
+import { useAppDispatch, useAppSelector } from "../../businessLogicLayer/store";
+import { registerTC } from "../../businessLogicLayer/auth-reducer";
 import {
   selectRegisterStatus,
   selectRequestProcessingStatus,
@@ -72,7 +73,7 @@ export const SignUp = () => {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div className={cmnStyles.wrapper}>
       <h2>SignUp</h2>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div>
@@ -81,10 +82,10 @@ export const SignUp = () => {
             disabled={isRequestProcessing}
             {...register("email")}
           />
-          <span className={styles.error}>{errors.email?.message}</span>
+          <span className={cmnStyles.error}>{errors.email?.message}</span>
         </div>
         <div>
-          <div className={styles.password}>
+          <div className={cmnStyles.password}>
             <input
               type={isPasswordVisible ? "text" : "password"}
               placeholder="Password"
@@ -96,10 +97,10 @@ export const SignUp = () => {
               handlePasswordVisibility={handlePasswordVisibility}
             />
           </div>
-          <span className={styles.error}>{errors.password?.message}</span>
+          <span className={cmnStyles.error}>{errors.password?.message}</span>
         </div>
         <div>
-          <div className={styles.confirmPassword}>
+          <div className={cmnStyles.confirmPassword}>
             <input
               type={isConfirmPasswordVisible ? "text" : "password"}
               placeholder="Confirm password"
@@ -111,12 +112,12 @@ export const SignUp = () => {
               handleConfirmPasswordVisibility={handleConfirmPasswordVisibility}
             />
           </div>
-          <span className={styles.error}>
+          <span className={cmnStyles.error}>
             {errors.confirmPassword?.message}
           </span>
         </div>
         <Button
-          className={styles.btn}
+          className={cmnStyles.btn}
           type="submit"
           variant="contained"
           disabled={isRequestProcessing}
@@ -124,7 +125,7 @@ export const SignUp = () => {
           Sign Up
         </Button>
       </form>
-      <span className={styles.clarification}>Already have an account?</span>
+      <span className={cmnStyles.clarification}>Already have an account?</span>
       <Link to={PATHS.SIGNIN}>Sign In</Link>
     </div>
   );

@@ -4,8 +4,8 @@ import Slider from "@mui/material/Slider";
 import {
   setMinMaxCardsCountAC,
   setPacksCurrentPageAC,
-} from "../../bll/packs-reducer";
-import { useAppDispatch, useAppSelector } from "../../bll/store";
+} from "../../businessLogicLayer/packs-reducer";
+import { useAppDispatch, useAppSelector } from "../../businessLogicLayer/store";
 import styles from "./RangeSlider.module.css";
 import {
   selectMaxCardsCount,

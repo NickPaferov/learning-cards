@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { CardsListTable } from "./CardsListTable";
 import styles from "./Cards.module.css";
-import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { useAppDispatch, useAppSelector } from "../../businessLogicLayer/store";
 import {
   setCardsCountPerPageAC,
   setCardsCurrentPageAC,
-} from "../../bll/cards-reducer";
+} from "../../businessLogicLayer/cards-reducer";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   selectAreCardsFetchedStatus,

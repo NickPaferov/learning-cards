@@ -3,27 +3,26 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-image: url("../../assets/images/backGroundFirst.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-header {
+header,
+footer {
   height: 50px;
-  background-color: lavender;
   display: flex;
   justify-content: center;
+  align-items: center;
+  background-image: url("../../assets/images/backGroundSecond.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .wrapper {
   width: 80%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-}
-
-footer {
-  height: 50px;
-  background-color: lavender;
-  display: flex;
-  justify-content: center;
   align-items: center;
 }
 

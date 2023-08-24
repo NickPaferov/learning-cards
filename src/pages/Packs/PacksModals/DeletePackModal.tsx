@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { BasicModal } from "../../../components/BasicModal/BasicModal";
-import { useAppDispatch } from "../../../bll/store";
-import { deletePackTC } from "../../../bll/packs-reducer";
+import { useAppDispatch } from "../../../businessLogicLayer/store";
+import { deletePackTC } from "../../../businessLogicLayer/packs-reducer";
 import { PackType } from "../../../api/packs-api";
 import styles from "./PacksModals.module.css";
 import { limitDisplayedTextLength } from "../../../utils/limitDisplayedTextLength";

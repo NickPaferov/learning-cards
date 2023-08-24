@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import cmbStyles from "../../common/styles/Common.module.css";
 import styles from "./Profile.module.css";
 import defaultAvatar from "../../assets/images/avatar.png";
-import { logoutTC, updateMeTC } from "../../bll/auth-reducer";
-import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { logoutTC, updateMeTC } from "../../businessLogicLayer/auth-reducer";
+import { useAppDispatch, useAppSelector } from "../../businessLogicLayer/store";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,7 +18,7 @@ import IconButton from "@mui/material/IconButton/IconButton";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import { InputTypeFile } from "../../components/InputTypeFile/InputTypeFile";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
-import { setAppErrorAC } from "../../bll/app-reducer";
+import { setAppErrorAC } from "../../businessLogicLayer/app-reducer";
 import Button from "@mui/material/Button/Button";
 
 type FormInputsType = {
@@ -78,7 +79,7 @@ export const Profile = () => {
   return (
     <div className={styles.profile}>
       <BackToPacks />
-      <div className={styles.wrapper}>
+      <div className={cmbStyles.wrapper}>
         <h2>Personal information</h2>
         <img
           alt="avatar"
@@ -105,7 +106,7 @@ export const Profile = () => {
             >
               Save
             </Button>
-            <p className={styles.error}>{errors.name?.message}</p>
+            <p className={cmbStyles.error}>{errors.name?.message}</p>
           </form>
         ) : (
           <div>

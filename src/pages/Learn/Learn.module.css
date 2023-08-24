@@ -20,6 +20,10 @@
   gap: 20px;
   border: 1px solid black;
   border-radius: 10px;
+  background-image: url("../../assets/images/backGroundThird.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .questionInfo,

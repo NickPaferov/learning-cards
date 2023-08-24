@@ -1,4 +1,4 @@
-import { AppRootStateType } from "../bll/store";
+import { AppRootStateType } from "../businessLogicLayer/store";
 import { PackType } from "../api/packs-api";
 import { CardType } from "../api/cards-api";
 

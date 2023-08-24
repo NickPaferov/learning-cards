@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Learn.module.css";
 import { useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { useAppDispatch, useAppSelector } from "../../businessLogicLayer/store";
 import {
   selectAreCardsFetchedStatus,
   selectCards,
@@ -14,7 +14,7 @@ import {
   setAreCardsFetchedAC,
   setCardsCountPerPageAC,
   updateCardGradeTC,
-} from "../../bll/cards-reducer";
+} from "../../businessLogicLayer/cards-reducer";
 import { BackToPacks } from "../../components/BackToPacks/BackToPacks";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import Button from "@mui/material/Button/Button";

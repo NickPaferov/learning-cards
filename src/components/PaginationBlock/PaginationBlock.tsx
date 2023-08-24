@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FC } from "react";
 import { Pagination } from "@mui/material";
-import { useAppSelector } from "../../bll/store";
+import { useAppSelector } from "../../businessLogicLayer/store";
 import styles from "./PaginationBlock.module.css";
 import { selectRequestProcessingStatus } from "../../utils/selectors";
 import { DEFAULT_PAGE } from "../../constants/constants";

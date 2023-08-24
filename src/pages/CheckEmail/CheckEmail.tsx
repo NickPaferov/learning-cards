@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import cmnStyles from "../../common/styles/Common.module.css";
 import styles from "./CheckEmail.module.css";
 import letterImg from "../../assets/images/letter.png";
 import Button from "@mui/material/Button/Button";
@@ -17,10 +18,10 @@ export const CheckEmail = (props: PropsType) => {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={cmnStyles.wrapper}>
       <h2>Check Email</h2>
       <img alt="letter" src={letterImg} className={styles.letter} />
-      <span className={styles.clarification}>
+      <span className={cmnStyles.clarification}>
         We've sent an Email with instructions to {props.email}
       </span>
       <Button variant="contained" onClick={onMoveToLogin}>

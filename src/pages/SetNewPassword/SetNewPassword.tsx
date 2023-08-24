@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import cmnStyles from "../../common/styles/Common.module.css";
 import styles from "./SetNewPassword.module.css";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { setNewPasswordTC } from "../../bll/auth-reducer";
+import { useAppDispatch, useAppSelector } from "../../businessLogicLayer/store";
+import { setNewPasswordTC } from "../../businessLogicLayer/auth-reducer";
 import { Navigate, useParams } from "react-router-dom";
 import {
   selectPasswordChangeStatus,
@@ -74,10 +75,10 @@ export const SetNewPassword = () => {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div className={cmnStyles.wrapper}>
       <h2>Create new password</h2>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.password}>
+        <div className={cmnStyles.password}>
           <input
             type={isPasswordVisible ? "text" : "password"}
             placeholder="Password"
@@ -89,8 +90,8 @@ export const SetNewPassword = () => {
             handlePasswordVisibility={handlePasswordVisibility}
           />
         </div>
-        <span className={styles.error}>{errors.password?.message}</span>
-        <div className={styles.confirmPassword}>
+        <span className={cmnStyles.error}>{errors.password?.message}</span>
+        <div className={cmnStyles.confirmPassword}>
           <input
             type={isConfirmPasswordVisible ? "text" : "password"}
             placeholder="Confirm password"
@@ -102,8 +103,10 @@ export const SetNewPassword = () => {
             handleConfirmPasswordVisibility={handleConfirmPasswordVisibility}
           />
         </div>
-        <span className={styles.error}>{errors.confirmPassword?.message}</span>
-        <span className={styles.clarification}>
+        <span className={cmnStyles.error}>
+          {errors.confirmPassword?.message}
+        </span>
+        <span className={cmnStyles.clarification}>
           Create new password and we will send you further instructions to email
         </span>
         <Button

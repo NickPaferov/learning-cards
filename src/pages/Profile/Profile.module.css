@@ -3,18 +3,6 @@
   margin: auto;
 }
 
-.wrapper {
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 400px;
-  width: 300px;
-  border: 1px solid black;
-  border-radius: 10px;
-}
-
 .avatar {
   height: 100px;
   width: 100px;
@@ -24,10 +12,6 @@
 input {
   font-size: 14px;
   margin-right: 10px;
-}
-
-.error {
-  color: red;
 }
 
 .email {

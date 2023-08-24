@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FC, ReactNode } from "react";
-import { useAppDispatch } from "../../bll/store";
-import { setAppErrorAC } from "../../bll/app-reducer";
+import { useAppDispatch } from "../../businessLogicLayer/store";
+import { setAppErrorAC } from "../../businessLogicLayer/app-reducer";
 import { convertFileToBase64 } from "../../utils/convertFileToBase64";
 
 type PropsType = {

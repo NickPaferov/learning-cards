@@ -4,7 +4,7 @@ import ButtonGroup from "@mui/material/ButtonGroup/ButtonGroup";
 import Button from "@mui/material/Button/Button";
 import { RangeSlider } from "../../components/RangeSlider/RangeSlider";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
-import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { useAppDispatch, useAppSelector } from "../../businessLogicLayer/store";
 import {
   selectAreMyPacksStatus,
   selectPackName,
@@ -14,7 +14,7 @@ import {
   setAreMyPacksAC,
   setPackNameSearchAC,
   setResetAllPacksFiltersAC,
-} from "../../bll/packs-reducer";
+} from "../../businessLogicLayer/packs-reducer";
 import { useDebounce } from "../../hooks/useDebounce";
 
 type PropsType = {

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import cmnStyles from "../../common/styles/Common.module.css";
 import styles from "./ForgotPassword.module.css";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { forgotPasswordTC } from "../../bll/auth-reducer";
-import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { forgotPasswordTC } from "../../businessLogicLayer/auth-reducer";
+import { useAppDispatch, useAppSelector } from "../../businessLogicLayer/store";
 import { CheckEmail } from "../CheckEmail/CheckEmail";
 import {
   selectInstructionSendStatus,
@@ -57,7 +58,7 @@ export const ForgotPassword = () => {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div className={cmnStyles.wrapper}>
       <h2>Forgot your password?</h2>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <input
@@ -65,8 +66,8 @@ export const ForgotPassword = () => {
           disabled={isRequestProcessing}
           {...register("email")}
         />
-        <span className={styles.error}>{errors.email?.message}</span>
-        <span className={styles.clarification}>
+        <span className={cmnStyles.error}>{errors.email?.message}</span>
+        <span className={cmnStyles.clarification}>
           Enter your email address and we will send you further instructions
         </span>
         <Button
@@ -77,7 +78,7 @@ export const ForgotPassword = () => {
           Send instructions
         </Button>
       </form>
-      <span className={styles.clarification}>
+      <span className={cmnStyles.clarification}>
         Did you remember your password?
       </span>
       <Link to={PATHS.SIGNIN}>Try logging in</Link>

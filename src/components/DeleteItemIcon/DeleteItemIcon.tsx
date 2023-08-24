@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import IconButton from "@mui/material/IconButton/IconButton";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import { useAppSelector } from "../../bll/store";
+import { useAppSelector } from "../../businessLogicLayer/store";
 import { selectRequestProcessingStatus } from "../../utils/selectors";
 
 type PropsType = {

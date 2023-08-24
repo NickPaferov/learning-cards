@@ -1,8 +1,8 @@
 import * as React from "react";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { setAppErrorAC } from "../../bll/app-reducer";
+import { useAppDispatch, useAppSelector } from "../../businessLogicLayer/store";
+import { setAppErrorAC } from "../../businessLogicLayer/app-reducer";
 import { selectAppError } from "../../utils/selectors";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(

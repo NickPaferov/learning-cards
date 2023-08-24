@@ -1,8 +1,8 @@
 import React, { ChangeEvent, FC, KeyboardEvent, useState } from "react";
 import { BasicModal } from "../../../components/BasicModal/BasicModal";
 import styles from "./PacksModals.module.css";
-import { useAppDispatch } from "../../../bll/store";
-import { updatePackTC } from "../../../bll/packs-reducer";
+import { useAppDispatch } from "../../../businessLogicLayer/store";
+import { updatePackTC } from "../../../businessLogicLayer/packs-reducer";
 import { PackType } from "../../../api/packs-api";
 import { InputTypeFile } from "../../../components/InputTypeFile/InputTypeFile";
 import Button from "@mui/material/Button/Button";

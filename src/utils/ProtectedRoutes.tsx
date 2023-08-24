@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useAppSelector } from "../bll/store";
+import { useAppSelector } from "../businessLogicLayer/store";
 import { selectLoginStatus } from "./selectors";
 
 type PropsType = {

@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from "react";
 import Menu from "@mui/material/Menu";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { useAppSelector } from "../../bll/store";
+import { useAppSelector } from "../../businessLogicLayer/store";
 import IconButton from "@mui/material/IconButton/IconButton";
 import { selectRequestProcessingStatus } from "../../utils/selectors";
 

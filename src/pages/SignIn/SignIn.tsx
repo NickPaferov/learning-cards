@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import cmnStyles from "../../common/styles/Common.module.css";
 import styles from "./SignIn.module.css";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAppDispatch, useAppSelector } from "../../bll/store";
-import { loginTC } from "../../bll/auth-reducer";
+import { useAppDispatch, useAppSelector } from "../../businessLogicLayer/store";
+import { loginTC } from "../../businessLogicLayer/auth-reducer";
 import { selectRequestProcessingStatus } from "../../utils/selectors";
 import Button from "@mui/material/Button/Button";
 import { PATHS } from "../../enums/paths";
@@ -53,7 +54,7 @@ export const SignIn = () => {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={cmnStyles.wrapper}>
       <h2>SignIn</h2>
       <div className={styles.testAccount}>
         <div>
@@ -71,10 +72,10 @@ export const SignIn = () => {
             disabled={isRequestProcessing}
             {...register("email")}
           />
-          <span className={styles.error}>{errors.email?.message}</span>
+          <span className={cmnStyles.error}>{errors.email?.message}</span>
         </div>
         <div>
-          <div className={styles.password}>
+          <div className={cmnStyles.password}>
             <input
               type={isPasswordVisible ? "text" : "password"}
               placeholder="Password"
@@ -86,7 +87,7 @@ export const SignIn = () => {
               handlePasswordVisibility={handlePasswordVisibility}
             />
           </div>
-          <span className={styles.error}>{errors.password?.message}</span>
+          <span className={cmnStyles.error}>{errors.password?.message}</span>
         </div>
         <div>
           <input
@@ -99,7 +100,7 @@ export const SignIn = () => {
           <span>Remember me</span>
         </div>
         <Button
-          className={styles.btn}
+          className={cmnStyles.btn}
           type="submit"
           variant="contained"
           disabled={isRequestProcessing}
@@ -108,7 +109,7 @@ export const SignIn = () => {
         </Button>
       </form>
       <Link to="/forgot-password">Forgot Password?</Link>
-      <span className={styles.clarification}>Don't have an account?</span>
+      <span className={cmnStyles.clarification}>Don't have an account?</span>
       <Link to={PATHS.SIGNUP}>Sign Up</Link>
     </div>
   );

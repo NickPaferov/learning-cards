@@ -1,4 +1,7 @@
-import { setAppErrorAC, SetAppErrorType } from "../bll/app-reducer";
+import {
+  setAppErrorAC,
+  SetAppErrorType,
+} from "../businessLogicLayer/app-reducer";
 import { Dispatch } from "redux";
 import axios, { AxiosError } from "axios";
 

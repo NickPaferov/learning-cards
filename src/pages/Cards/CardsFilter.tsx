@@ -1,12 +1,12 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import styles from "./CardsFilter.module.css";
-import { useAppDispatch, useAppSelector } from "../../bll/store";
+import { useAppDispatch, useAppSelector } from "../../businessLogicLayer/store";
 import {
   selectCardQuestion,
   selectRequestProcessingStatus,
 } from "../../utils/selectors";
 import { useDebounce } from "../../hooks/useDebounce";
-import { setCardQuestionAC } from "../../bll/cards-reducer";
+import { setCardQuestionAC } from "../../businessLogicLayer/cards-reducer";
 
 export const CardsFilters = () => {
   const cardQuestion = useAppSelector(selectCardQuestion);

@@ -28,7 +28,7 @@ const schema = yup
       .string()
       .required("Password is required")
       .min(8, "Password should be at least 8 characters")
-      .max(20, "Password should be at most 20 characters"),
+      .max(20, "Password should be at most 20 characters")
   })
   .required();
 
@@ -40,9 +40,9 @@ export const SignIn = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<FormInputsType>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema)
   });
 
   const onSubmit = (data: FormInputsType) => {
@@ -108,7 +108,7 @@ export const SignIn = () => {
           Sign In
         </Button>
       </form>
-      <Link to="/forgot-password">Forgot Password?</Link>
+      <Link to={PATHS.FORGOT_PASSWORD}>Forgot Password?</Link>
       <span className={cmnStyles.clarification}>Don't have an account?</span>
       <Link to={PATHS.SIGNUP}>Sign Up</Link>
     </div>
